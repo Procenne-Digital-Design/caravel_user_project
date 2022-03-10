@@ -68,98 +68,116 @@ module user_proj_example #(
     // IRQ
     output [2:0] irq
 );
-    wire clk;
-    wire rst;
 
-    wire [`MPRJ_IO_PADS-1:0] io_in;
-    wire [`MPRJ_IO_PADS-1:0] io_out;
-    wire [`MPRJ_IO_PADS-1:0] io_oeb;
+parameter WB_WIDTH        = 32; // WB ADDRESS/DARA WIDTH
+parameter SRAM_ADDR_WD    = 9;
+parameter SRAM_DATA_WD    = 32;
+parameter SRAM_ADDR_START = 9'h000;
+parameter SRAM_ADDR_END   = 9'h1F8;
 
-    wire [31:0] rdata; 
-    wire [31:0] wdata;
-    wire [BITS-1:0] count;
+//---------------------------------------------------------------------
+// WB Master Interface
+//---------------------------------------------------------------------
+wire clk;
+wire rst;
+wire [`MPRJ_IO_PADS-1:0] io_in;
+wire [`MPRJ_IO_PADS-1:0] io_out;
+wire [`MPRJ_IO_PADS-1:0] io_oeb;
 
-    wire valid;
-    wire [3:0] wstrb;
-    wire [31:0] la_write;
+//---------------------------------------------------------------------
+// SRAM
+//---------------------------------------------------------------------
+wire                       s0_wb_cyc_i;
+wire                       s0_wb_stb_i;
+wire [SRAM_ADDR_WD-1:0]    s0_wb_adr_i;
+wire                       s0_wb_we_i;
+wire [SRAM_DATA_WD-1:0]    s0_wb_dat_i;
+wire [SRAM_DATA_WD/8-1:0]  s0_wb_sel_i;
+wire [SRAM_DATA_WD-1:0]    s0_wb_dat_o;
+wire                       s0_wb_ack_o;
 
-    // WB MI A
-    assign valid = wbs_cyc_i && wbs_stb_i; 
-    assign wstrb = wbs_sel_i & {4{wbs_we_i}};
-    assign wbs_dat_o = rdata;
-    assign wdata = wbs_dat_i;
+wb_interconnect interconnect
+(
+`ifdef USE_POWER_PINS
+    .vccd1(vccd1),    // User area 1 1.8V supply
+    .vssd1(vssd1),    // User area 1 digital ground
+`endif
+    .clk_i(wb_clk_i),
+    .rst_n(wb_rst_i),
 
-    // IO
-    assign io_out = count;
-    assign io_oeb = {(`MPRJ_IO_PADS-1){rst}};
+    // Master 0 Interface
+    .m0_wb_dat_i(wbs_dat_i),
+    .m0_wb_adr_i(wbs_adr_i),
+    .m0_wb_sel_i(wbs_sel_i),
+    .m0_wb_we_i (wbs_we_i),
+    .m0_wb_cyc_i(wbs_cyc_i),
+    .m0_wb_stb_i(wbs_stb_i),
+    .m0_wb_dat_o(wbs_dat_o),
+    .m0_wb_ack_o(wbs_ack_o),
+    .m0_wb_err_o(),
 
-    // IRQ
-    assign irq = 3'b000;	// Unused
+    // Slave 0 Interface
+    .s0_wb_dat_i(s0_wb_dat_i),
+    .s0_wb_ack_i(s0_wb_ack_o),
+    .s0_wb_dat_o(s0_wb_dat_i),
+    .s0_wb_adr_o(s0_wb_adr_i),
+    .s0_wb_sel_o(s0_wb_sel_i),
+    .s0_wb_we_o (s0_wb_we_i),
+    .s0_wb_cyc_o(s0_wb_cyc_i),
+    .s0_wb_stb_o(s0_wb_stb_i),
 
-    // LA
-    assign la_data_out = {{(127-BITS){1'b0}}, count};
-    // Assuming LA probes [63:32] are for controlling the count register  
-    assign la_write = ~la_oenb[63:32] & ~{BITS{valid}};
-    // Assuming LA probes [65:64] are for controlling the count clk & reset  
-    assign clk = (~la_oenb[64]) ? la_data_in[64]: wb_clk_i;
-    assign rst = (~la_oenb[65]) ? la_data_in[65]: wb_rst_i;
+    // Slave 1 Interface
+    .s1_wb_dat_i(),
+    .s1_wb_ack_i(),
+    .s1_wb_dat_o(),
+    .s1_wb_adr_o(),
+    .s1_wb_sel_o(),
+    .s1_wb_we_o (),
+    .s1_wb_cyc_o(),
+    .s1_wb_stb_o(),
 
-    counter #(
-        .BITS(BITS)
-    ) counter(
-        .clk(clk),
-        .reset(rst),
-        .ready(wbs_ack_o),
-        .valid(valid),
-        .rdata(rdata),
-        .wdata(wbs_dat_i),
-        .wstrb(wstrb),
-        .la_write(la_write),
-        .la_input(la_data_in[63:32]),
-        .count(count)
-    );
+    // Slave 2 Interface
+    .s2_wb_dat_i(),
+    .s2_wb_ack_i(),
+    .s2_wb_dat_o(),
+    .s2_wb_adr_o(),
+    .s2_wb_sel_o(),
+    .s2_wb_we_o (),
+    .s2_wb_cyc_o(),
+    .s2_wb_stb_o(),
 
-endmodule
-
-module counter #(
-    parameter BITS = 32
-)(
-    input clk,
-    input reset,
-    input valid,
-    input [3:0] wstrb,
-    input [BITS-1:0] wdata,
-    input [BITS-1:0] la_write,
-    input [BITS-1:0] la_input,
-    output ready,
-    output [BITS-1:0] rdata,
-    output [BITS-1:0] count
+    // Slave 3 Interface
+    .s3_wb_dat_i(),
+    .s3_wb_ack_i(),
+    .s3_wb_dat_o(),
+    .s3_wb_adr_o(),
+    .s3_wb_sel_o(),
+    .s3_wb_we_o (),
+    .s3_wb_cyc_o(),
+    .s3_wb_stb_o()
 );
-    reg ready;
-    reg [BITS-1:0] count;
-    reg [BITS-1:0] rdata;
 
-    always @(posedge clk) begin
-        if (reset) begin
-            count <= 0;
-            ready <= 0;
-        end else begin
-            ready <= 1'b0;
-            if (~|la_write) begin
-                count <= count + 1;
-            end
-            if (valid && !ready) begin
-                ready <= 1'b1;
-                rdata <= count;
-                if (wstrb[0]) count[7:0]   <= wdata[7:0];
-                if (wstrb[1]) count[15:8]  <= wdata[15:8];
-                if (wstrb[2]) count[23:16] <= wdata[23:16];
-                if (wstrb[3]) count[31:24] <= wdata[31:24];
-            end else if (|la_write) begin
-                count <= la_write & la_input;
-            end
-        end
-    end
+sram_wb_wrapper #(
+`ifndef SYNTHESIS
+    .SRAM_ADDR_WD   (SRAM_ADDR_WD   ),
+    .SRAM_DATA_WD   (SRAM_DATA_WD   ),
+    .SRAM_ADDR_START(SRAM_ADDR_START),
+    .SRAM_ADDR_END  (SRAM_ADDR_END  ) 
+`endif
+    )
+    wb_wrapper0 (
+    .rst_n(wb_rst_i),
+    // Wishbone Interface
+    .wb_clk_i(wb_clk_i),     // System clock
+    .wb_cyc_i(s0_wb_cyc_i),  // cycle enable
+    .wb_stb_i(s0_wb_stb_i),  // strobe
+    .wb_adr_i(s0_wb_adr_i),  // address
+    .wb_we_i (s0_wb_we_i),   // write
+    .wb_dat_i(s0_wb_dat_i),  // data output
+    .wb_sel_i(s0_wb_sel_i),  // byte enable
+    .wb_dat_o(s0_wb_dat_o),  // data input
+    .wb_ack_o(s0_wb_ack_o)   // acknowlegement
+);
 
 endmodule
 `default_nettype wire
