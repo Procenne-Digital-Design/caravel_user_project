@@ -75,6 +75,11 @@ parameter SRAM_DATA_WD    = 32;
 parameter SRAM_ADDR_START = 9'h000;
 parameter SRAM_ADDR_END   = 9'h1F8;
 
+parameter UART_ADDR_WD    = 9;
+parameter UART_DATA_WD    = 32;
+parameter UART_ADDR_START = 9'h000;
+parameter UART_ADDR_END   = 9'h1F8;
+
 //---------------------------------------------------------------------
 // WB Master Interface
 //---------------------------------------------------------------------
@@ -95,6 +100,20 @@ wire [SRAM_DATA_WD-1:0]    s0_wb_dat_i;
 wire [SRAM_DATA_WD/8-1:0]  s0_wb_sel_i;
 wire [SRAM_DATA_WD-1:0]    s0_wb_dat_o;
 wire                       s0_wb_ack_o;
+
+//---------------------------------------------------------------------
+// UART
+//---------------------------------------------------------------------
+wire                       s1_wb_cyc_i;
+wire                       s1_wb_stb_i;
+wire [UART_ADDR_WD-1:0]    s1_wb_adr_i;
+wire                       s1_wb_we_i;
+wire [UART_DATA_WD-1:0]    s1_wb_dat_i;
+wire [UART_DATA_WD/8-1:0]  s1_wb_sel_i;
+wire [UART_DATA_WD-1:0]    s1_wb_dat_o;
+wire                       s1_wb_ack_o;
+
+
 
 wb_interconnect interconnect
 (
@@ -178,6 +197,36 @@ sram_wb_wrapper #(
     .wb_dat_o(s0_wb_dat_o),  // data input
     .wb_ack_o(s0_wb_ack_o)   // acknowlegement
 );
+
+
+wbuart 
+#(
+  .INITIAL_SETUP(31'd434 ), // 115200 baudrate for 50MHz clock
+  .LGFLEN(4'h4 ),
+  .HARDWARE_FLOW_CONTROL_PRESENT(1'b0 )
+)
+wbuart_dut (
+  .i_clk (wb_clk_i ),
+  .i_reset (wb_rst_i ),
+  .i_wb_cyc (s1_wb_cyc_i ),
+  .i_wb_stb (s1_wb_stb_i ),
+  .i_wb_we (s1_wb_we_i ),
+  .i_wb_addr (s1_wb_adr_i ),
+  .i_wb_data (s1_wb_dat_i ),
+  .i_wb_sel (s1_wb_sel_i ),
+  .o_wb_stall ( ),
+  .o_wb_ack (s1_wb_ack_o ),
+  .o_wb_data (s1_wb_dat_o ),
+  .i_uart_rx (io_in[0] ),
+  .o_uart_tx (io_out[0] ),
+  .i_cts_n (1'b0 ),
+  .o_rts_n ( ),
+  .o_uart_rx_int ( ),
+  .o_uart_tx_int ( ),
+  .o_uart_rxfifo_int ( ),
+  .o_uart_txfifo_int  ( )
+);
+
 
 endmodule
 `default_nettype wire
