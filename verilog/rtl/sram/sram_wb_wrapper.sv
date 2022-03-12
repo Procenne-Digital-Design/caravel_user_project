@@ -34,23 +34,23 @@ module sram_wb_wrapper #(
     input   logic                       wb_we_i,   // write
     input   logic [SRAM_DATA_WD-1:0]    wb_dat_i,  // data output
     input   logic [SRAM_DATA_WD/8-1:0]  wb_sel_i,  // byte enable
-    output  logic [SRAM_DATA_WD-1:0]    wb_dat_o,  // data input
+    output  wire  [SRAM_DATA_WD-1:0]    wb_dat_o,  // data input
     output  logic                       wb_ack_o   // acknowlegement
 );
 
 // Port A
-logic                      sram_clk_a;
-logic                      sram_csb_a;
-logic [SRAM_ADDR_WD-1:0]   sram_addr_a;
-logic [SRAM_DATA_WD-1:0]   sram_dout_a;
+wire                      sram_clk_a;
+wire                      sram_csb_a;
+wire [SRAM_ADDR_WD-1:0]   sram_addr_a;
+wire [SRAM_DATA_WD-1:0]   sram_dout_a;
 
 // Port B
-logic                      sram_clk_b;
-logic                      sram_csb_b;
-logic                      sram_web_b;
-logic [SRAM_DATA_WD/8-1:0] sram_mask_b;
-logic [SRAM_ADDR_WD-1:0]   sram_addr_b;
-logic [SRAM_DATA_WD-1:0]   sram_din_b;
+wire                      sram_clk_b;
+wire                      sram_csb_b;
+wire                      sram_web_b;
+wire [SRAM_DATA_WD/8-1:0] sram_mask_b;
+wire [SRAM_ADDR_WD-1:0]   sram_addr_b;
+wire [SRAM_DATA_WD-1:0]   sram_din_b;
 
 // Memory Write Port
 assign sram_clk_b  = wb_clk_i;
@@ -88,7 +88,8 @@ sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb(
 );
 
 // Generate once cycle delayed ACK to get the data from SRAM
-always_ff @(posedge wb_clk_i) begin
+always @(posedge wb_clk_i) 
+begin
     if ( rst_n == 1'b0 )
     begin
         wb_ack_o <= 'h0;
