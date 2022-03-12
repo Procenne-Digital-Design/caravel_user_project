@@ -25,4 +25,7 @@
 `else
     `include "user_project_wrapper.v"
     `include "user_proj_example.v"
+    `include "wb_interconnect/wb_interconnect.sv"
+    `include "wb_interconnect/wb_signal_reg.sv"
+    `include "sram/sram_wb_wrapper.sv"
 `endif
