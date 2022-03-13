@@ -49,12 +49,12 @@ module wb_port_tb;
         $dumpvars(0, wb_port_tb);
 
         // Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (70) begin
+		repeat (100) begin
 			repeat (1000) @(posedge clock);
             // $display("+1000 cycles");
         end
 		$display("%c[1;31m",27);
-        $display ("MPRJ_IO value : 0x%0h", mprj_io[31:0]);
+        $display ("MPRJ_IO value : 0x%0h", mprj_io[31:8]);
 		`ifdef GL
 			$display ("Monitor: Timeout, Test Mega-Project WB Port (GL) Failed");
 		`else
@@ -67,7 +67,7 @@ module wb_port_tb;
     initial begin
         wait(checkbits == 16'hAB60);
         $display("Monitor: MPRJ-Logic WB Started");
-        wait(result == 8'h12);
+        wait(result == 8'hFF);
         $display ("MPRJ_IO value : 0x%0h", mprj_io[31:0]);
         `ifdef GL
             $display("Monitor: Mega-Project WB (GL) Passed");
