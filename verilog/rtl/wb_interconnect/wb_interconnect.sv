@@ -188,7 +188,7 @@ begin
         if(m0_wb_stb_i && m0_wb_cyc_i && s_bus_rd_wb_ack == 0) begin
             // holding_busy    <= 1'b1;
             m0_wb_dat_i_reg <= m0_wb_dat_i;
-            m0_wb_adr_reg   <= {m0_wb_adr_i[31:2],2'b00};
+            m0_wb_adr_reg   <= {2'b00,m0_wb_adr_i[31:2]};
             m0_wb_sel_reg   <= m0_wb_sel_i;
             m0_wb_we_reg    <= m0_wb_we_i;
             m0_wb_cyc_reg   <= m0_wb_cyc_i;
