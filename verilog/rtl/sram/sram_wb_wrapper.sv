@@ -62,7 +62,7 @@ assign sram_din_b  = wb_dat_i;
 
 // Memory Read Port
 assign sram_clk_a  = wb_clk_i;
-assign sram_csb_a  = (wb_stb_i == 1'b1 && wb_we_i == 1'b0 && wb_ack_o == 0) ? 1'b0 : 1'b1;
+assign sram_csb_a  = (wb_stb_i == 1'b1 && wb_we_i == 1'b0 && wb_cyc_i == 1'b1) ? 1'b0 : 1'b1;
 assign sram_addr_a = wb_adr_i;
 
 assign wb_dat_o    = sram_dout_a;
@@ -88,14 +88,14 @@ sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb(
 );
 
 // Generate once cycle delayed ACK to get the data from SRAM
-always @(posedge wb_clk_i) 
+always @(negedge rst_n or posedge wb_clk_i) 
 begin
     if ( rst_n == 1'b0 )
     begin
         wb_ack_o <= 'h0;
     end else
     begin
-        wb_ack_o <= (wb_stb_i == 1'b1) & (wb_ack_o == 0);
+        wb_ack_o <= (wb_stb_i == 1'b1) & (wb_cyc_i == 1'b1) & (wb_ack_o == 0);
     end
 end
 
