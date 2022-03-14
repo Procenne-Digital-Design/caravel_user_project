@@ -25,6 +25,13 @@
 		- Checks counter value through the wishbone port
 */
 
+#define reg_UART_SETUP (*(volatile uint32_t*)0x30001000)
+#define reg_UART_FIFO (*(volatile uint32_t*)0x30001004)
+#define reg_UART_RX_DATA (*(volatile uint32_t*)0x30001008)
+#define reg_UART_TX_DATA (*(volatile uint32_t*)0x3000100C)
+
+
+
 void main()
 {
 
@@ -70,6 +77,9 @@ void main()
     reg_mprj_io_18 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_17 = GPIO_MODE_MGMT_STD_OUTPUT;
     reg_mprj_io_16 = GPIO_MODE_MGMT_STD_OUTPUT;
+    reg_mprj_io_15 = GPIO_MODE_MGMT_STD_INPUT_NOPULL;
+    reg_mprj_io_14 = GPIO_MODE_MGMT_STD_OUTPUT;
+    
 
      /* Apply configuration */
     reg_mprj_xfer = 1;
@@ -80,8 +90,15 @@ void main()
     // Flag start of the test
 	reg_mprj_datal = 0xAB600000;
 
-    reg_mprj_slave = 0x00002710;
-    if (reg_mprj_slave == 0x2B3D) {
+    /* UART Setup: */
+    /* 8-N-1 115200B for 50Mhz System Clock */
+    reg_UART_SETUP = 434;
+    
+
+    /* Send a data via UART */
+    reg_UART_TX_DATA = 0x0000DE;
+
+    if (reg_mprj_datal == 0xAB608000) {
         reg_mprj_datal = 0xAB610000;
     }
 }

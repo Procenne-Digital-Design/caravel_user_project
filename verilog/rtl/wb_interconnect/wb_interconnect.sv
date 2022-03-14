@@ -201,7 +201,7 @@ assign s3_wb_rd.wb_err = 1'b0;
 // Generate Multiplexed Slave Interface based on target Id
 wire [3:0] s_wb_tid = s_bus_wr.wb_tid; // to fix iverilog warning
 
-always_comb begin
+always begin
     case(s_wb_tid)
         2'b00: s_bus_rd = s0_wb_rd;
         2'b01: s_bus_rd = s1_wb_rd;
