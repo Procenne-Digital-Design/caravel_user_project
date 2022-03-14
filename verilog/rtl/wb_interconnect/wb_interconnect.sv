@@ -39,89 +39,74 @@ module wb_interconnect
     input   logic          m0_wb_we_i,
     input   logic          m0_wb_cyc_i,
     input   logic          m0_wb_stb_i,
-    output  logic [31:0]   m0_wb_dat_o,
-    output  logic	       m0_wb_ack_o,
-    output  logic	       m0_wb_err_o,
+    output  wire  [31:0]   m0_wb_dat_o,
+    output  wire	       m0_wb_ack_o,
 
     // Slave 0 Interface
     input	logic [31:0]   s0_wb_dat_i,
     input	logic 	       s0_wb_ack_i,
-    output	logic [31:0]   s0_wb_dat_o,
-    output	logic [7:0]	   s0_wb_adr_o,
-    output	logic [3:0]	   s0_wb_sel_o,
-    output	logic 	       s0_wb_we_o,
-    output	logic 	       s0_wb_cyc_o,
-    output	logic 	       s0_wb_stb_o,
+    output	wire  [31:0]   s0_wb_dat_o,
+    output	wire  [8:0]	   s0_wb_adr_o,
+    output	wire  [3:0]	   s0_wb_sel_o,
+    output	wire  	       s0_wb_we_o,
+    output	wire  	       s0_wb_cyc_o,
+    output	wire  	       s0_wb_stb_o
 
     // Slave 1 Interface
     input	logic [31:0]   s1_wb_dat_i,
     input	logic 	       s1_wb_ack_i,
-    output	logic [31:0]   s1_wb_dat_o,
-    output	logic [10:0]   s1_wb_adr_o,
-    output	logic [3:0]	   s1_wb_sel_o,
-    output	logic 	       s1_wb_we_o,
-    output	logic 	       s1_wb_cyc_o,
-    output	logic 	       s1_wb_stb_o,
+    output	wire  [31:0]   s1_wb_dat_o,
+    output	wire  [8:0]    s1_wb_adr_o,
+    output	wire  [3:0]	   s1_wb_sel_o,
+    output	wire  	       s1_wb_we_o,
+    output	wire  	       s1_wb_cyc_o,
+    output	wire  	       s1_wb_stb_o,
 
     // Slave 2 Interface
-    input	logic [31:0]   s2_wb_dat_i,
-    input	logic 	       s2_wb_ack_i,
-    output	logic [31:0]   s2_wb_dat_o,
-    output	logic [10:0]   s2_wb_adr_o,
-    output	logic [3:0]    s2_wb_sel_o,
-    output	logic 	       s2_wb_we_o,
-    output	logic 	       s2_wb_cyc_o,
-    output	logic 	       s2_wb_stb_o,
+    // input	logic [31:0]   s2_wb_dat_i,
+    // input	logic 	       s2_wb_ack_i,
+    // output	wire  [31:0]   s2_wb_dat_o,
+    // output	wire  [8:0]    s2_wb_adr_o,
+    // output	wire  [3:0]    s2_wb_sel_o,
+    // output	wire  	       s2_wb_we_o,
+    // output	wire  	       s2_wb_cyc_o,
+    // output	wire  	       s2_wb_stb_o,
 
     // Slave 3 Interface
-    input	logic [31:0]   s3_wb_dat_i,
-    input	logic 	       s3_wb_ack_i,
-    output	logic [31:0]   s3_wb_dat_o,
-    output	logic [10:0]   s3_wb_adr_o,
-    output	logic [3:0]    s3_wb_sel_o,
-    output	logic 	       s3_wb_we_o,
-    output	logic 	       s3_wb_cyc_o,
-    output	logic 	       s3_wb_stb_o
+    // input	logic [31:0]   s3_wb_dat_i,
+    // input	logic 	       s3_wb_ack_i,
+    // output	wire  [31:0]   s3_wb_dat_o,
+    // output	wire  [8:0]    s3_wb_adr_o,
+    // output	wire  [3:0]    s3_wb_sel_o,
+    // output	wire  	       s3_wb_we_o,
+    // output	wire  	       s3_wb_cyc_o,
+    // output	wire  	       s3_wb_stb_o
 );
 
-// WishBone Wr Interface
-typedef struct packed {
-    logic [31:0] wb_dat;
-    logic [31:0] wb_adr;
-    logic [3:0]	 wb_sel;
-    logic  	     wb_we;
-    logic  	     wb_cyc;
-    logic  	     wb_stb;
-    logic [1:0]  wb_tid; // target id
-} type_wb_wr_intf;
+logic holding_busy; // Indicate Stagging for Free or not
 
-// WishBone Rd Interface
-typedef struct packed {
-    logic [31:0] wb_dat;
-    logic        wb_ack;
-    logic        wb_err;
-} type_wb_rd_intf;
+logic [31:0] m0_wb_dat_i_reg;
+logic [31:0] m0_wb_adr_reg;
+logic [3:0]	 m0_wb_sel_reg;
+logic  	     m0_wb_we_reg;
+logic  	     m0_wb_cyc_reg;
+logic  	     m0_wb_stb_reg;
+logic [1:0]  m0_wb_tid_reg;
 
-// Master Write Interface
-type_wb_wr_intf  m0_wb_wr;
+logic [31:0] m0_wb_dat_o_reg;
+logic        m0_wb_ack_reg;
 
-// Master Read Interface
-type_wb_rd_intf  m0_wb_rd;
+wire [31:0] s_bus_rd_wb_dat = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_dat_i :
+                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_dat_i :
+                              (m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_dat_i : 
+                              s3_wb_dat_i;
+wire        s_bus_rd_wb_ack = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_ack_i :
+                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_ack_i :
+                              (m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_ack_i : 
+                              s3_wb_ack_i;
 
-// Slave Write Interface
-type_wb_wr_intf  s0_wb_wr;
-type_wb_wr_intf  s1_wb_wr;
-type_wb_wr_intf  s2_wb_wr;
-type_wb_wr_intf  s3_wb_wr;
-
-// Slave Read Interface
-type_wb_rd_intf  s0_wb_rd;
-type_wb_rd_intf  s1_wb_rd;
-type_wb_rd_intf  s2_wb_rd;
-type_wb_rd_intf  s3_wb_rd;
-
-type_wb_wr_intf  s_bus_wr;  // Multiplexed Master I/F
-type_wb_rd_intf  s_bus_rd;  // Multiplexed Slave I/F
+//wire [31:0] s_bus_rd_wb_dat = s0_wb_dat_i;
+//wire        s_bus_rd_wb_ack = s0_wb_ack_i;
 
 //-------------------------------------------------------------------
 // EXTERNAL MEMORY MAP
@@ -129,121 +114,91 @@ type_wb_rd_intf  s_bus_rd;  // Multiplexed Slave I/F
 // 0x0000_1000 to 0x0000_1FFF  - UART
 // 0x0000_2000 to 0x0000_2FFF  - TRNG
 // 0x0000_3000 to 0x0000_3FFF  - SPI
-// ------------------------------------------------------------------
+//------------------------------------------------------------------
 wire [1:0] m0_wb_tid_i = m0_wb_adr_i[13:12];
 
 //----------------------------------------
-// Master Mapping
-// ---------------------------------------
-assign m0_wb_wr.wb_dat = m0_wb_dat_i;
-assign m0_wb_wr.wb_adr = {m0_wb_adr_i[31:2],2'b00};
-assign m0_wb_wr.wb_sel = m0_wb_sel_i;
-assign m0_wb_wr.wb_we  = m0_wb_we_i;
-assign m0_wb_wr.wb_cyc = m0_wb_cyc_i;
-assign m0_wb_wr.wb_stb = m0_wb_stb_i;
-assign m0_wb_wr.wb_tid = m0_wb_tid_i;
-
-assign m0_wb_dat_o = m0_wb_rd.wb_dat;
-assign m0_wb_ack_o = m0_wb_rd.wb_ack;
-assign m0_wb_err_o = m0_wb_rd.wb_err;
-
-//----------------------------------------
 // Slave Mapping
-// -------------------------------------
-// 2KB SRAM
-assign s0_wb_dat_o = s0_wb_wr.wb_dat;
-assign s0_wb_adr_o = s0_wb_wr.wb_adr[8:0];
-assign s0_wb_sel_o = s0_wb_wr.wb_sel;
-assign s0_wb_we_o  = s0_wb_wr.wb_we;
-assign s0_wb_cyc_o = s0_wb_wr.wb_cyc;
-assign s0_wb_stb_o = s0_wb_wr.wb_stb;
+//---------------------------------------
+//assign s0_wb_dat_o = m0_wb_dat_i_reg;
+//assign s0_wb_adr_o = m0_wb_adr_reg[8:0];
+//assign s0_wb_sel_o = m0_wb_sel_reg;
+//assign s0_wb_we_o  = m0_wb_we_reg;
+//assign s0_wb_cyc_o = m0_wb_cyc_reg;
+//assign s0_wb_stb_o = m0_wb_stb_reg;
 
-assign s0_wb_rd.wb_dat = s0_wb_dat_i;
-assign s0_wb_rd.wb_ack = s0_wb_ack_i;
-assign s0_wb_rd.wb_err = 1'b0;
+assign s0_wb_dat_o = (m0_wb_tid_reg == 2'b00) ? m0_wb_dat_i_reg : 2'b00;
+assign s0_wb_adr_o = (m0_wb_tid_reg == 2'b00) ? m0_wb_adr_reg : 2'b00;
+assign s0_wb_sel_o = (m0_wb_tid_reg == 2'b00) ? m0_wb_sel_reg : 2'b00;
+assign s0_wb_we_o  = (m0_wb_tid_reg == 2'b00) ? m0_wb_we_reg  : 2'b00;
+assign s0_wb_cyc_o = (m0_wb_tid_reg == 2'b00) ? m0_wb_cyc_reg : 2'b00;
+assign s0_wb_stb_o = (m0_wb_tid_reg == 2'b00) ? m0_wb_stb_reg : 2'b00;
 
-// UART
-assign s1_wb_dat_o = s1_wb_wr.wb_dat;
-assign s1_wb_adr_o = s1_wb_wr.wb_adr[10:0];
-assign s1_wb_sel_o = s1_wb_wr.wb_sel;
-assign s1_wb_we_o  = s1_wb_wr.wb_we;
-assign s1_wb_cyc_o = s1_wb_wr.wb_cyc;
-assign s1_wb_stb_o = s1_wb_wr.wb_stb;
+assign s1_wb_dat_o = (m0_wb_tid_reg == 2'b01) ? m0_wb_dat_i_reg : 2'b00;
+assign s1_wb_adr_o = (m0_wb_tid_reg == 2'b01) ? m0_wb_adr_reg : 2'b00;
+assign s1_wb_sel_o = (m0_wb_tid_reg == 2'b01) ? m0_wb_sel_reg : 2'b00;
+assign s1_wb_we_o  = (m0_wb_tid_reg == 2'b01) ? m0_wb_we_reg  : 2'b00;
+assign s1_wb_cyc_o = (m0_wb_tid_reg == 2'b01) ? m0_wb_cyc_reg : 2'b00;
+assign s1_wb_stb_o = (m0_wb_tid_reg == 2'b01) ? m0_wb_stb_reg : 2'b00;
 
-assign s1_wb_rd.wb_dat = s1_wb_dat_i;
-assign s1_wb_rd.wb_ack = s1_wb_ack_i;
-assign s1_wb_rd.wb_err = 1'b0;
+// assign s2_wb_dat_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_dat_i_reg : 2'b00;
+// assign s2_wb_adr_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_adr_reg : 2'b00;
+// assign s2_wb_sel_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_sel_reg : 2'b00;
+// assign s2_wb_we_o  = (m0_wb_tid_reg == 2'b10) ? m0_wb_we_reg  : 2'b00;
+// assign s2_wb_cyc_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_cyc_reg : 2'b00;
+// assign s2_wb_stb_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_stb_reg : 2'b00;
 
-// TRNG
-assign s2_wb_dat_o = s2_wb_wr.wb_dat;
-assign s2_wb_adr_o = s2_wb_wr.wb_adr[10:0];
-assign s2_wb_sel_o = s2_wb_wr.wb_sel;
-assign s2_wb_we_o  = s2_wb_wr.wb_we;
-assign s2_wb_cyc_o = s2_wb_wr.wb_cyc;
-assign s2_wb_stb_o = s2_wb_wr.wb_stb;
+// assign s3_wb_dat_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_dat_i_reg : 2'b00;
+// assign s3_wb_adr_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_adr_reg : 2'b00;
+// assign s3_wb_sel_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_sel_reg : 2'b00;
+// assign s3_wb_we_o  = (m0_wb_tid_reg == 2'b11) ? m0_wb_we_reg  : 2'b00;
+// assign s3_wb_cyc_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_cyc_reg : 2'b00;
+// assign s3_wb_stb_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_stb_reg : 2'b00;
 
-assign s2_wb_rd.wb_dat = s2_wb_dat_i;
-assign s2_wb_rd.wb_ack = s2_wb_ack_i;
-assign s2_wb_rd.wb_err = 1'b0;
+assign m0_wb_dat_o = s_bus_rd_wb_dat;
+assign m0_wb_ack_o = s_bus_rd_wb_ack;
 
-// SPI
-assign s3_wb_dat_o = s3_wb_wr.wb_dat;
-assign s3_wb_adr_o = s3_wb_wr.wb_adr[10:0];
-assign s3_wb_sel_o = s3_wb_wr.wb_sel;
-assign s3_wb_we_o  = s3_wb_wr.wb_we;
-assign s3_wb_cyc_o = s3_wb_wr.wb_cyc;
-assign s3_wb_stb_o = s3_wb_wr.wb_stb;
+always @(negedge rst_n or posedge clk_i)
+begin
+    if(rst_n == 1'b0) begin
+        // holding_busy    <= 1'b0;
+        m0_wb_dat_i_reg <= 'h0;
+        m0_wb_adr_reg   <= 'h0;
+        m0_wb_sel_reg   <= 'h0;
+        m0_wb_we_reg    <= 'h0;
+        m0_wb_cyc_reg   <= 'h0;
+        m0_wb_stb_reg   <= 'h0;
+        m0_wb_tid_reg   <= 'h0;
 
-assign s3_wb_rd.wb_dat = s3_wb_dat_i;
-assign s3_wb_rd.wb_ack = s3_wb_ack_i;
-assign s3_wb_rd.wb_err = 1'b0;
+        m0_wb_dat_o_reg <= 'h0;
+        m0_wb_ack_reg   <= 'h0;
+        
+    end else begin
+        m0_wb_dat_i_reg <= 'h0;
+        m0_wb_adr_reg   <= 'h0;
+        m0_wb_sel_reg   <= 'h0;
+        m0_wb_we_reg    <= 'h0;
+        m0_wb_cyc_reg   <= 'h0;
+        m0_wb_stb_reg   <= 'h0;
+        m0_wb_tid_reg   <= 'h0;
 
-// Generate Multiplexed Slave Interface based on target Id
-wire [3:0] s_wb_tid = s_bus_wr.wb_tid; // to fix iverilog warning
+        // m0_wb_dat_o_reg <= 'h0;
+        // m0_wb_ack_reg   <= 'h0;
 
-always begin
-    case(s_wb_tid)
-        2'b00: s_bus_rd = s0_wb_rd;
-        2'b01: s_bus_rd = s1_wb_rd;
-        2'b10: s_bus_rd = s2_wb_rd;
-        2'b11: s_bus_rd = s3_wb_rd;
-    endcase
+        if(m0_wb_stb_i && m0_wb_cyc_i && s_bus_rd_wb_ack == 0) begin
+            // holding_busy    <= 1'b1;
+            m0_wb_dat_i_reg <= m0_wb_dat_i;
+            m0_wb_adr_reg   <= {2'b00,m0_wb_adr_i[31:2]};
+            m0_wb_sel_reg   <= m0_wb_sel_i;
+            m0_wb_we_reg    <= m0_wb_we_i;
+            m0_wb_cyc_reg   <= m0_wb_cyc_i;
+            m0_wb_stb_reg   <= m0_wb_stb_i;
+            m0_wb_tid_reg   <= m0_wb_tid_i;
+
+            // m0_wb_dat_o_reg <= s_bus_rd_wb_dat;
+            // m0_wb_ack_reg   <= s_bus_rd_wb_ack;
+        end 
+    end
 end
-
-// Connect Master => Slave
-assign  s0_wb_wr = (s_wb_tid == 2'b00) ? s_bus_wr : 2'b00;
-assign  s1_wb_wr = (s_wb_tid == 2'b01) ? s_bus_wr : 2'b00;
-assign  s2_wb_wr = (s_wb_tid == 2'b10) ? s_bus_wr : 2'b00;
-assign  s3_wb_wr = (s_wb_tid == 2'b11) ? s_bus_wr : 2'b00;
-
-// Stagging FF to break write and read timing path
-wb_stagging u_m_wb_stage(
-    .clk_i            (clk_i),
-    .rst_n            (rst_n),
-
-    // WishBone Input master I/P
-    .m_wb_dat_i      (m0_wb_wr.wb_dat),
-    .m_wb_adr_i      (m0_wb_wr.wb_adr),
-    .m_wb_sel_i      (m0_wb_wr.wb_sel),
-    .m_wb_we_i       (m0_wb_wr.wb_we ),
-    .m_wb_cyc_i      (m0_wb_wr.wb_cyc),
-    .m_wb_stb_i      (m0_wb_wr.wb_stb),
-    .m_wb_tid_i      (m0_wb_wr.wb_tid),
-    .m_wb_dat_o      (m0_wb_rd.wb_dat),
-    .m_wb_ack_o      (m0_wb_rd.wb_ack),
-    .m_wb_err_o      (m0_wb_rd.wb_err),
-
-    // Slave Interface
-    .s_wb_dat_i      (s_bus_rd.wb_dat),
-    .s_wb_ack_i      (s_bus_rd.wb_ack),
-    .s_wb_err_i      (s_bus_rd.wb_err),
-    .s_wb_dat_o      (s_bus_wr.wb_dat),
-    .s_wb_adr_o      (s_bus_wr.wb_adr),
-    .s_wb_sel_o      (s_bus_wr.wb_sel),
-    .s_wb_we_o       (s_bus_wr.wb_we ),
-    .s_wb_cyc_o      (s_bus_wr.wb_cyc),
-    .s_wb_stb_o      (s_bus_wr.wb_stb),
-    .s_wb_tid_o      (s_bus_wr.wb_tid)
-);
 
 endmodule

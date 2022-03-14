@@ -22,7 +22,12 @@ set ::env(DESIGN_NAME) user_proj_example
 
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	$script_dir/../../verilog/rtl/user_proj_example.v \
+	$script_dir/../../verilog/rtl/wb_interconnect/wb_interconnect.sv \
+	$script_dir/../../verilog/rtl/wb_interconnect/wb_signal_reg.sv \
+	$script_dir/../../verilog/rtl/sram/sky130_sram_2kbyte_1rw1r_32x512_8.v \
+	$script_dir/../../verilog/rtl/sram/sram_wb_wrapper.sv \
+	"
 
 set ::env(DESIGN_IS_CORE) 0
 

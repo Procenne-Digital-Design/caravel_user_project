@@ -83,8 +83,7 @@ parameter UART_ADDR_END   = 9'h1F8;
 //---------------------------------------------------------------------
 // WB Master Interface
 //---------------------------------------------------------------------
-wire clk;
-wire rst;
+wire rst_n = !wb_rst_i;
 wire [`MPRJ_IO_PADS-1:0] io_in;
 wire [`MPRJ_IO_PADS-1:0] io_out;
 wire [`MPRJ_IO_PADS-1:0] io_oeb;
@@ -122,7 +121,7 @@ wb_interconnect interconnect
     .vssd1(vssd1),    // User area 1 digital ground
 `endif
     .clk_i(wb_clk_i),
-    .rst_n(wb_rst_i),
+    .rst_n(rst_n),
 
     // Master 0 Interface
     .m0_wb_dat_i(wbs_dat_i),
@@ -133,47 +132,46 @@ wb_interconnect interconnect
     .m0_wb_stb_i(wbs_stb_i),
     .m0_wb_dat_o(wbs_dat_o),
     .m0_wb_ack_o(wbs_ack_o),
-    .m0_wb_err_o(),
 
     // Slave 0 Interface
-    .s0_wb_dat_i(s0_wb_dat_i),
+    .s0_wb_dat_i(s0_wb_dat_o),
     .s0_wb_ack_i(s0_wb_ack_o),
     .s0_wb_dat_o(s0_wb_dat_i),
     .s0_wb_adr_o(s0_wb_adr_i),
     .s0_wb_sel_o(s0_wb_sel_i),
     .s0_wb_we_o (s0_wb_we_i),
     .s0_wb_cyc_o(s0_wb_cyc_i),
-    .s0_wb_stb_o(s0_wb_stb_i),
+    .s0_wb_stb_o(s0_wb_stb_i)
 
     // Slave 1 Interface
-    .s1_wb_dat_i(),
-    .s1_wb_ack_i(),
-    .s1_wb_dat_o(),
-    .s1_wb_adr_o(),
-    .s1_wb_sel_o(),
-    .s1_wb_we_o (),
-    .s1_wb_cyc_o(),
-    .s1_wb_stb_o(),
+    .s1_wb_dat_i(s1_wb_dat_o),
+    .s1_wb_ack_i(s1_wb_ack_o),
+    .s1_wb_dat_o(s1_wb_dat_i),
+    .s1_wb_adr_o(s1_wb_adr_i),
+    .s1_wb_sel_o(s1_wb_sel_i),
+    .s1_wb_we_o (s1_wb_we_i)),
+    .s1_wb_cyc_o(s1_wb_cyc_i),
+    .s1_wb_stb_o(s1_wb_stb_i),
 
     // Slave 2 Interface
-    .s2_wb_dat_i(),
-    .s2_wb_ack_i(),
-    .s2_wb_dat_o(),
-    .s2_wb_adr_o(),
-    .s2_wb_sel_o(),
-    .s2_wb_we_o (),
-    .s2_wb_cyc_o(),
-    .s2_wb_stb_o(),
+    // .s2_wb_dat_i(),
+    // .s2_wb_ack_i(),
+    // .s2_wb_dat_o(),
+    // .s2_wb_adr_o(),
+    // .s2_wb_sel_o(),
+    // .s2_wb_we_o (),
+    // .s2_wb_cyc_o(),
+    // .s2_wb_stb_o(),
 
     // Slave 3 Interface
-    .s3_wb_dat_i(),
-    .s3_wb_ack_i(),
-    .s3_wb_dat_o(),
-    .s3_wb_adr_o(),
-    .s3_wb_sel_o(),
-    .s3_wb_we_o (),
-    .s3_wb_cyc_o(),
-    .s3_wb_stb_o()
+    // .s3_wb_dat_i(),
+    // .s3_wb_ack_i(),
+    // .s3_wb_dat_o(),
+    // .s3_wb_adr_o(),
+    // .s3_wb_sel_o(),
+    // .s3_wb_we_o (),
+    // .s3_wb_cyc_o(),
+    // .s3_wb_stb_o()
 );
 
 sram_wb_wrapper #(
@@ -185,7 +183,7 @@ sram_wb_wrapper #(
 `endif
     )
     wb_wrapper0 (
-    .rst_n(wb_rst_i),
+    .rst_n(rst_n),
     // Wishbone Interface
     .wb_clk_i(wb_clk_i),     // System clock
     .wb_cyc_i(s0_wb_cyc_i),  // cycle enable
