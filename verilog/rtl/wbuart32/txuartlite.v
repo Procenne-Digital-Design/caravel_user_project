@@ -49,7 +49,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
+//`default_nettype none
 // }}}
 module txuartlite #(
 		// {{{
@@ -58,7 +58,6 @@ module txuartlite #(
 		// most baud rates, but you can trim it down to save logic if
 		// you would like.  TB is just an abbreviation for TIMING_BITS.
 		parameter	[4:0]	TIMING_BITS = 5'd24,
-		localparam		TB = TIMING_BITS,
 		// CLOCKS_PER_BAUD -- the number of system clocks per baud
 		// interval.
 		parameter	[(TB-1):0]	CLOCKS_PER_BAUD = 8 // 24'd868
@@ -76,6 +75,8 @@ module txuartlite #(
 		output	wire		o_busy
 		// }}}
 	);
+
+	localparam		TB = TIMING_BITS;
 
 	// Register/net declarations
 	// {{{

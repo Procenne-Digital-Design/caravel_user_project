@@ -43,14 +43,14 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
+//`default_nettype none
 // }}}
 module ufifo #(
 		// {{{
 		parameter	BW=8,	// Byte/data width
 		parameter [3:0]	LGFLEN=4,
-		parameter [0:0]	RXFIFO=1'b1,
-		localparam	FLEN=(1<<LGFLEN)
+		parameter [0:0]	RXFIFO=1'b1
+		
 		// }}}
 	) (
 		// {{{
@@ -64,6 +64,8 @@ module ufifo #(
 		output	wire		o_err
 		// }}}
 	);
+
+	localparam	FLEN=(1<<LGFLEN);
 
 	// Signal declarations
 	// {{{

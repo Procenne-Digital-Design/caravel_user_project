@@ -39,7 +39,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
+//`default_nettype none
 // }}}
 `define	USE_LITE_UART
 module	wbuart #(
@@ -47,12 +47,11 @@ module	wbuart #(
 		// 4MB 8N1, when using 100MHz clock
 		parameter [30:0] INITIAL_SETUP = 31'd25,
 		parameter [3:0]	LGFLEN = 4,
-		parameter [0:0]	HARDWARE_FLOW_CONTROL_PRESENT = 1'b1,
+		parameter [0:0]	HARDWARE_FLOW_CONTROL_PRESENT = 1'b1
 		// Perform a simple/quick bounds check on the log FIFO length,
 		// to make sure its within the bounds we can support with our
 		// current interface.
-		localparam [3:0]	LCLLGFLEN = (LGFLEN > 4'ha)? 4'ha
-					: ((LGFLEN < 4'h2) ? 4'h2 : LGFLEN)
+		
 		// }}}
 	) (
 		// {{{
@@ -75,6 +74,9 @@ module	wbuart #(
 					o_uart_rxfifo_int, o_uart_txfifo_int
 		// }}}
 	);
+
+	localparam [3:0]	LCLLGFLEN = (LGFLEN > 4'ha)? 4'ha
+					: ((LGFLEN < 4'h2) ? 4'h2 : LGFLEN);
 
 	localparam [1:0]	UART_SETUP = 2'b00,
 				UART_FIFO  = 2'b01,

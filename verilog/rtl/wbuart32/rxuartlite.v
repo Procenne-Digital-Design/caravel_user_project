@@ -46,7 +46,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
+//`default_nettype none
 // }}}
 module rxuartlite #(
 		// {{{
@@ -54,24 +54,9 @@ module rxuartlite #(
 `ifdef	FORMAL
 		parameter  [(TIMER_BITS-1):0]	CLOCKS_PER_BAUD = 16, // Necessary for formal proof
 `else
-		parameter  [(TIMER_BITS-1):0]	CLOCKS_PER_BAUD = 868,	// 115200 MBaud at 100MHz
+		parameter  [(TIMER_BITS-1):0]	CLOCKS_PER_BAUD = 868	// 115200 MBaud at 100MHz
 `endif
-		localparam			TB = TIMER_BITS,
-		//
-		localparam [3:0]	RXUL_BIT_ZERO  = 4'h0,
-		// Verilator lint_off UNUSED
-		// These are used by the formal solver
-		localparam [3:0]	RXUL_BIT_ONE   = 4'h1,
-		localparam [3:0]	RXUL_BIT_TWO   = 4'h2,
-		localparam [3:0]	RXUL_BIT_THREE = 4'h3,
-		localparam [3:0]	RXUL_BIT_FOUR  = 4'h4,
-		localparam [3:0]	RXUL_BIT_FIVE  = 4'h5,
-		localparam [3:0]	RXUL_BIT_SIX   = 4'h6,
-		localparam [3:0]	RXUL_BIT_SEVEN = 4'h7,
-		// Verilator lint_on  UNUSED
-		localparam [3:0]	RXUL_STOP      = 4'h8,
-		localparam [3:0]	RXUL_WAIT      = 4'h9,
-		localparam [3:0]	RXUL_IDLE      = 4'hf
+		
 		// }}}
 	) (
 		// {{{
@@ -81,6 +66,24 @@ module rxuartlite #(
 		output	reg	[7:0]	o_data
 		// }}}
 	);
+
+
+	localparam			TB = TIMER_BITS;
+	//
+	localparam [3:0]	RXUL_BIT_ZERO  = 4'h0;
+	// Verilator lint_off UNUSED
+	// These are used by the formal solver
+	localparam [3:0]	RXUL_BIT_ONE   = 4'h1;
+	localparam [3:0]	RXUL_BIT_TWO   = 4'h2;
+	localparam [3:0]	RXUL_BIT_THREE = 4'h3;
+	localparam [3:0]	RXUL_BIT_FOUR  = 4'h4;
+	localparam [3:0]	RXUL_BIT_FIVE  = 4'h5;
+	localparam [3:0]	RXUL_BIT_SIX   = 4'h6;
+	localparam [3:0]	RXUL_BIT_SEVEN = 4'h7;
+	// Verilator lint_on  UNUSED
+	localparam [3:0]	RXUL_STOP      = 4'h8;
+	localparam [3:0]	RXUL_WAIT      = 4'h9;
+	localparam [3:0]	RXUL_IDLE      = 4'hf;
 
 	// Signal/register declarations
 	// {{{

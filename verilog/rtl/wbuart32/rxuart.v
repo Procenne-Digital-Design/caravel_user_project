@@ -89,12 +89,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-`default_nettype	none
+//`default_nettype none
 // }}}
 module rxuart #(
 		// {{{
 		// 8 data bits, no parity, (at least 1) stop bit
-		parameter [30:0] INITIAL_SETUP = 31'd868,
+		parameter [30:0] INITIAL_SETUP = 31'd868
 		// States: (@ baud counter == 0)
 		//	0	First bit arrives
 		//	..7	Bits arrive
@@ -104,22 +104,6 @@ module rxuart #(
 		//	d	Waiting for the channel to go high
 		//	e	Waiting for the reset to complete
 		//	f	Idle state
-		localparam [3:0]	RXU_BIT_ZERO    = 4'h0,
-					RXU_BIT_ONE     = 4'h1,
-					RXU_BIT_TWO     = 4'h2,
-					RXU_BIT_THREE   =  4'h3,
-					// RXU_BIT_FOUR = 4'h4, // UNUSED
-					// RXU_BIT_FIVE = 4'h5, // UNUSED
-					// RXU_BIT_SIX  = 4'h6, // UNUSED
-					RXU_BIT_SEVEN   = 4'h7,
-					RXU_PARITY      = 4'h8,
-					RXU_STOP        = 4'h9,
-					RXU_SECOND_STOP = 4'ha,
-					// Unused 4'hb
-					// Unused 4'hc
-					RXU_BREAK       = 4'hd,
-					RXU_RESET_IDLE  = 4'he,
-					RXU_IDLE        = 4'hf
 		// }}}
 	) (
 		// {{{
@@ -135,7 +119,22 @@ module rxuart #(
 		output	wire		o_ck_uart
 		// }}}
 	);
-
+	localparam [3:0]	RXU_BIT_ZERO    = 4'h0;
+	localparam [3:0]	RXU_BIT_ONE     = 4'h1;
+	localparam [3:0]	RXU_BIT_TWO     = 4'h2;
+	localparam [3:0]	RXU_BIT_THREE   = 4'h3;
+	//localparam [3:0]	 RXU_BIT_FOUR = 4'h4, // UNUSED
+	//localparam [3:0]	 RXU_BIT_FIVE = 4'h5, // UNUSED
+	//localparam [3:0]	 RXU_BIT_SIX  = 4'h6, // UNUSED
+	localparam [3:0]	RXU_BIT_SEVEN   = 4'h7;
+	localparam [3:0]	RXU_PARITY      = 4'h8;
+	localparam [3:0]	RXU_STOP        = 4'h9;
+	localparam [3:0]	RXU_SECOND_STOP = 4'ha;
+	//localparam [3:0]	Unused 4'hb
+	//localparam [3:0]	Unused 4'hc
+	localparam [3:0]	RXU_BREAK       = 4'hd;
+	localparam [3:0]	RXU_RESET_IDLE  = 4'he;
+	localparam [3:0]	RXU_IDLE        = 4'hf;
 	// Signal declarations
 	// {{{
 	wire	[27:0]	clocks_per_baud, break_condition, half_baud;
