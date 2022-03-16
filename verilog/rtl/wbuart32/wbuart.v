@@ -337,12 +337,12 @@ module	wbuart #(
 	// break.  We read from the FIFO any time the UART transmitter is idle.
 	// and ... we just set the values (above) for controlling writing into
 	// this.
-	ufifo	#(.LGFLEN(LGFLEN), .RXFIFO(0))
-		txfifo(i_clk, (tx_break)||(tx_uart_reset),
-			txf_wb_write, txf_wb_data,
-			tx_empty_n,
-			(!tx_busy)&&(tx_empty_n), tx_data,
-			txf_status, txf_err);
+	// ufifo	#(.LGFLEN(LGFLEN), .RXFIFO(0))
+	// 	txfifo(i_clk, (tx_break)||(tx_uart_reset),
+	// 		txf_wb_write, txf_wb_data,
+	// 		tx_empty_n,
+	// 		(!tx_busy)&&(tx_empty_n), tx_data,
+	// 		txf_status, txf_err);
 	// }}}
 
 	// Transmit interrupts
@@ -350,11 +350,11 @@ module	wbuart #(
 	// Let's create two transmit based interrupts from the FIFO for the CPU.
 	//	The first will be true any time the FIFO has at least one open
 	//	position within it.
-	assign	o_uart_tx_int = txf_status[0];
+	assign	o_uart_tx_int = 1'b0;
 	//	The second will be true any time the FIFO is less than half
 	//	full, allowing us a change to always keep it (near) fully 
 	//	charged.
-	assign	o_uart_txfifo_int = txf_status[1];
+	assign	o_uart_txfifo_int = 1'b0;
 	// }}}
 
 	// Break logic
@@ -402,7 +402,7 @@ module	wbuart #(
 	// The actuall transmitter itself
 `ifdef	USE_LITE_UART
 	// {{{
-	txuartlite #(.CLOCKS_PER_BAUD(INITIAL_SETUP[23:0])) tx(i_clk, (tx_empty_n), tx_data,
+	txuartlite #(.CLOCKS_PER_BAUD(INITIAL_SETUP[23:0])) tx(i_clk, txf_wb_write, txf_wb_data,
 			o_uart_tx, tx_busy);
 	// }}}
 `else
@@ -443,10 +443,12 @@ module	wbuart #(
 	// voltage on the line (o_uart_tx)--and even the voltage on the receive
 	// line (ck_uart), as well as our current setting of the break and
 	// whether or not we are actively transmitting.
-	assign	wb_tx_data = { 16'h00, 
-			i_cts_n, txf_status[1:0], txf_err,
-			ck_uart, o_uart_tx, tx_break, (tx_busy|txf_status[0]),
-			(tx_busy|txf_status[0])?txf_wb_data:8'b00};
+	// assign	wb_tx_data = { 16'h00, 
+	// 		i_cts_n, txf_status[1:0], txf_err,
+	// 		ck_uart, o_uart_tx, tx_break, (tx_busy|txf_status[0]),
+	// 		(tx_busy|txf_status[0])?txf_wb_data:8'b00};
+
+	assign wb_tx_data = {24'd0, txf_wb_data};
 	// }}}
 	// }}}
 	////////////////////////////////////////////////////////////////////////
@@ -464,7 +466,8 @@ module	wbuart #(
 	// us both how big the FIFO is, as well as how much of the FIFO is in 
 	// use.  Let's merge those two status words together into a word we
 	// can use when reading about the FIFO.
-	assign	wb_fifo_data = { txf_status, rxf_status };
+	//assign	wb_fifo_data = { txf_status, rxf_status };
+	assign	wb_fifo_data = { 16'd0, rxf_status };		
 	// }}}
 
 	// r_wb_addr

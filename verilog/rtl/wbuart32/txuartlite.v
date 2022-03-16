@@ -100,6 +100,8 @@ module txuartlite #(
 	// Big state machine controlling: r_busy, state
 	// {{{
 	//
+
+
 	initial	r_busy = 1'b1;
 	initial	state  = TXUL_IDLE;
 	always @(posedge i_clk)

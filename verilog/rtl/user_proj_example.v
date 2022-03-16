@@ -141,7 +141,7 @@ wb_interconnect interconnect
     .s0_wb_sel_o(s0_wb_sel_i),
     .s0_wb_we_o (s0_wb_we_i),
     .s0_wb_cyc_o(s0_wb_cyc_i),
-    .s0_wb_stb_o(s0_wb_stb_i)
+    .s0_wb_stb_o(s0_wb_stb_i),
 
     // Slave 1 Interface
     .s1_wb_dat_i(s1_wb_dat_o),
@@ -149,9 +149,9 @@ wb_interconnect interconnect
     .s1_wb_dat_o(s1_wb_dat_i),
     .s1_wb_adr_o(s1_wb_adr_i),
     .s1_wb_sel_o(s1_wb_sel_i),
-    .s1_wb_we_o (s1_wb_we_i)),
+    .s1_wb_we_o (s1_wb_we_i),
     .s1_wb_cyc_o(s1_wb_cyc_i),
-    .s1_wb_stb_o(s1_wb_stb_i),
+    .s1_wb_stb_o(s1_wb_stb_i)
 
     // Slave 2 Interface
     // .s2_wb_dat_i(),
@@ -195,7 +195,8 @@ sram_wb_wrapper #(
     .wb_dat_o(s0_wb_dat_o),  // data input
     .wb_ack_o(s0_wb_ack_o)   // acknowlegement
 );
-
+assign io_oeb = {(`MPRJ_IO_PADS){1'b0}};
+//assign io_oeb[15] = rst_n;
 
 wbuart 
 #(
@@ -216,7 +217,7 @@ wbuart_dut (
   .o_wb_ack (s1_wb_ack_o ),
   .o_wb_data (s1_wb_dat_o ),
   .i_uart_rx (io_in[15] ),
-  .o_uart_tx (io_out[14] ),
+  .o_uart_tx (io_out[16] ),
   .i_cts_n (1'b0 ),
   .o_rts_n ( ),
   .o_uart_rx_int ( ),

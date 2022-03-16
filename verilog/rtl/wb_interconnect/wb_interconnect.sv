@@ -50,7 +50,7 @@ module wb_interconnect
     output	wire  [3:0]	   s0_wb_sel_o,
     output	wire  	       s0_wb_we_o,
     output	wire  	       s0_wb_cyc_o,
-    output	wire  	       s0_wb_stb_o
+    output	wire  	       s0_wb_stb_o,
 
     // Slave 1 Interface
     input	logic [31:0]   s1_wb_dat_i,
@@ -60,7 +60,7 @@ module wb_interconnect
     output	wire  [3:0]	   s1_wb_sel_o,
     output	wire  	       s1_wb_we_o,
     output	wire  	       s1_wb_cyc_o,
-    output	wire  	       s1_wb_stb_o,
+    output	wire  	       s1_wb_stb_o
 
     // Slave 2 Interface
     // input	logic [31:0]   s2_wb_dat_i,
@@ -93,17 +93,16 @@ logic  	     m0_wb_cyc_reg;
 logic  	     m0_wb_stb_reg;
 logic [1:0]  m0_wb_tid_reg;
 
-logic [31:0] m0_wb_dat_o_reg;
-logic        m0_wb_ack_reg;
+
 
 wire [31:0] s_bus_rd_wb_dat = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_dat_i :
-                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_dat_i :
-                              (m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_dat_i : 
-                              s3_wb_dat_i;
+                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_dat_i : 32'd0 ;// :
+                              //(m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_dat_i : 
+                              //s3_wb_dat_i;
 wire        s_bus_rd_wb_ack = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_ack_i :
-                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_ack_i :
-                              (m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_ack_i : 
-                              s3_wb_ack_i;
+                              (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_ack_i : 1'b0 ; // :
+                              //(m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_ack_i : 
+                              //s3_wb_ack_i;
 
 //wire [31:0] s_bus_rd_wb_dat = s0_wb_dat_i;
 //wire        s_bus_rd_wb_ack = s0_wb_ack_i;
@@ -170,8 +169,6 @@ begin
         m0_wb_stb_reg   <= 'h0;
         m0_wb_tid_reg   <= 'h0;
 
-        m0_wb_dat_o_reg <= 'h0;
-        m0_wb_ack_reg   <= 'h0;
         
     end else begin
         m0_wb_dat_i_reg <= 'h0;
@@ -181,9 +178,6 @@ begin
         m0_wb_cyc_reg   <= 'h0;
         m0_wb_stb_reg   <= 'h0;
         m0_wb_tid_reg   <= 'h0;
-
-        // m0_wb_dat_o_reg <= 'h0;
-        // m0_wb_ack_reg   <= 'h0;
 
         if(m0_wb_stb_i && m0_wb_cyc_i && s_bus_rd_wb_ack == 0) begin
             // holding_busy    <= 1'b1;
@@ -195,8 +189,6 @@ begin
             m0_wb_stb_reg   <= m0_wb_stb_i;
             m0_wb_tid_reg   <= m0_wb_tid_i;
 
-            // m0_wb_dat_o_reg <= s_bus_rd_wb_dat;
-            // m0_wb_ack_reg   <= s_bus_rd_wb_ack;
         end 
     end
 end

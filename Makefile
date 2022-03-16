@@ -17,7 +17,7 @@ MAKEFLAGS+=--warn-undefined-variables
 
 CARAVEL_ROOT?=$(PWD)/caravel
 PRECHECK_ROOT?=${HOME}/mpw_precheck
-MCW_ROOT?=$(UPRJ_ROOT)/mgmt_core_wrapper
+MCW_ROOT?=$(PWD)/mgmt_core_wrapper
 SIM?=RTL
 
 export SKYWATER_COMMIT=c094b6e83a4f9298e47f696ec5a7fd53535ec5eb
@@ -79,11 +79,7 @@ dv_base_dependencies=simenv
 docker_run_verify=\
 	docker run -v ${TARGET_PATH}:${TARGET_PATH} -v ${PDK_ROOT}:${PDK_ROOT} \
 		-v ${CARAVEL_ROOT}:${CARAVEL_ROOT} \
-<<<<<<< HEAD
 		-v ${MCW_ROOT}:${MCW_ROOT} \
-=======
-		-v $(MCW_ROOT):$(MCW_ROOT) \
->>>>>>> sram
 		-e TARGET_PATH=${TARGET_PATH} -e PDK_ROOT=${PDK_ROOT} \
 		-e CARAVEL_ROOT=${CARAVEL_ROOT} \
 		-e TOOLS=/opt/riscv32i \
@@ -180,7 +176,7 @@ run-precheck: check-pdk check-precheck
 .PHONY: clean
 clean:
 	cd ./verilog/dv/ && \
-		$(MAKE) clean
+		$(MAKE) -j$(THREADS) clean
 
 check-caravel:
 	@if [ ! -d "$(CARAVEL_ROOT)" ]; then \
