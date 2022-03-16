@@ -39,7 +39,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 //
 //
-//`default_nettype none
+`default_nettype none
 // }}}
 `define	USE_LITE_UART
 module	wbuart #(
@@ -47,13 +47,18 @@ module	wbuart #(
 		// 4MB 8N1, when using 100MHz clock
 		parameter [30:0] INITIAL_SETUP = 31'd25,
 		parameter [3:0]	LGFLEN = 4,
-		parameter [0:0]	HARDWARE_FLOW_CONTROL_PRESENT = 1'b1
+		parameter [0:0]	HARDWARE_FLOW_CONTROL_PRESENT = 1'b0
 		// Perform a simple/quick bounds check on the log FIFO length,
 		// to make sure its within the bounds we can support with our
 		// current interface.
 		
 		// }}}
 	) (
+
+		`ifdef USE_POWER_PINS
+    	input wire            vccd1,    // User area 1 1.8V supply
+   		input wire            vssd1,    // User area 1 digital ground
+		`endif
 		// {{{
 		input	wire		i_clk, i_reset,
 		// Wishbone inputs
