@@ -46,7 +46,7 @@ module wb_interconnect
     input	logic [31:0]   s0_wb_dat_i,
     input	logic 	       s0_wb_ack_i,
     output	wire  [31:0]   s0_wb_dat_o,
-    output	wire  [8:0]	   s0_wb_adr_o,
+    output	wire  [7:0]	   s0_wb_adr_o,
     output	wire  [3:0]	   s0_wb_sel_o,
     output	wire  	       s0_wb_we_o,
     output	wire  	       s0_wb_cyc_o,
@@ -121,7 +121,7 @@ wire [1:0] m0_wb_tid_i = m0_wb_adr_i[13:12];
 // Slave Mapping
 //---------------------------------------
 assign s0_wb_dat_o = m0_wb_dat_i_reg;
-assign s0_wb_adr_o = m0_wb_adr_reg[8:0];
+assign s0_wb_adr_o = m0_wb_adr_reg[7:0];
 assign s0_wb_sel_o = m0_wb_sel_reg;
 assign s0_wb_we_o  = m0_wb_we_reg;
 assign s0_wb_cyc_o = m0_wb_cyc_reg;

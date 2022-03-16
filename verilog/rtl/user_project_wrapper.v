@@ -82,40 +82,157 @@ module user_project_wrapper #(
 /* User project is instantiated  here   */
 /*--------------------------------------*/
 
-user_proj_example mprj (
+parameter WB_WIDTH        = 32; // WB ADDRESS/DATA WIDTH
+parameter SRAM_ADDR_WD    = 8;
+parameter SRAM_DATA_WD    = 32;
+
+//---------------------------------------------------------------------
+// WB Master Interface
+//---------------------------------------------------------------------
+wire rst_n = not(wb_rst_i);
+wire [`MPRJ_IO_PADS-1:0] io_in;
+wire [`MPRJ_IO_PADS-1:0] io_out;
+wire [`MPRJ_IO_PADS-1:0] io_oeb;
+
+//---------------------------------------------------------------------
+// SRAM
+//---------------------------------------------------------------------
+wire                       s0_wb_cyc_i;
+wire                       s0_wb_stb_i;
+wire [SRAM_ADDR_WD-1:0]    s0_wb_adr_i;
+wire                       s0_wb_we_i;
+wire [SRAM_DATA_WD-1:0]    s0_wb_dat_i;
+wire [SRAM_DATA_WD/8-1:0]  s0_wb_sel_i;
+wire [SRAM_DATA_WD-1:0]    s0_wb_dat_o;
+wire                       s0_wb_ack_o;
+
+// Port A
+wire                      sram_clk_a;
+wire                      sram_csb_a;
+wire [SRAM_ADDR_WD-1:0]   sram_addr_a;
+wire [SRAM_DATA_WD-1:0]   sram_dout_a;
+
+// Port B
+wire                      sram_clk_b;
+wire                      sram_csb_b;
+wire                      sram_web_b;
+wire [SRAM_DATA_WD/8-1:0] sram_mask_b;
+wire [SRAM_ADDR_WD-1:0]   sram_addr_b;
+wire [SRAM_DATA_WD-1:0]   sram_din_b;
+
+wb_interconnect interconnect
+(
 `ifdef USE_POWER_PINS
-	.vccd1(vccd1),	// User area 1 1.8V power
-	.vssd1(vssd1),	// User area 1 digital ground
+    .vccd1(vccd1),    // User area 1 1.8V supply
+    .vssd1(vssd1),    // User area 1 digital ground
 `endif
+    .clk_i(wb_clk_i),
+    .rst_n(rst_n),
 
-    .wb_clk_i(wb_clk_i),
-    .wb_rst_i(wb_rst_i),
+    // Master 0 Interface
+    .m0_wb_dat_i(wbs_dat_i),
+    .m0_wb_adr_i(wbs_adr_i),
+    .m0_wb_sel_i(wbs_sel_i),
+    .m0_wb_we_i (wbs_we_i),
+    .m0_wb_cyc_i(wbs_cyc_i),
+    .m0_wb_stb_i(wbs_stb_i),
+    .m0_wb_dat_o(wbs_dat_o),
+    .m0_wb_ack_o(wbs_ack_o),
 
-    // MGMT SoC Wishbone Slave
+    // Slave 0 Interface
+    .s0_wb_dat_i(sram_dout_a),
+    .s0_wb_ack_i(s0_wb_ack_o),
+    .s0_wb_dat_o(s0_wb_dat_i),
+    .s0_wb_adr_o(s0_wb_adr_i),
+    .s0_wb_sel_o(s0_wb_sel_i),
+    .s0_wb_we_o (s0_wb_we_i),
+    .s0_wb_cyc_o(s0_wb_cyc_i),
+    .s0_wb_stb_o(s0_wb_stb_i)
 
-    .wbs_cyc_i(wbs_cyc_i),
-    .wbs_stb_i(wbs_stb_i),
-    .wbs_we_i(wbs_we_i),
-    .wbs_sel_i(wbs_sel_i),
-    .wbs_adr_i(wbs_adr_i),
-    .wbs_dat_i(wbs_dat_i),
-    .wbs_ack_o(wbs_ack_o),
-    .wbs_dat_o(wbs_dat_o),
+    // Slave 1 Interface
+    // .s1_wb_dat_i(),
+    // .s1_wb_ack_i(),
+    // .s1_wb_dat_o(),
+    // .s1_wb_adr_o(),
+    // .s1_wb_sel_o(),
+    // .s1_wb_we_o (),
+    // .s1_wb_cyc_o(),
+    // .s1_wb_stb_o(),
 
-    // Logic Analyzer
+    // Slave 2 Interface
+    // .s2_wb_dat_i(),
+    // .s2_wb_ack_i(),
+    // .s2_wb_dat_o(),
+    // .s2_wb_adr_o(),
+    // .s2_wb_sel_o(),
+    // .s2_wb_we_o (),
+    // .s2_wb_cyc_o(),
+    // .s2_wb_stb_o(),
 
-    .la_data_in(la_data_in),
-    .la_data_out(la_data_out),
-    .la_oenb (la_oenb),
+    // Slave 3 Interface
+    // .s3_wb_dat_i(),
+    // .s3_wb_ack_i(),
+    // .s3_wb_dat_o(),
+    // .s3_wb_adr_o(),
+    // .s3_wb_sel_o(),
+    // .s3_wb_we_o (),
+    // .s3_wb_cyc_o(),
+    // .s3_wb_stb_o()
+);
 
-    // IO Pads
+sram_wb_wrapper #(
+`ifndef SYNTHESIS
+    .SRAM_ADDR_WD   (SRAM_ADDR_WD),
+    .SRAM_DATA_WD   (SRAM_DATA_WD) 
+`endif
+    )
+    wb_wrapper0 (
+`ifdef USE_POWER_PINS
+    .vccd1 (vccd1), // User area 1 1.8V supply
+    .vssd1 (vssd1), // User area 1 digital ground
+`endif
+    .rst_n(rst_n),
+    // Wishbone Interface
+    .wb_clk_i(wb_clk_i),     // System clock
+    .wb_cyc_i(s0_wb_cyc_i),  // cycle enable
+    .wb_stb_i(s0_wb_stb_i),  // strobe
+    .wb_adr_i(s0_wb_adr_i),  // address
+    .wb_we_i (s0_wb_we_i),   // write
+    .wb_dat_i(s0_wb_dat_i),  // data output
+    .wb_sel_i(s0_wb_sel_i),  // byte enable
+    // .wb_dat_o(s0_wb_dat_o),  // data input
+    .wb_ack_o(s0_wb_ack_o),  // acknowlegement
+    // SRAM Interface
+    // Port A
+    .sram_csb_a(sram_csb_a),
+    .sram_addr_a(sram_addr_a),
 
-    .io_in (io_in),
-    .io_out(io_out),
-    .io_oeb(io_oeb),
+    // Port B
+    .sram_csb_b(sram_csb_b),
+    .sram_web_b(sram_web_b),
+    .sram_mask_b(sram_mask_b),
+    .sram_addr_b(sram_addr_b),
+    .sram_din_b(sram_din_b)
+);
 
-    // IRQ
-    .irq(user_irq)
+sky130_sram_1kbyte_1rw1r_32x256_8 u_sram1_1kb(
+`ifdef USE_POWER_PINS
+    .vccd1 (vccd1), // User area 1 1.8V supply
+    .vssd1 (vssd1), // User area 1 digital ground
+`endif
+    // Port 0: RW
+    .clk0     (wb_clk_i),
+    .csb0     (sram_csb_b),
+    .web0     (sram_web_b),
+    .wmask0   (sram_mask_b),
+    .addr0    (sram_addr_b),
+    .din0     (sram_din_b),
+    .dout0    (),   // dont read from Port B
+    // Port 1: R
+    .clk1     (wb_clk_i),
+    .csb1     (sram_csb_a),
+    .addr1    (sram_addr_a),
+    .dout1    (sram_dout_a)
 );
 
 endmodule	// user_project_wrapper
