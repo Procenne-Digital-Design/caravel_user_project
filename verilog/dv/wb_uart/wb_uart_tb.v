@@ -20,7 +20,7 @@
 `define PER 20 // period
 
 
-module wb_port_tb;
+module wb_uart_tb;
   reg clock;
   reg RSTB;
   reg CSB;
@@ -106,8 +106,8 @@ module wb_port_tb;
 
   initial
   begin
-    $dumpfile("wb_port.vcd");
-    $dumpvars(0, wb_port_tb);
+    $dumpfile("wb_uart.vcd");
+    $dumpvars(0, wb_uart_tb);
 
     // Repeat cycles of 1000 clock edges as needed to complete testbench
     repeat (70)
@@ -220,7 +220,7 @@ module wb_port_tb;
           );
 
   spiflash #(
-             .FILENAME("wb_port.hex")
+             .FILENAME("wb_uart.hex")
            ) spiflash (
              .csb(flash_csb),
              .clk(flash_clk),
