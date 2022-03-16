@@ -89,7 +89,7 @@ parameter SRAM_DATA_WD    = 32;
 //---------------------------------------------------------------------
 // WB Master Interface
 //---------------------------------------------------------------------
-wire rst_n = not(wb_rst_i);
+wire rst_i = wb_rst_i;
 wire [`MPRJ_IO_PADS-1:0] io_in;
 wire [`MPRJ_IO_PADS-1:0] io_out;
 wire [`MPRJ_IO_PADS-1:0] io_oeb;
@@ -127,7 +127,7 @@ wb_interconnect interconnect
     .vssd1(vssd1),    // User area 1 digital ground
 `endif
     .clk_i(wb_clk_i),
-    .rst_n(rst_n),
+    .rst_i(rst_i),
 
     // Master 0 Interface
     .m0_wb_dat_i(wbs_dat_i),
@@ -191,7 +191,7 @@ sram_wb_wrapper #(
     .vccd1 (vccd1), // User area 1 1.8V supply
     .vssd1 (vssd1), // User area 1 digital ground
 `endif
-    .rst_n(rst_n),
+    .rst_i(rst_i),
     // Wishbone Interface
     .wb_clk_i(wb_clk_i),     // System clock
     .wb_cyc_i(s0_wb_cyc_i),  // cycle enable
