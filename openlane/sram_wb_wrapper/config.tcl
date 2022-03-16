@@ -4,7 +4,7 @@ set ::env(DESIGN_NAME) sram_wb_wrapper
 # Change if needed
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sram_wb_wrapper.sv"
+	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sram_wb_wrapper.v"
 
 # Fill this
 set ::env(CLOCK_PERIOD) "10.0"
@@ -24,6 +24,8 @@ if { [file exists $filename] == 1} {
 
 # set ::env(EXTRA_GDS_FILES) "\
 # 	$::env(DESIGN_DIR)/../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds"
+
+set ::env(RT_MAX_LAYER) {met4}
 
 # Preserve gate instances in the rtl of the design.
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1

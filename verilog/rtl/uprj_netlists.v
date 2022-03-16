@@ -23,7 +23,7 @@
     `include "gl/user_project_wrapper.v"
 `else
     `include "user_project_wrapper.v"
-    `include "wb_interconnect/wb_interconnect.sv"
-    `include "wb_interconnect/wb_signal_reg.sv"
-    `include "sram/sram_wb_wrapper.sv"
+    `include "wb_interconnect/wb_interconnect.v"
+    `include "wb_interconnect/wb_signal_reg.v"
+    `include "sram/sram_wb_wrapper.v"
 `endif

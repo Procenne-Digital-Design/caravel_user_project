@@ -7,14 +7,14 @@ MACRO sram_wb_wrapper
   FOREIGN sram_wb_wrapper ;
   ORIGIN 0.000 0.000 ;
   SIZE 400.000 BY 600.000 ;
-  PIN rst_n
+  PIN rst_i
     DIRECTION INPUT ;
     USE SIGNAL ;
     PORT
       LAYER met2 ;
         RECT 58.050 596.000 58.330 600.000 ;
     END
-  END rst_n
+  END rst_i
   PIN sram_addr_a[0]
     DIRECTION OUTPUT TRISTATE ;
     USE SIGNAL ;
