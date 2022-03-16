@@ -26,20 +26,20 @@ module sram_wb_wrapper #(
     parameter SRAM_DATA_WD = 32)
     (
 `ifdef USE_POWER_PINS
-    input   logic                       vccd1,    // User area 1 1.8V supply
-    input   logic                       vssd1,    // User area 1 digital ground
+    input   wire                       vccd1,    // User area 1 1.8V supply
+    input   wire                       vssd1,    // User area 1 digital ground
 `endif
-    input   logic                       rst_n,
+    input   wire                       rst_n,
     // Wishbone Interface
-    input   logic                       wb_clk_i,  // System clock
-    input   logic                       wb_cyc_i,  // strobe/request
-    input   logic                       wb_stb_i,  // strobe/request
-    input   logic [SRAM_ADDR_WD-1:0]    wb_adr_i,  // address
-    input   logic                       wb_we_i,   // write
-    input   logic [SRAM_DATA_WD-1:0]    wb_dat_i,  // data output
-    input   logic [SRAM_DATA_WD/8-1:0]  wb_sel_i,  // byte enable
+    input   wire                       wb_clk_i,  // System clock
+    input   wire                       wb_cyc_i,  // strobe/request
+    input   wire                       wb_stb_i,  // strobe/request
+    input   wire [SRAM_ADDR_WD-1:0]    wb_adr_i,  // address
+    input   wire                       wb_we_i,   // write
+    input   wire [SRAM_DATA_WD-1:0]    wb_dat_i,  // data output
+    input   wire [SRAM_DATA_WD/8-1:0]  wb_sel_i,  // byte enable
     // output  wire  [SRAM_DATA_WD-1:0]    wb_dat_o,  // data input
-    output  logic                       wb_ack_o,  // acknowlegement
+    output  wire                       wb_ack_o,  // acknowlegement
     // SRAM Interface
     // Port A
     output  wire                        sram_csb_a,

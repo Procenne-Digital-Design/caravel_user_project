@@ -256,11 +256,7 @@ sky130_sram_1kbyte_1rw1r_32x256_8 u_sram1_1kb(
 
 
 wbuart
-#(
-  .INITIAL_SETUP(31'd434 ), // 115200 baudrate for 50MHz clock
-  .LGFLEN(4'h4 ),
-  .HARDWARE_FLOW_CONTROL_PRESENT(1'b0 )
-)
+
 wbuart_dut (
   .i_clk (wb_clk_i ),
   .i_reset (wb_rst_i ),

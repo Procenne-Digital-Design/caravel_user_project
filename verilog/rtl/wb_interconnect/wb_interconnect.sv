@@ -26,25 +26,25 @@
 module wb_interconnect
 (
 `ifdef USE_POWER_PINS
-    input logic            vccd1,    // User area 1 1.8V supply
-    input logic            vssd1,    // User area 1 digital ground
+    input wire            vccd1,    // User area 1 1.8V supply
+    input wire            vssd1,    // User area 1 digital ground
 `endif
-    input logic		       clk_i,
-    input logic            rst_n,
+    input wire		       clk_i,
+    input wire            rst_n,
 
     // Master 0 Interface
-    input   logic [31:0]   m0_wb_dat_i,
-    input   logic [31:0]   m0_wb_adr_i,
-    input   logic [3:0]    m0_wb_sel_i,
-    input   logic          m0_wb_we_i,
-    input   logic          m0_wb_cyc_i,
-    input   logic          m0_wb_stb_i,
+    input   wire  [31:0]   m0_wb_dat_i,
+    input   wire  [31:0]   m0_wb_adr_i,
+    input   wire  [3:0]    m0_wb_sel_i,
+    input   wire           m0_wb_we_i,
+    input   wire           m0_wb_cyc_i,
+    input   wire           m0_wb_stb_i,
     output  wire  [31:0]   m0_wb_dat_o,
     output  wire	       m0_wb_ack_o,
 
     // Slave 0 Interface
-    input	logic [31:0]   s0_wb_dat_i,
-    input	logic 	       s0_wb_ack_i,
+    input	wire [31:0]   s0_wb_dat_i,
+    input	wire 	       s0_wb_ack_i,
     output	wire  [31:0]   s0_wb_dat_o,
     output	wire  [8:0]	   s0_wb_adr_o,
     output	wire  [3:0]	   s0_wb_sel_o,
@@ -53,8 +53,8 @@ module wb_interconnect
     output	wire  	       s0_wb_stb_o,
 
     // Slave 1 Interface
-    input	logic [31:0]   s1_wb_dat_i,
-    input	logic 	       s1_wb_ack_i,
+    input	wire [31:0]   s1_wb_dat_i,
+    input	wire 	       s1_wb_ack_i,
     output	wire  [31:0]   s1_wb_dat_o,
     output	wire  [8:0]    s1_wb_adr_o,
     output	wire  [3:0]	   s1_wb_sel_o,
@@ -83,15 +83,15 @@ module wb_interconnect
     // output	wire  	       s3_wb_stb_o
 );
 
-logic holding_busy; // Indicate Stagging for Free or not
 
-logic [31:0] m0_wb_dat_i_reg;
-logic [31:0] m0_wb_adr_reg;
-logic [3:0]	 m0_wb_sel_reg;
-logic  	     m0_wb_we_reg;
-logic  	     m0_wb_cyc_reg;
-logic  	     m0_wb_stb_reg;
-logic [1:0]  m0_wb_tid_reg;
+
+reg [31:0] m0_wb_dat_i_reg;
+reg [31:0] m0_wb_adr_reg;
+reg [3:0]	 m0_wb_sel_reg;
+reg  	     m0_wb_we_reg;
+reg  	     m0_wb_cyc_reg;
+reg  	     m0_wb_stb_reg;
+reg [1:0]  m0_wb_tid_reg;
 
 
 
