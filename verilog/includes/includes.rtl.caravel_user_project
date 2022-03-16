@@ -1,6 +1,5 @@
 # Caravel user project includes	     
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
--v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
 -v $(USER_PROJECT_VERILOG)/rtl/sram/sram_wb_wrapper.sv
 -v $(USER_PROJECT_VERILOG)/rtl/wb_interconnect/wb_interconnect.sv
 -v $(USER_PROJECT_VERILOG)/rtl/wb_interconnect/wb_signal_reg.sv
@@ -11,3 +10,4 @@
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/ufifo.v
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/skidbuffer.v
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/wbuart.v
+-v $(USER_PROJECT_VERILOG)/rtl/sram/sky130_sram_1kbyte_1rw1r_32x256_8.v
