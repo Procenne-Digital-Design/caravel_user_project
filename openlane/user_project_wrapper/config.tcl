@@ -52,8 +52,8 @@ set ::env(CLOCK_PERIOD) "25"
 set ::env(FP_PDN_MACRO_HOOKS) "\
 	interconnect vccd1 vssd1 \
 	wb_wrapper0  vccd1 vssd1 \
-	u_sram1_1kb  vccd1 vssd1"
-
+	u_sram1_1kb  vccd1 vssd1 \
+        wbuart_dut   vccd1 vssd1"
 ### Macro Placement
 set ::env(MACRO_PLACEMENT_CFG) $::env(DESIGN_DIR)/macro.cfg
 
@@ -91,16 +91,16 @@ set ::env(FP_PDN_CHECK_NODES) 0
 
 # The following is because there are no std cells in the example wrapper project.
 set ::env(SYNTH_TOP_LEVEL) 1
-set ::env(PL_RANDOM_GLB_PLACEMENT) 1
+#set ::env(PL_RANDOM_GLB_PLACEMENT) 1
 
-set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
-set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
-set ::env(PL_RESIZER_BUFFER_INPUT_PORTS) 0
-set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+#set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
+#set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
+#set ::env(PL_RESIZER_BUFFER_INPUT_PORTS) 0
+#set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
 
 set ::env(FP_PDN_ENABLE_RAILS) 0
 
-set ::env(DIODE_INSERTION_STRATEGY) 0
-set ::env(FILL_INSERTION) 0
-set ::env(TAP_DECAP_INSERTION) 0
-set ::env(CLOCK_TREE_SYNTH) 0
+set ::env(DIODE_INSERTION_STRATEGY) 4
+
+
+

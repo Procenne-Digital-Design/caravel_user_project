@@ -9,7 +9,6 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
   wire _5_;
   wire _6_;
   wire _7_;
-  wire _8_;
   inout [28:0] analog_io;
   input [37:0] io_in;
   output [37:0] io_oeb;
@@ -17,7 +16,6 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
   input [127:0] la_data_in;
   output [127:0] la_data_out;
   input [127:0] la_oenb;
-  wire rst_n;
   wire s0_wb_ack_o;
   wire \s0_wb_adr_i[0] ;
   wire \s0_wb_adr_i[1] ;
@@ -273,10 +271,6 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
   input [3:0] wbs_sel_i;
   input wbs_stb_i;
   input wbs_we_i;
-  \$not  _9_ (
-    .A(wb_rst_i),
-    .Y(rst_n)
-  );
   wb_interconnect \interconnect  (
     .clk_i(wb_clk_i),
     .m0_wb_ack_o(wbs_ack_o),
@@ -287,7 +281,7 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
     .m0_wb_sel_i(wbs_sel_i),
     .m0_wb_stb_i(wbs_stb_i),
     .m0_wb_we_i(wbs_we_i),
-    .rst_n(rst_n),
+    .rst(wb_rst_i),
     .s0_wb_ack_i(s0_wb_ack_o),
     .s0_wb_adr_o({ _7_, \s0_wb_adr_i[7] , \s0_wb_adr_i[6] , \s0_wb_adr_i[5] , \s0_wb_adr_i[4] , \s0_wb_adr_i[3] , \s0_wb_adr_i[2] , \s0_wb_adr_i[1] , \s0_wb_adr_i[0]  }),
     .s0_wb_cyc_o(s0_wb_cyc_i),
@@ -318,7 +312,7 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
     .wmask0({ \sram_mask_b[3] , \sram_mask_b[2] , \sram_mask_b[1] , \sram_mask_b[0]  })
   );
   sram_wb_wrapper wb_wrapper0 (
-    .rst_n(rst_n),
+    .rst(wb_rst_i),
     .sram_addr_a({ \sram_addr_a[7] , \sram_addr_a[6] , \sram_addr_a[5] , \sram_addr_a[4] , \sram_addr_a[3] , \sram_addr_a[2] , \sram_addr_a[1] , \sram_addr_a[0]  }),
     .sram_addr_b({ \sram_addr_b[7] , \sram_addr_b[6] , \sram_addr_b[5] , \sram_addr_b[4] , \sram_addr_b[3] , \sram_addr_b[2] , \sram_addr_b[1] , \sram_addr_b[0]  }),
     .sram_csb_a(sram_csb_a),
@@ -350,6 +344,5 @@ module user_project_wrapper(wb_clk_i, wb_rst_i, wbs_stb_i, wbs_cyc_i, wbs_we_i, 
     .o_wb_ack(s1_wb_ack_o),
     .o_wb_data({ \s1_wb_dat_o[31] , \s1_wb_dat_o[30] , \s1_wb_dat_o[29] , \s1_wb_dat_o[28] , \s1_wb_dat_o[27] , \s1_wb_dat_o[26] , \s1_wb_dat_o[25] , \s1_wb_dat_o[24] , \s1_wb_dat_o[23] , \s1_wb_dat_o[22] , \s1_wb_dat_o[21] , \s1_wb_dat_o[20] , \s1_wb_dat_o[19] , \s1_wb_dat_o[18] , \s1_wb_dat_o[17] , \s1_wb_dat_o[16] , \s1_wb_dat_o[15] , \s1_wb_dat_o[14] , \s1_wb_dat_o[13] , \s1_wb_dat_o[12] , \s1_wb_dat_o[11] , \s1_wb_dat_o[10] , \s1_wb_dat_o[9] , \s1_wb_dat_o[8] , \s1_wb_dat_o[7] , \s1_wb_dat_o[6] , \s1_wb_dat_o[5] , \s1_wb_dat_o[4] , \s1_wb_dat_o[3] , \s1_wb_dat_o[2] , \s1_wb_dat_o[1] , \s1_wb_dat_o[0]  })
   );
-  assign _8_ = rst_n;
   assign io_oeb = 38'b00000000000000000000000000000000000000;
 endmodule

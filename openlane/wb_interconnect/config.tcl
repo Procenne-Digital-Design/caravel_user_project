@@ -18,7 +18,7 @@ set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 400 1200"
+set ::env(DIE_AREA) "0 0 200 400"
 
 set ::env(PL_BASIC_PLACEMENT) 1
 set ::env(PL_TARGET_DENSITY) 0.50

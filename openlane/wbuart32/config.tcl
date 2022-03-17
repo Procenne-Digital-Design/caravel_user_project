@@ -8,7 +8,7 @@ set ::env(VERILOG_FILES) "\
         $::env(DESIGN_DIR)/../../verilog/rtl/wbuart32/*.v"
 
 # Fill this
-set ::env(CLOCK_PERIOD) "20.0"
+set ::env(CLOCK_PERIOD) "25.0"
 set ::env(CLOCK_PORT) "i_clk"
 
 set ::env(PDK) "sky130A"
@@ -17,7 +17,7 @@ set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 # Preserve gate instances in the rtl of the design.
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 1200 3600"
+set ::env(DIE_AREA) "0 0 400 800"
 
 set ::env(PL_BASIC_PLACEMENT) 0
 set ::env(PL_TARGET_DENSITY) 0.60
