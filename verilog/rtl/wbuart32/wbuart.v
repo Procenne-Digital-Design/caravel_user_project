@@ -41,7 +41,7 @@
 //
 `default_nettype none
 // }}}
-`define	USE_LITE_UART
+//`define	USE_LITE_UART
 module	wbuart #(
 		// {{{
 		// 4MB 8N1, when using 100MHz clock
@@ -56,8 +56,8 @@ module	wbuart #(
 	) (
 
 		`ifdef USE_POWER_PINS
-    	input wire            vccd1,    // User area 1 1.8V supply
-   		input wire            vssd1,    // User area 1 digital ground
+    	inout wire            vccd1,    // User area 1 1.8V supply
+   		inout wire            vssd1,    // User area 1 digital ground
 		`endif
 		// {{{
 		input	wire		i_clk, i_reset,
@@ -429,7 +429,7 @@ module	wbuart #(
 	// time (tx_empty_n) and (!tx_busy) are both true---the condition for
 	// starting to transmit a new byte.)
 	txuart	#(.INITIAL_SETUP(INITIAL_SETUP)) tx(i_clk, 1'b0, uart_setup,
-			r_tx_break, (tx_empty_n), tx_data,
+			r_tx_break, txf_wb_write, txf_wb_data,
 			cts_n, o_uart_tx, tx_busy);
 	// }}}
 `endif

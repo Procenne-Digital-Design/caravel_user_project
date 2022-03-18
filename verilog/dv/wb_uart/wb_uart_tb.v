@@ -112,7 +112,7 @@ module wb_uart_tb;
     // Repeat cycles of 1000 clock edges as needed to complete testbench
     repeat (70)
     begin
-      repeat (5000) @(posedge clock);
+      repeat (10000) @(posedge clock);
       // $display("+1000 cycles");
     end
     $display("%c[1;31m",27);
@@ -127,7 +127,7 @@ module wb_uart_tb;
     $finish;
   end
 
-  assign rx = uut.mprj.mprj.wbuart_dut.o_uart_tx;
+  assign rx = uut.mprj.io_out[16];
 
   initial
   begin

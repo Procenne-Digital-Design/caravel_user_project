@@ -115,7 +115,7 @@ void main()
             rx_status = reg_UART_FIFO & 0x00000001;
 
 
-    } while (period < 10 && lfsr != seed && reg_UART_RX_DATA == data);
+    } while (period < 2 && lfsr != seed && reg_UART_RX_DATA == data);
 
     reg_mprj_datal = 0xAB700000;
     
