@@ -93,24 +93,24 @@ void main()
     // Flag start of the test
     reg_mprj_datal = 0xAB600000;
 
-    // sram_offset = 0x11223344;
-    // *((&sram_offset)+1) = 0x11234758;
+    sram_offset = 0x11223344;
+
+    reg_mprj_datal = 0x0000FF00;
 
     // if (sram_offset == 0x11223344){
-    //     if (*((&sram_offset)+1) == 0x11234758)
-    //         reg_mprj_datal = 0x0000FF00;
+    //     reg_mprj_datal = 0x0000FF00;
     // }
 
     // Write software Write & Read Register
-    for(int i = 0; i < number_of_test; i++){
-        *((&sram_offset)+i) = 0x11223344 + i;
-    }
+    // for(int i = 0; i < number_of_test; i++){
+    //     *((&sram_offset)+i) = 0x11223344 + i;
+    // }
 
     // reg_mprj_datal = 0x0000FF00 - (0x100 * number_of_test);
-    for(int i = 0; i < number_of_test; i++){
-        if (*((&sram_offset)+i) != (0x11223344 + i))
-            fail = 1;
-    }
-    if (fail == 0)
-        reg_mprj_datal = 0x0000FF00;
+//     for(int i = 0; i < number_of_test; i++){
+//         if (*((&sram_offset)+i) != (0x11223344 + i))
+//             fail = 1;
+//     }
+//     if (fail == 0)
+//         reg_mprj_datal = 0x0000FF00;
 }

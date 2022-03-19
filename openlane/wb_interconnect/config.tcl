@@ -21,7 +21,7 @@ set ::env(RT_MAX_LAYER) {met4}
 set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 400 800"
+set ::env(DIE_AREA) "0 0 300 400"
 
 set ::env(PL_BASIC_PLACEMENT) 1
 set ::env(PL_TARGET_DENSITY) 0.50
