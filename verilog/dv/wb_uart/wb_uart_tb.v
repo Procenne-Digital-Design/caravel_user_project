@@ -20,26 +20,26 @@
 `define PER 20 // period
 
 
-module wb_uart_tb;
-  reg clock;
-  reg RSTB;
-  reg CSB;
+module wb_uart_tb ();
+  reg clock ;
+  reg RSTB  ;
+  reg CSB   ;
   reg power1, power2;
   reg power3, power4;
 
-  wire gpio;
-  wire [37:0] mprj_io;
-  wire [7:0] mprj_io_0;
+  wire        gpio     ;
+  wire [37:0] mprj_io  ;
+  wire [ 7:0] mprj_io_0;
   wire [15:0] checkbits;
 
 
-  integer fd;
+  integer fd ;
   integer tmp;
 
   reg [8*10:0] uart_data_in = "de 1b2";
 
   reg [23:0] dec_baud;
-  reg [7:0] dec_data;
+  reg [ 7:0] dec_data;
 
 
   reg [7:0] tx_data;
@@ -54,17 +54,17 @@ module wb_uart_tb;
       rx_pin = 1'b0;
       #(`PER*baud_clk);
       for ( i=0 ;i<8; i=i+1 )
-      begin : for_block
-        rx_pin = tx_data[i];
-        #(`PER*baud_clk);
-        rx_pin = 1'b1;
-      end
+        begin : for_block
+          rx_pin = tx_data[i];
+          #(`PER*baud_clk);
+          rx_pin = 1'b1;
+        end
     end
   endtask
 
-  wire rx ;
-  reg [23:0] baud_clk = 24'd434;
-  reg [7:0] rx_data = 8'd0;
+  wire        rx                ;
+  reg  [23:0] baud_clk = 24'd434;
+  reg  [ 7:0] rx_data  = 8'd0   ;
 
   task uart_receive;
     begin : rx_block
@@ -76,10 +76,10 @@ module wb_uart_tb;
       #(`PER*baud_clk);
       //Read data
       for ( i=0 ;i<8 ;i++ )
-      begin : rx_for_blk
-        rx_data = {rx, rx_data[7:1]};
-        #(`PER*baud_clk);
-      end
+        begin : rx_for_blk
+          rx_data = {rx, rx_data[7:1]};
+          #(`PER*baud_clk);
+        end
     end
   endtask
 
@@ -100,82 +100,90 @@ module wb_uart_tb;
   always #(`PER/2) clock <= (clock === 1'b0);
 
   initial
-  begin
-    clock = 0;
-  end
+    begin
+      clock = 0;
+    end
 
   initial
-  begin
-    $dumpfile("wb_uart.vcd");
-    $dumpvars(0, wb_uart_tb);
-
-    // Repeat cycles of 1000 clock edges as needed to complete testbench
-    repeat (70)
     begin
-      repeat (10000) @(posedge clock);
-      // $display("+1000 cycles");
-    end
-    $display("%c[1;31m",27);
+      $dumpfile("wb_uart.vcd");
+      $dumpvars(0, wb_uart_tb);
+
+      // Repeat cycles of 1000 clock edges as needed to complete testbench
+      repeat (70)
+        begin
+          repeat (10000) @(posedge clock);
+          // $display("+1000 cycles");
+        end
+      $display("%c[1;31m",27);
 `ifdef GL
 
-    $display ("Monitor: Timeout, Test Mega-Project WB Port (GL) Failed");
+      $display ("Monitor: Timeout, Test Mega-Project WB Port (GL) Failed");
 `else
-    $display ("Monitor: Timeout, Test Mega-Project WB Port (RTL) Failed");
+      $display ("Monitor: Timeout, Test Mega-Project WB Port (RTL) Failed");
 `endif
 
-    $display("%c[0m",27);
-    $finish;
-  end
+      $display("%c[0m",27);
+      $finish;
+    end
 
   assign rx = uut.mprj.io_out[16];
 
   initial
-  begin
-    wait(checkbits[15:4] == 12'hAB6);
-    $display("Monitor: MPRJ-Logic WB Started");
-    while(checkbits[15:4] != 12'hAB7)
     begin
+      wait(checkbits[15:4] == 12'hAB6);
+      $display("Monitor: MPRJ-Logic WB Started");
+      while(checkbits[15:4] != 12'hAB7)
+        begin
 
-      uart_receive();
-      tx_data = rx_data;
-      uart_send();
+          uart_receive();
+          tx_data = rx_data;
+          uart_send();
+
+        end
 
     end
-    
-  end
 
 
   initial
-  begin
-	wait(checkbits[15:4] == 12'hAB7);
-`ifdef GL
-      $display("Monitor: Mega-Project WB (GL) Passed");
-`else
-      $display("Monitor: Mega-Project WB (RTL) Passed");
-`endif
-    $finish;
-  end
+    begin
+      wait(checkbits[15:4] == 12'hAB7 || checkbits[15:4] == 12'hAB8 );
 
-
-  initial
-  begin
-    RSTB <= 1'b0;
-    CSB  <= 1'b1;		// Force CSB high
-    #2000;
-    RSTB <= 1'b1;	    	// Release reset
-    #100000;
-    CSB = 1'b0;		// CSB can be released
-  end
+      if(checkbits[15:4] == 12'hAB8)
+        begin
+          $display("SRAM failed!");
+          $finish;
+        end
+        else
+          begin
+    `ifdef GL
+            $display("Monitor: Mega-Project WB (GL) Passed");
+    `else
+            $display("Monitor: Mega-Project WB (RTL) Passed");
+    `endif
+            $finish;
+          end
+    end
 
   initial
-  begin		// Power-up sequence
-    power1 <= 1'b0;
-    power2 <= 1'b0;
-    #200;
-    power1 <= 1'b1;
-    #200;
-    power2 <= 1'b1;
-  end
+    begin
+      RSTB <= 1'b0;
+      CSB  <= 1'b1;		// Force CSB high
+      #2000;
+      RSTB <= 1'b1;	    	// Release reset
+      #100000;
+      CSB = 1'b0;		// CSB can be released
+    end
+
+  initial
+    begin		// Power-up sequence
+      power1 <= 1'b0;
+      power2 <= 1'b0;
+      #200;
+      power1 <= 1'b1;
+      #200;
+      power2 <= 1'b1;
+    end
 
 
 
@@ -184,51 +192,49 @@ module wb_uart_tb;
   wire flash_io0;
   wire flash_io1;
 
-  wire VDD3V3 = power1;
-  wire VDD1V8 = power2;
+  wire VDD3V3      = power1;
+  wire VDD1V8      = power2;
   wire USER_VDD3V3 = power3;
   wire USER_VDD1V8 = power4;
-  wire VSS = 1'b0;
+  wire VSS         = 1'b0  ;
 
   caravel uut (
-            .vddio	  (VDD3V3),
-            .vddio_2  (VDD3V3),
-            .vssio	  (VSS),
-            .vssio_2  (VSS),
-            .vdda	  (VDD3V3),
-            .vssa	  (VSS),
-            .vccd	  (VDD1V8),
-            .vssd	  (VSS),
-            .vdda1    (VDD3V3),
-            .vdda1_2  (VDD3V3),
-            .vdda2    (VDD3V3),
-            .vssa1	  (VSS),
-            .vssa1_2  (VSS),
-            .vssa2	  (VSS),
-            .vccd1	  (VDD1V8),
-            .vccd2	  (VDD1V8),
-            .vssd1	  (VSS),
-            .vssd2	  (VSS),
-            .clock    (clock),
-            .gpio     (gpio),
-            .mprj_io  (mprj_io),
-            .flash_csb(flash_csb),
-            .flash_clk(flash_clk),
-            .flash_io0(flash_io0),
-            .flash_io1(flash_io1),
-            .resetb	  (RSTB)
-          );
+    .vddio    (VDD3V3   ),
+    .vddio_2  (VDD3V3   ),
+    .vssio    (VSS      ),
+    .vssio_2  (VSS      ),
+    .vdda     (VDD3V3   ),
+    .vssa     (VSS      ),
+    .vccd     (VDD1V8   ),
+    .vssd     (VSS      ),
+    .vdda1    (VDD3V3   ),
+    .vdda1_2  (VDD3V3   ),
+    .vdda2    (VDD3V3   ),
+    .vssa1    (VSS      ),
+    .vssa1_2  (VSS      ),
+    .vssa2    (VSS      ),
+    .vccd1    (VDD1V8   ),
+    .vccd2    (VDD1V8   ),
+    .vssd1    (VSS      ),
+    .vssd2    (VSS      ),
+    .clock    (clock    ),
+    .gpio     (gpio     ),
+    .mprj_io  (mprj_io  ),
+    .flash_csb(flash_csb),
+    .flash_clk(flash_clk),
+    .flash_io0(flash_io0),
+    .flash_io1(flash_io1),
+    .resetb   (RSTB     )
+  );
 
-  spiflash #(
-             .FILENAME("wb_uart.hex")
-           ) spiflash (
-             .csb(flash_csb),
-             .clk(flash_clk),
-             .io0(flash_io0),
-             .io1(flash_io1),
-             .io2(),			// not used
-             .io3()			// not used
-           );
+  spiflash #(.FILENAME("wb_uart.hex")) spiflash (
+    .csb(flash_csb),
+    .clk(flash_clk),
+    .io0(flash_io0),
+    .io1(flash_io1),
+    .io2(         ), // not used
+    .io3(         )  // not used
+  );
 
 
 

@@ -1,6 +1,9 @@
 # User config
 set ::env(DESIGN_NAME) user_proj_example
 
+
+set script_dir [file dirname [file normalize [info script]]]
+
 # Change if needed
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
@@ -14,10 +17,20 @@ set ::env(VERILOG_FILES) "\
 # Fill this
 set ::env(CLOCK_PERIOD) "20.0"
 set ::env(CLOCK_PORT) "wb_clk_i"
+set ::env(CLOCK_NET) "wb_clk_i"
+
 
 set ::env(PDK) "sky130A"
 set ::env(STD_CELL_LIBRARY) "sky130_fd_sc_hd"
 
+set ::env(DESIGN_IS_CORE) 0
+
+set ::env(FP_PIN_ORDER_CFG) $script_dir/pin_order.cfg
+
+
+set ::env(SYNTH_MAX_FANOUT) 4
+set ::env(SYNTH_DRIVING_CELL) "sky130_fd_sc_hd__inv_8"
+set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
 # Preserve gate instances in the rtl of the design.
 
@@ -30,8 +43,8 @@ set ::env(PL_TARGET_DENSITY) 0.50
 
 set ::env(VDD_PIN) [list {vccd1}]
 set ::env(GND_PIN) [list {vssd1}]
-set ::env(GLB_RT_MAXLAYER) 5
-#set ::env(RT_MAX_LAYER) {met4}
+#set ::env(GLB_RT_MAXLAYER) 5
+set ::env(RT_MAX_LAYER) {met4}
 #set ::env(DIODE_INSERTION_STRATEGY) 4
 set ::env(RUN_CVC) 1
 set ::env(ROUTING_CORES) "8"

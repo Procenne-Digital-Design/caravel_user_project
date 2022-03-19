@@ -72,8 +72,8 @@ module user_project_wrapper #(parameter BITS = 32) (
 
 
 
-  wire [ 7:0] sram_addr_a;
-  wire [ 7:0] sram_addr_b;
+  wire [ 8:0] sram_addr_a;
+  wire [ 8:0] sram_addr_b;
   wire [31:0] sram_dout_a;
   wire [31:0] sram_dout_b;
   wire [31:0] sram_din_a ;
@@ -114,13 +114,12 @@ module user_project_wrapper #(parameter BITS = 32) (
     .sram_web_b (sram_web_b ),
     .sram_mask_b(sram_mask_b),
     .sram_addr_b(sram_addr_b),
-    .sram_din_b (sram_din_b ),
-    .sram_dout_b(sram_dout_b)
+    .sram_din_b (sram_din_b )
   );
 
 
 
-  sky130_sram_1kbyte_1rw1r_32x256_8 u_sram1_1kb (
+  sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb (
     `ifdef USE_POWER_PINS
     .vccd1 (vccd1      ), // User area 1 1.8V supply
     .vssd1 (vssd1      ), // User area 1 digital ground
@@ -132,7 +131,7 @@ module user_project_wrapper #(parameter BITS = 32) (
     .wmask0(sram_mask_b),
     .addr0 (sram_addr_b),
     .din0  (sram_din_b ),
-    .dout0 (sram_dout_b),
+    .dout0 (),
     // Port 1: R
     .clk1  (wb_clk_i   ),
     .csb1  (sram_csb_a ),

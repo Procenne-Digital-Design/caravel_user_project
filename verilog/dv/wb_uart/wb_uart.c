@@ -26,6 +26,8 @@
         - Checks counter value through the wishbone port
 */
 
+#define reg_SRAM ((volatile uint32_t *)0x30000000)
+
 #define reg_UART_SETUP (*(volatile uint32_t *)0x30001000)
 #define reg_UART_FIFO (*(volatile uint32_t *)0x30001004)
 #define reg_UART_RX_DATA (*(volatile uint32_t *)0x30001008)
@@ -79,6 +81,21 @@ void main()
     reg_mprj_io_16 = GPIO_MODE_USER_STD_OUTPUT;
     reg_mprj_io_15 = GPIO_MODE_USER_STD_INPUT_NOPULL;
     // reg_mprj_io_14 = GPIO_MODE_MGMT_STD_OUTPUT;
+
+
+
+    //Verify SRAM
+    for (int i = 0; i < 32; i++)
+    {
+       *(reg_SRAM+(i*4)) = i*1024;
+    }
+
+    for (int i = 0; i < 32; i++)
+    {
+       if(*(reg_SRAM+(i*4)) != i * 1024 )
+        reg_mprj_datal = 0xAB800000;
+    }
+    
 
 
     /* Apply configuration */

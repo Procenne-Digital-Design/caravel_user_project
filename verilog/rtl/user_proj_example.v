@@ -63,22 +63,21 @@ module user_proj_example #(parameter BITS = 32) (
   output [              2:0] irq        ,
   // Port A
   output                     sram_csb_a ,
-  output [              7:0] sram_addr_a,
+  output [              8:0] sram_addr_a,
   input  [             31:0] sram_dout_a,
   // Port B
   output                     sram_csb_b ,
   output                     sram_web_b ,
   output [              3:0] sram_mask_b,
-  output [              7:0] sram_addr_b,
-  output [             31:0] sram_din_b,
-  output [             31:0] sram_dout_b
+  output [              8:0] sram_addr_b,
+  output [             31:0] sram_din_b
 );
   /*--------------------------------------*/
   /* User project is instantiated  here   */
   /*--------------------------------------*/
 
   localparam WB_WIDTH     = 32; // WB ADDRESS/DATA WIDTH
-  localparam SRAM_ADDR_WD = 8 ;
+  localparam SRAM_ADDR_WD = 9 ;
   localparam SRAM_DATA_WD = 32;
   localparam UART_ADDR_WD = 2 ;
   localparam UART_DATA_WD = 32;
@@ -108,7 +107,7 @@ module user_proj_example #(parameter BITS = 32) (
   //---------------------------------------------------------------------
   wire                      s1_wb_cyc_i;
   wire                      s1_wb_stb_i;
-  wire [  UART_ADDR_WD-1:0] s1_wb_adr_i;
+  wire [               8:0] s1_wb_adr_o;
   wire                      s1_wb_we_i ;
   wire [  UART_DATA_WD-1:0] s1_wb_dat_i;
   wire [UART_DATA_WD/8-1:0] s1_wb_sel_i;
@@ -117,7 +116,8 @@ module user_proj_example #(parameter BITS = 32) (
 
 
 
-
+  wire [8:0] concat_s0_addr;
+  wire [8:0] concat_s1_addr;
 
 
   wb_interconnect interconnect (
@@ -139,7 +139,7 @@ module user_proj_example #(parameter BITS = 32) (
     .m0_wb_ack_o(wbs_ack_o  ),
     
     // Slave 0 Interface
-    .s0_wb_dat_i(s0_wb_dat_o),
+    .s0_wb_dat_i(sram_dout_a),
     .s0_wb_ack_i(s0_wb_ack_o),
     .s0_wb_dat_o(s0_wb_dat_i),
     .s0_wb_adr_o(s0_wb_adr_i),
@@ -152,7 +152,7 @@ module user_proj_example #(parameter BITS = 32) (
     .s1_wb_dat_i(s1_wb_dat_o),
     .s1_wb_ack_i(s1_wb_ack_o),
     .s1_wb_dat_o(s1_wb_dat_i),
-    .s1_wb_adr_o(s1_wb_adr_i),
+    .s1_wb_adr_o(s1_wb_adr_o),
     .s1_wb_sel_o(s1_wb_sel_i),
     .s1_wb_we_o (s1_wb_we_i ),
     .s1_wb_cyc_o(s1_wb_cyc_i),
@@ -179,6 +179,7 @@ module user_proj_example #(parameter BITS = 32) (
     // .s3_wb_stb_o()
   );
 
+
   sram_wb_wrapper #(
     `ifndef SYNTHESIS
     .SRAM_ADDR_WD(SRAM_ADDR_WD),
@@ -198,7 +199,7 @@ module user_proj_example #(parameter BITS = 32) (
     .wb_we_i    (s0_wb_we_i ), // write
     .wb_dat_i   (s0_wb_dat_i), // data output
     .wb_sel_i   (s0_wb_sel_i), // byte enable
-    // .wb_dat_o(s0_wb_dat_o),  // data input
+    //.wb_dat_o(s0_wb_dat_o),  // data input
     .wb_ack_o   (s0_wb_ack_o), // acknowlegement
     // SRAM Interface
     // Port A
@@ -214,36 +215,34 @@ module user_proj_example #(parameter BITS = 32) (
   );
 
   assign io_oeb = {(`MPRJ_IO_PADS){1'b0}};
-  assign io_out[14] = |sram_dout_b;
-
 
 
 
   wbuart wbuart_dut (
     `ifdef USE_POWER_PINS
-    .vccd1      (vccd1      ), // User area 1 1.8V supply
-    .vssd1      (vssd1      ), // User area 1 digital ground
+    .vccd1            (vccd1           ), // User area 1 1.8V supply
+    .vssd1            (vssd1           ), // User area 1 digital ground
     `endif
-    .i_clk            (wb_clk_i   ),
-    .i_reset          (wb_rst_i   ),
-    .i_wb_cyc         (s1_wb_cyc_i),
-    .i_wb_stb         (s1_wb_stb_i),
-    .i_wb_we          (s1_wb_we_i ),
-    .i_wb_addr        (s1_wb_adr_i),
-    .i_wb_data        (s1_wb_dat_i),
-    .i_wb_sel         (s1_wb_sel_i),
-    .o_wb_stall       (           ),
-    .o_wb_ack         (s1_wb_ack_o),
-    .o_wb_data        (s1_wb_dat_o),
-    .i_uart_rx        (io_in[15]  ),
-    .o_uart_tx        (io_out[16] ),
-    .i_cts_n          (1'b0       ),
-    .o_rts_n          (           ),
-    .o_uart_rx_int    (           ),
-    .o_uart_tx_int    (           ),
-    .o_uart_rxfifo_int(           ),
-    .o_uart_txfifo_int(           )
+    .i_clk            (wb_clk_i        ),
+    .i_reset          (wb_rst_i        ),
+    .i_wb_cyc         (s1_wb_cyc_i     ),
+    .i_wb_stb         (s1_wb_stb_i     ),
+    .i_wb_we          (s1_wb_we_i      ),
+    .i_wb_addr        (s1_wb_adr_o[1:0]),
+    .i_wb_data        (s1_wb_dat_i     ),
+    .i_wb_sel         (s1_wb_sel_i     ),
+    .o_wb_stall       (                ),
+    .o_wb_ack         (s1_wb_ack_o     ),
+    .o_wb_data        (s1_wb_dat_o     ),
+    .i_uart_rx        (io_in[15]       ),
+    .o_uart_tx        (io_out[16]      ),
+    .i_cts_n          (1'b0            ),
+    .o_rts_n          (                ),
+    .o_uart_rx_int    (                ),
+    .o_uart_tx_int    (                ),
+    .o_uart_rxfifo_int(                ),
+    .o_uart_txfifo_int(                )
   );
-  
+
 endmodule
 `default_nettype wire
