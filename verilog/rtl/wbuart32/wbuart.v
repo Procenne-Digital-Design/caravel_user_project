@@ -428,7 +428,7 @@ module	wbuart #(
 	// we read it here.  (You might notice above, we register a read any
 	// time (tx_empty_n) and (!tx_busy) are both true---the condition for
 	// starting to transmit a new byte.)
-	txuart	#(.INITIAL_SETUP(INITIAL_SETUP)) tx(i_clk, 1'b0, uart_setup,
+	txuart	#(.INITIAL_SETUP(INITIAL_SETUP)) tx(i_clk, i_reset, uart_setup,
 			r_tx_break, txf_wb_write, txf_wb_data,
 			cts_n, o_uart_tx, tx_busy);
 	// }}}
