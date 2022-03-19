@@ -85,16 +85,16 @@ void main()
 
 
     //Verify SRAM
-    for (int i = 0; i < 32; i++)
-    {
-       *(reg_SRAM+(i*4)) = i*1024;
-    }
+    // for (int i = 0; i < 32; i++)
+    // {
+    //    *(reg_SRAM+(i*4)) = i*1024;
+    // }
 
-    for (int i = 0; i < 32; i++)
-    {
-       if(*(reg_SRAM+(i*4)) != i * 1024 )
-        reg_mprj_datal = 0xAB800000;
-    }
+    // for (int i = 0; i < 32; i++)
+    // {
+    //    if(*(reg_SRAM+(i*4)) != i * 1024 )
+    //     reg_mprj_datal = 0xAB800000;
+    // }
     
 
 

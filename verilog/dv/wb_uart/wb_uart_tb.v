@@ -169,7 +169,7 @@ module wb_uart_tb ();
     begin
       RSTB <= 1'b0;
       CSB  <= 1'b1;		// Force CSB high
-      #2000;
+      #10000;
       RSTB <= 1'b1;	    	// Release reset
       #100000;
       CSB = 1'b0;		// CSB can be released
