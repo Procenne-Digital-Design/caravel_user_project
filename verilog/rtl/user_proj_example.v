@@ -109,10 +109,24 @@ module user_proj_example #(parameter BITS = 32) (
   wire                      s1_wb_stb_i;
   wire [               8:0] s1_wb_adr_o;
   wire                      s1_wb_we_i ;
-  wire [  UART_DATA_WD-1:0] s1_wb_dat_i;
+  wire [  WB_WIDTH-1:0] s1_wb_dat_i;
   wire [UART_DATA_WD/8-1:0] s1_wb_sel_i;
-  wire [  UART_DATA_WD-1:0] s1_wb_dat_o;
+  wire [  WB_WIDTH-1:0] s1_wb_dat_o;
   wire                      s1_wb_ack_o;
+
+
+
+  //---------------------------------------------------------------------
+  // SPI
+  //---------------------------------------------------------------------
+  wire                s3_wb_cyc_i;
+  wire                s3_wb_stb_i;
+  wire [         8:0] s3_wb_adr_o;
+  wire                s3_wb_we_i ;
+  wire [WB_WIDTH-1:0] s3_wb_dat_i;
+  //wire [UART_DATA_WD/8-1:0] s3_wb_sel_i;
+  wire [WB_WIDTH-1:0] s3_wb_dat_o;
+  wire                s3_wb_ack_o;
 
 
 
@@ -156,7 +170,7 @@ module user_proj_example #(parameter BITS = 32) (
     .s1_wb_sel_o(s1_wb_sel_i),
     .s1_wb_we_o (s1_wb_we_i ),
     .s1_wb_cyc_o(s1_wb_cyc_i),
-    .s1_wb_stb_o(s1_wb_stb_i)
+    .s1_wb_stb_o(s1_wb_stb_i),
     
     // Slave 2 Interface
     // .s2_wb_dat_i(),
@@ -169,14 +183,14 @@ module user_proj_example #(parameter BITS = 32) (
     // .s2_wb_stb_o(),
     
     // Slave 3 Interface
-    // .s3_wb_dat_i(),
-    // .s3_wb_ack_i(),
-    // .s3_wb_dat_o(),
-    // .s3_wb_adr_o(),
-    // .s3_wb_sel_o(),
-    // .s3_wb_we_o (),
-    // .s3_wb_cyc_o(),
-    // .s3_wb_stb_o()
+    .s3_wb_dat_i(s3_wb_dat_o),
+    .s3_wb_ack_i(s3_wb_ack_o),
+    .s3_wb_dat_o(s3_wb_dat_i),
+    .s3_wb_adr_o(s3_wb_adr_o),
+    .s3_wb_sel_o(),
+    .s3_wb_we_o (s3_wb_we_i ),
+    .s3_wb_cyc_o(s3_wb_cyc_i),
+    .s3_wb_stb_o(s3_wb_stb_i)
   );
 
 
@@ -218,7 +232,7 @@ module user_proj_example #(parameter BITS = 32) (
 
 
 
-  wbuart wbuart_dut (
+  wbuart wbuart_inst (
     `ifdef USE_POWER_PINS
     .vccd1            (vccd1           ), // User area 1 1.8V supply
     .vssd1            (vssd1           ), // User area 1 digital ground
@@ -243,6 +257,35 @@ module user_proj_example #(parameter BITS = 32) (
     .o_uart_rxfifo_int(                ),
     .o_uart_txfifo_int(                )
   );
+
+
+  tiny_spi #(
+    .BAUD_WIDTH(0),
+    .BAUD_DIV  (8),
+    .SPI_MODE  (0),
+    .BC_WIDTH  (3),
+    .DIV_WIDTH (2),
+    .IDLE      (0)
+  ) tiny_spi_inst (
+    `ifdef USE_POWER_PINS
+    .vccd1(vccd1           ), // User area 1 1.8V supply
+    .vssd1(vssd1           ), // User area 1 digital ground
+    `endif
+    .rst_i(wb_rst_i        ),
+    .clk_i(wb_clk_i        ),
+    .stb_i(s3_wb_stb_i     ),
+    .we_i (s3_wb_we_i      ),
+    .dat_o(s3_wb_dat_o     ),
+    .dat_i(s3_wb_dat_i     ),
+    .int_o(                ),
+    .adr_i(s3_wb_adr_o[2:0]),
+    .cyc_i(s3_wb_cyc_i     ),
+    .ack_o(s3_wb_ack_o     ),
+    .MOSI (io_out[12]      ),
+    .SCLK (io_out[13]      ),
+    .MISO (io_in[14]       )
+  );
+
 
 endmodule
 `default_nettype wire

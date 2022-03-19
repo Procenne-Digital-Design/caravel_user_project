@@ -56,7 +56,7 @@ module wb_interconnect (
   output wire [ 3:0] s1_wb_sel_o,
   output wire        s1_wb_we_o ,
   output wire        s1_wb_cyc_o,
-  output wire        s1_wb_stb_o
+  output wire        s1_wb_stb_o,
   // Slave 2 Interface
   // input	logic [31:0]   s2_wb_dat_i,
   // input	logic 	       s2_wb_ack_i,
@@ -67,14 +67,16 @@ module wb_interconnect (
   // output	wire  	       s2_wb_cyc_o,
   // output	wire  	       s2_wb_stb_o,
   // Slave 3 Interface
-  // input	logic [31:0]   s3_wb_dat_i,
-  // input	logic 	       s3_wb_ack_i,
-  // output	wire  [31:0]   s3_wb_dat_o,
-  // output	wire  [8:0]    s3_wb_adr_o,
-  // output	wire  [3:0]    s3_wb_sel_o,
-  // output	wire  	       s3_wb_we_o,
-  // output	wire  	       s3_wb_cyc_o,
-  // output	wire  	       s3_wb_stb_o
+  input	logic [31:0]   s3_wb_dat_i,
+  input	logic 	       s3_wb_ack_i,
+  output	wire  [31:0]   s3_wb_dat_o,
+  output	wire  [8:0]    s3_wb_adr_o,
+  output	wire  [3:0]    s3_wb_sel_o,
+  output	wire  	       s3_wb_we_o,
+  output	wire  	       s3_wb_cyc_o,
+  output	wire  	       s3_wb_stb_o
+  
+  
 );
 
 
@@ -90,12 +92,12 @@ module wb_interconnect (
 
 
   wire [31:0] s_bus_rd_wb_dat = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_dat_i :
-    (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_dat_i : 32'd0 ;// :
-  //(m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_dat_i :
+    (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_dat_i :  
+    (m0_wb_adr_i[13:12] == 2'b11) ? s3_wb_dat_i : 32'd0;
   //s3_wb_dat_i;
   wire        s_bus_rd_wb_ack = (m0_wb_adr_i[13:12] == 2'b00) ? s0_wb_ack_i :
-    (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_ack_i : 1'b0 ; // :
-  //(m0_wb_adr_i[13:12] == 2'b10) ? s2_wb_ack_i :
+    (m0_wb_adr_i[13:12] == 2'b01) ? s1_wb_ack_i :
+    (m0_wb_adr_i[13:12] == 2'b11) ? s3_wb_ack_i : 1'b0 ; // :
   //s3_wb_ack_i;
 
   //wire [31:0] s_bus_rd_wb_dat = s0_wb_dat_i;
@@ -141,12 +143,12 @@ module wb_interconnect (
   // assign s2_wb_cyc_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_cyc_reg : 2'b00;
   // assign s2_wb_stb_o = (m0_wb_tid_reg == 2'b10) ? m0_wb_stb_reg : 2'b00;
 
-  // assign s3_wb_dat_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_dat_i_reg : 2'b00;
-  // assign s3_wb_adr_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_adr_reg : 2'b00;
-  // assign s3_wb_sel_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_sel_reg : 2'b00;
-  // assign s3_wb_we_o  = (m0_wb_tid_reg == 2'b11) ? m0_wb_we_reg  : 2'b00;
-  // assign s3_wb_cyc_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_cyc_reg : 2'b00;
-  // assign s3_wb_stb_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_stb_reg : 2'b00;
+  assign s3_wb_dat_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_dat_i_reg : 2'b00;
+  assign s3_wb_adr_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_adr_reg : 2'b00;
+  assign s3_wb_sel_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_sel_reg : 2'b00;
+  assign s3_wb_we_o  = (m0_wb_tid_reg == 2'b11) ? m0_wb_we_reg  : 2'b00;
+  assign s3_wb_cyc_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_cyc_reg : 2'b00;
+  assign s3_wb_stb_o = (m0_wb_tid_reg == 2'b11) ? m0_wb_stb_reg : 2'b00;
 
   assign m0_wb_dat_o = s_bus_rd_wb_dat;
   assign m0_wb_ack_o = s_bus_rd_wb_ack;
