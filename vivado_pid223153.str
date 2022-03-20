@@ -3017,3 +3017,468 @@ selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "tb.v", 
 // HMemoryUtils.trashcanNow. Engine heap size: 1,600 MB. GUI used memory: 66 MB. Current time: 3/20/22, 10:26:36 PM EET
 // HMemoryUtils.trashcanNow. Engine heap size: 1,600 MB. GUI used memory: 66 MB. Current time: 3/20/22, 10:56:36 PM EET
 // HMemoryUtils.trashcanNow. Engine heap size: 1,600 MB. GUI used memory: 67 MB. Current time: 3/20/22, 11:26:36 PM EET
+// HMemoryUtils.trashcanNow. Engine heap size: 1,600 MB. GUI used memory: 67 MB. Current time: 3/20/22, 11:56:36 PM EET
+// Elapsed time: 10824 seconds
+selectTab((HResource) null, (HResource) null, "Sources", 1); // aI (aF, cp)
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+// c (cp): Add Sources: addNotify
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN, "Add or create design sources"); // a (o, c)
+selectButton("NEXT", "Next >"); // JButton (j, c)
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File"); // a (C, c)
+// F (c): Create Source File: addNotify
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, "lfsr"); // Y (Q, F)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (F)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (F)
+dismissDialog("Create Source File"); // F (c)
+selectButton("FINISH", "Finish"); // JButton (j, c)
+// 'h' command handler elapsed time: 12 seconds
+dismissDialog("Add Sources"); // c (cp)
+// Tcl Message: close [ open /home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v w ] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files /home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v 
+// I (cp): Define Module: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (I)
+selectButton("PAResourceAtoD.DefineModulesDialog_YOU_HAVE_MADE_CHANGES_TO_MODULE_No", "No"); // JButton (C, J)
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (I)
+selectButton("PAResourceAtoD.DefineModulesDialog_YOU_HAVE_MADE_CHANGES_TO_MODULE_Yes", "Yes"); // JButton (C, J)
+dismissDialog("Define Module"); // I (cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Non-module Files]", 1); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Non-module Files, lfsr.v]", 2, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, Non-module Files, lfsr.v]", 2, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectCodeEditor("lfsr.v", 235, 155); // cl (w, cp)
+typeControlKey((HResource) null, "lfsr.v", 'v'); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // B (f, cp)
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+// c (cp): Add Sources: addNotify
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_SIMULATION_SPECIFIC_HDL_FILES, "Add or create simulation sources"); // a (o, c)
+selectButton("NEXT", "Next >"); // JButton (j, c)
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File"); // a (C, c)
+// F (c): Create Source File: addNotify
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, "tb_lfsr"); // Y (Q, F)
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (F)
+dismissDialog("Create Source File"); // F (c)
+selectButton("FINISH", "Finish"); // JButton (j, c)
+// 'h' command handler elapsed time: 12 seconds
+// TclEventType: FILE_SET_CHANGE
+dismissDialog("Add Sources"); // c (cp)
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: set_property SOURCE_SET sources_1 [get_filesets sim_1] 
+// Tcl Message: close [ open /home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v w ] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -fileset sim_1 /home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v 
+// I (cp): Define Module: addNotify
+selectButton(RDIResource.BaseDialog_CANCEL, "Cancel"); // a (I)
+selectButton("PAResourceAtoD.DefineModulesDialog_YOU_HAVE_MADE_CHANGES_TO_MODULE_Yes", "Yes"); // JButton (C, J)
+dismissDialog("Define Module"); // I (cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sim_1 
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, LFSR (lfsr.v)]", 7, false); // B (D, cp)
+// Elapsed time: 64 seconds
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Non-module Files]", 11); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Non-module Files, tb_lfsr.v]", 12, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Non-module Files, tb_lfsr.v]", 12, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, Non-module Files, tb_lfsr.v]", 12, false, false, false, false, false, true); // B (D, cp) - Double Click
+selectCodeEditor("tb_lfsr.v", 307, 158); // cl (w, cp)
+typeControlKey((HResource) null, "tb_lfsr.v", 'v'); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("tb_lfsr.v", 182, 130); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectCodeEditor("tb_lfsr.v", 591, 420); // cl (w, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, LFSR_TB (tb_lfsr.v)]", 12, true); // B (D, cp) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, sim_1, LFSR_TB (tb_lfsr.v)]", 12, true, false, false, false, true, false); // B (D, cp) - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // ac (al, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SET_AS_TOP, "Set as Top"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SET_AS_TOP
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: set_property top LFSR_TB [get_filesets sim_1] 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: set_property top_lib xil_defaultlib [get_filesets sim_1] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sim_1 
+// Elapsed time: 13 seconds
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Simulation, Run Simulation]", 10, false); // u (Q, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL, "Run Behavioral Simulation"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL
+// e (cp):  Run Simulation : addNotify
+// TclEventType: LAUNCH_SIM
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: launch_simulation 
+// Tcl Message: INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' INFO: [SIM-utils-51] Simulation object is 'sim_1' INFO: [SIM-utils-54] Inspecting design source files for 'LFSR_TB' in fileset 'sim_1'... INFO: [USF-XSim-97] Finding global include files... INFO: [USF-XSim-98] Fetching design files from 'sim_1'... INFO: [USF-XSim-2] XSim::Compile design INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' 
+// Tcl Message: xvlog --incr --relax -prj LFSR_TB_vlog.prj INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v" into library xil_defaultlib INFO: [VRFC 10-311] analyzing module LFSR ERROR: [VRFC 10-1214] parameter initial value cannot be omitted in this mode of verilog [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] ERROR: [VRFC 10-2865] module 'LFSR' ignored due to previous errors [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: INFO: [USF-XSim-69] 'compile' step finished in '1' seconds INFO: [USF-XSim-99] Step results log file:'/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/xvlog.log' 
+// Tcl Message: ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/xvlog.log' file for more information. ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation. 
+// Tcl Message: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  
+// HOptionPane Error: 'ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.  (Run Simulation)'
+selectButton("RDIResource.ProgressDialog_ERROR_ENCOUNTERED_PLEASE_SEE_TCL_OK", "OK"); // JButton (C, I)
+// a (cp): Critical Messages: addNotify
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (a)
+dismissDialog("Critical Messages"); // a (cp)
+// Elapsed time: 10 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "lfsr.v", 3); // k (j, cp)
+selectCodeEditor("lfsr.v", 226, 270); // cl (w, cp)
+selectCodeEditor("lfsr.v", 225, 260); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Simulation, Run Simulation]", 10, false); // u (Q, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL, "Run Behavioral Simulation"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SIMULATION_RUN_BEHAVIORAL
+// e (cp):  Run Simulation : addNotify
+// TclEventType: LAUNCH_SIM
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: launch_simulation 
+// Tcl Message: INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' INFO: [SIM-utils-51] Simulation object is 'sim_1' INFO: [SIM-utils-54] Inspecting design source files for 'LFSR_TB' in fileset 'sim_1'... INFO: [USF-XSim-97] Finding global include files... INFO: [USF-XSim-98] Fetching design files from 'sim_1'... INFO: [USF-XSim-2] XSim::Compile design INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' 
+// TclEventType: LAUNCH_SIM_LOG
+// Tcl Message: xvlog --incr --relax -prj LFSR_TB_vlog.prj INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v" into library xil_defaultlib INFO: [VRFC 10-311] analyzing module LFSR INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v" into library xil_defaultlib INFO: [VRFC 10-311] analyzing module LFSR_TB 
+// Tcl Message: INFO: [USF-XSim-69] 'compile' step finished in '1' seconds INFO: [USF-XSim-3] XSim::Elaborate design INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' 
+// TclEventType: LAUNCH_SIM
+// Tcl Message: INFO: [Common 17-206] Exiting Webtalk at Mon Mar 21 00:04:53 2022... 
+// Tcl Message: INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds INFO: [USF-XSim-4] XSim::Simulate design INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim' INFO: [USF-XSim-98] *** Running xsim 
+// Tcl Message:    with args "LFSR_TB_behav -key {Behavioral:sim_1:Functional:LFSR_TB} -tclbatch {LFSR_TB.tcl} -log {simulate.log}" 
+// Tcl Message: INFO: [USF-XSim-8] Loading simulator feature 
+// Tcl Message: Vivado Simulator 2018.3 
+// TclEventType: SIMULATION_CREATE_SIMULATION_OBJECT
+// TclEventType: SIMULATION_UPDATE_SIMULATION_STATE
+// TclEventType: SIMULATION_UPDATE_OBJECT_TREE
+// TclEventType: WAVEFORM_UPDATE_TITLE
+// TclEventType: SIMULATION_UPDATE_OBJECT_TREE
+// TclEventType: WAVEFORM_UPDATE_TITLE
+// TclEventType: WAVEFORM_OPEN_WCFG
+// Waveform: addNotify
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_UPDATE_COMMANDS
+// TclEventType: WAVEFORM_UPDATE_TITLE
+// HMemoryUtils.trashcanNow. Engine heap size: 1,755 MB. GUI used memory: 87 MB. Current time: 3/21/22, 12:04:54 AM EET
+// TclEventType: WAVEFORM_UPDATE_TITLE
+// TclEventType: SIMULATION_UPDATE_SIMULATION_STATE
+// TclEventType: SIMULATION_CLEAR_CURRENT_LINE
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_UPDATE_COMMANDS
+// TclEventType: SIMULATION_UPDATE_LATEST_TIME
+// TclEventType: SIMULATION_OBJECT_TREE_RESTORED
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: SIMULATION_UPDATE_LATEST_TIME
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: SIMULATION_CURRENT_SCOPE_CHANGED
+// TclEventType: SIMULATION_CURRENT_STACK_CHANGED
+// TclEventType: SIMULATION_UPDATE_STACK_FRAMES
+// TclEventType: SIMULATION_CURRENT_STACK_FRAME_CHANGED
+// TclEventType: SIMULATION_UPDATE_LOCALS
+// TclEventType: SIMULATION_UPDATE_OBJECT_TREE
+// TclEventType: SIMULATION_UPDATE_SIMULATION_STATE
+// Tcl Message: Time resolution is 1 ps 
+// Tcl Message: source LFSR_TB.tcl 
+// Tcl Message: # set curr_wave [current_wave_config] # if { [string length $curr_wave] == 0 } { #   if { [llength [get_objects]] > 0} { #     add_wave / #     set_property needs_save false [current_wave_config] #   } else { #      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console." #   } # } # run 1000ns 
+// Tcl Message: INFO: [USF-XSim-96] XSim completed. Design snapshot 'LFSR_TB_behav' loaded. INFO: [USF-XSim-97] XSim simulation ran for 1000ns 
+// 'd' command handler elapsed time: 4 seconds
+dismissDialog("Run Simulation"); // e (cp)
+// TclEventType: WAVEFORM_MODEL_EVENT
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_MODEL_EVENT
+selectGraphicalView(RDIResource.RDIViews_WAVEFORM_VIEWER, 249, 43); // n (o, cp)
+// TclEventType: WAVEFORM_UPDATE_WAVEFORM
+// TclEventType: WAVEFORM_UPDATE_COMMANDS
+collapseTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 12); // u (Q, cp)
+expandTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design]", 12); // u (Q, cp)
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, RTL Analysis, Open Elaborated Design, Schematic]", 15, false); // u (Q, cp)
+// A (cp): Elaborate Design: addNotify
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a (A)
+// bx (cp):  Open Elaborated Design : addNotify
+dismissDialog("Elaborate Design"); // A (cp)
+// TclEventType: ELABORATE_START
+// Tcl Message: synth_design -rtl -name rtl_1 
+// Tcl Message: Command: synth_design -rtl -name rtl_1 Starting synth_design Using part: xc7vx485tffg1157-1 Top: aes 
+// TclEventType: ELABORATE_FINISH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,094 MB. GUI used memory: 75 MB. Current time: 3/21/22, 12:05:11 AM EET
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_NEW
+// HMemoryUtils.trashcanNow. Engine heap size: 2,351 MB. GUI used memory: 75 MB. Current time: 3/21/22, 12:05:14 AM EET
+// [Engine Memory]: 2,351 MB (+328202kb) [08:04:58]
+// TclEventType: DESIGN_NEW
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// [GUI Memory]: 151 MB (+17058kb) [08:04:59]
+// [GUI Memory]: 165 MB (+6614kb) [08:04:59]
+// [Engine Memory]: 2,514 MB (+47508kb) [08:04:59]
+// Schematic: addNotify
+// WARNING: HEventQueue.dispatchEvent() is taking  1768 ms.
+// TclEventType: CURR_DESIGN_SET
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7156.852 ; gain = 26.445 ; free physical = 820 ; free virtual = 16281 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'aes' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:39] 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'aes_core' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:313] 
+// Tcl Message: 	Parameter CTRL_IDLE bound to: 2'b00  	Parameter CTRL_INIT bound to: 2'b01  	Parameter CTRL_NEXT bound to: 2'b10  
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'aes_encipher_block' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:2261] 
+// Tcl Message: 	Parameter AES_128_BIT_KEY bound to: 1'b0  	Parameter AES_256_BIT_KEY bound to: 1'b1  	Parameter AES128_ROUNDS bound to: 4'b1010  	Parameter AES256_ROUNDS bound to: 4'b1110  	Parameter NO_UPDATE bound to: 3'b000  	Parameter INIT_UPDATE bound to: 3'b001  	Parameter SBOX_UPDATE bound to: 3'b010  	Parameter MAIN_UPDATE bound to: 3'b011  	Parameter FINAL_UPDATE bound to: 3'b100  	Parameter CTRL_IDLE bound to: 3'b000  	Parameter CTRL_INIT bound to: 3'b001  	Parameter CTRL_SBOX bound to: 3'b010  	Parameter CTRL_MAIN bound to: 3'b011  	Parameter CTRL_FINAL bound to: 3'b100  
+// Tcl Message: INFO: [Synth 8-6155] done synthesizing module 'aes_encipher_block' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:2261] INFO: [Synth 8-6157] synthesizing module 'aes_decipher_block' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:653] 
+// Tcl Message: 	Parameter AES_128_BIT_KEY bound to: 1'b0  	Parameter AES_256_BIT_KEY bound to: 1'b1  	Parameter AES128_ROUNDS bound to: 4'b1010  	Parameter AES256_ROUNDS bound to: 4'b1110  	Parameter NO_UPDATE bound to: 3'b000  	Parameter INIT_UPDATE bound to: 3'b001  	Parameter SBOX_UPDATE bound to: 3'b010  	Parameter MAIN_UPDATE bound to: 3'b011  	Parameter FINAL_UPDATE bound to: 3'b100  	Parameter CTRL_IDLE bound to: 3'b000  	Parameter CTRL_INIT bound to: 3'b001  	Parameter CTRL_SBOX bound to: 3'b010  	Parameter CTRL_MAIN bound to: 3'b011  	Parameter CTRL_FINAL bound to: 3'b100  
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'aes_inv_sbox' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1176] INFO: [Synth 8-6155] done synthesizing module 'aes_inv_sbox' (2#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1176] INFO: [Synth 8-6155] done synthesizing module 'aes_decipher_block' (3#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:653] INFO: [Synth 8-6157] synthesizing module 'aes_key_mem' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1502] 
+// Tcl Message: 	Parameter AES_128_BIT_KEY bound to: 1'b0  	Parameter AES_256_BIT_KEY bound to: 1'b1  	Parameter AES_128_NUM_ROUNDS bound to: 10 - type: integer  	Parameter AES_256_NUM_ROUNDS bound to: 14 - type: integer  	Parameter CTRL_IDLE bound to: 3'b000  	Parameter CTRL_INIT bound to: 3'b001  	Parameter CTRL_GENERATE bound to: 3'b010  	Parameter CTRL_DONE bound to: 3'b011  
+// Tcl Message: INFO: [Synth 8-226] default block is never used [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1695] 
+// Tcl Message: INFO: [Synth 8-6155] done synthesizing module 'aes_key_mem' (4#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1502] INFO: [Synth 8-6157] synthesizing module 'aes_sbox' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1934] INFO: [Synth 8-6155] done synthesizing module 'aes_sbox' (5#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1934] INFO: [Synth 8-6155] done synthesizing module 'aes_core' (6#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:313] INFO: [Synth 8-6155] done synthesizing module 'aes' (7#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:39] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 815 ; free virtual = 16281 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message:  Report Check Netlist:  +------+------------------+-------+---------+-------+------------------+ |      |Item              |Errors |Warnings |Status |Description       | +------+------------------+-------+---------+-------+------------------+ |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets | +------+------------------+-------+---------+-------+------------------+ --------------------------------------------------------------------------------- Start Handling Custom Attributes --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 819 ; free virtual = 16286 
+// Tcl Message: --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 819 ; free virtual = 16286 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Device 21-403] Loading part xc7vx485tffg1157-1 INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message:  Processing XDC Constraints Initializing timing engine Completed Processing XDC Constraints  
+// Tcl Message: INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). 
+// Tcl Message: Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 7718.266 ; gain = 0.000 ; free physical = 317 ; free virtual = 15889 
+// Tcl Message: INFO: [Project 1-111] Unisim Transformation Summary: No Unisim elements were transformed.  
+// Tcl Message: RTL Elaboration Complete:  : Time (s): cpu = 00:00:19 ; elapsed = 00:00:14 . Memory (MB): peak = 7886.691 ; gain = 756.285 ; free physical = 271 ; free virtual = 15712 
+// Tcl Message: 19 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered. synth_design completed successfully 
+// Tcl Message: synth_design: Time (s): cpu = 00:00:19 ; elapsed = 00:00:14 . Memory (MB): peak = 7886.691 ; gain = 756.285 ; free physical = 270 ; free virtual = 15712 
+// Run Command: PAResourceCommand.PACommandNames_SCHEMATIC
+// Schematic: addNotify
+// Elapsed time: 14 seconds
+dismissDialog("Open Elaborated Design"); // bx (cp)
+// Elapsed time: 20 seconds
+selectTab((HResource) null, (HResource) null, "Sources", 0); // aI (aF, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, LFSR (lfsr.v)]", 7, false); // B (D, cp)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, LFSR (lfsr.v)]", 7, false, false, false, false, true, false); // B (D, cp) - Popup Trigger
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // ac (al, cp)
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // ac (al, cp)
+selectMenuItem(PAResourceCommand.PACommandNames_SET_AS_TOP, "Set as Top"); // af (al, cp)
+// Run Command: PAResourceCommand.PACommandNames_SET_AS_TOP
+// TclEventType: DESIGN_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: set_property top LFSR [current_fileset] 
+// TclEventType: DG_GRAPH_STALE
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// TclEventType: ELABORATE_FAIL
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 273 ; free virtual = 15678 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: ERROR: [Synth 8-439] module 'LFSR' not found 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 302 ; free virtual = 15707 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: RTL Elaboration failed ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.  
+// S (cp): Critical Messages: addNotify
+dismissDialog("Reloading"); // bx (cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DESIGN_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (S)
+dismissDialog("Critical Messages"); // S (cp)
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 261 ; free virtual = 15670 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// TclEventType: ELABORATE_FINISH
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,575 MB. GUI used memory: 109 MB. Current time: 3/21/22, 12:05:58 AM EET
+// Engine heap size: 2,575 MB. GUI used memory: 110 MB. Current time: 3/21/22, 12:05:58 AM EET
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: INFO: [Synth 8-6155] done synthesizing module 'LFSR' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 276 ; free virtual = 15685 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message:  Report Check Netlist:  +------+------------------+-------+---------+-------+------------------+ |      |Item              |Errors |Warnings |Status |Description       | +------+------------------+-------+---------+-------+------------------+ |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets | +------+------------------+-------+---------+-------+------------------+ --------------------------------------------------------------------------------- Start Handling Custom Attributes --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 278 ; free virtual = 15687 
+// Tcl Message: --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 278 ; free virtual = 15687 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,516 MB. GUI used memory: 81 MB. Current time: 3/21/22, 12:05:59 AM EET
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// Schematic: addNotify
+// Schematic: addNotify
+// [Engine Memory]: 2,722 MB (+86892kb) [08:05:44]
+// WARNING: HEventQueue.dispatchEvent() is taking  1562 ms.
+// Tcl Message: INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message:  Processing XDC Constraints Initializing timing engine Completed Processing XDC Constraints  
+// Tcl Message: INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). 
+// Tcl Message: refresh_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 283 ; free virtual = 15689 
+dismissDialog("Reloading"); // bx (cp)
+// Elapsed time: 86 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "lfsr.v", 4); // k (j, cp)
+// Elapsed time: 13 seconds
+selectCodeEditor("lfsr.v", 267, 292); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DESIGN_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 25 seconds
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// TclEventType: ELABORATE_FAIL
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 315 ; free virtual = 15637 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44] ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 329 ; free virtual = 15651 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: RTL Elaboration failed ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.  
+// S (cp): Critical Messages: addNotify
+dismissDialog("Reloading"); // bx (cp)
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (S)
+dismissDialog("Critical Messages"); // S (cp)
+// TclEventType: DESIGN_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 22 seconds
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// TclEventType: ELABORATE_FAIL
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 313 ; free virtual = 15632 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44] ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 327 ; free virtual = 15646 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: RTL Elaboration failed ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.  
+// S (cp): Critical Messages: addNotify
+dismissDialog("Reloading"); // bx (cp)
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (S)
+dismissDialog("Critical Messages"); // S (cp)
+// Elapsed time: 88 seconds
+selectCodeEditor("lfsr.v", 261, 292); // cl (w, cp)
+// TclEventType: DESIGN_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// [GUI Memory]: 175 MB (+1346kb) [08:10:05]
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// TclEventType: ELABORATE_FINISH
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,672 MB. GUI used memory: 112 MB. Current time: 3/21/22, 12:10:26 AM EET
+// Engine heap size: 2,672 MB. GUI used memory: 112 MB. Current time: 3/21/22, 12:10:26 AM EET
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 280 ; free virtual = 15599 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: INFO: [Synth 8-6155] done synthesizing module 'LFSR' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 295 ; free virtual = 15614 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message:  Report Check Netlist:  +------+------------------+-------+---------+-------+------------------+ |      |Item              |Errors |Warnings |Status |Description       | +------+------------------+-------+---------+-------+------------------+ |1     |multi_driven_nets |      0|        0|Passed |Multi driven nets | +------+------------------+-------+---------+-------+------------------+ --------------------------------------------------------------------------------- Start Handling Custom Attributes --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 297 ; free virtual = 15616 
+// Tcl Message: --------------------------------------------------------------------------------- --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 297 ; free virtual = 15616 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// TclEventType: FLOORPLAN_MODIFY
+// TclEventType: DESIGN_REFRESH
+// HMemoryUtils.trashcanNow. Engine heap size: 2,593 MB. GUI used memory: 83 MB. Current time: 3/21/22, 12:10:27 AM EET
+// TclEventType: HFED_INIT_ROUTE_STORAGE_COMPLETED
+// Schematic: addNotify
+// Schematic: addNotify
+// WARNING: HEventQueue.dispatchEvent() is taking  1464 ms.
+// Tcl Message: INFO: [Project 1-570] Preparing netlist for logic optimization 
+// Tcl Message:  Processing XDC Constraints Initializing timing engine Completed Processing XDC Constraints  
+// Tcl Message: INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s). 
+// Tcl Message: refresh_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 7930.230 ; gain = 43.539 ; free physical = 288 ; free virtual = 15608 
+dismissDialog("Reloading"); // bx (cp)
+// Elapsed time: 173 seconds
+selectCodeEditor("lfsr.v", 263, 381); // cl (w, cp)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: DESIGN_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed time: 12 seconds
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// TclEventType: ELABORATE_FAIL
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 555 ; free virtual = 15690 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44] ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 563 ; free virtual = 15697 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: RTL Elaboration failed ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.  
+// S (cp): Critical Messages: addNotify
+dismissDialog("Reloading"); // bx (cp)
+// Elapsed time: 14 seconds
+dismissDialog("Critical Messages"); // S (cp)
+// Elapsed time: 24 seconds
+selectCodeEditor("lfsr.v", 183, 194); // cl (w, cp)
+// TclEventType: DESIGN_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+selectButton(PAResourceOtoP.ProjectTab_RELOAD, "Reload"); // h (cQ, cp)
+// bx (cp):  Reloading : addNotify
+// TclEventType: ELABORATE_START
+// Tcl Message: refresh_design 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 538 ; free virtual = 15672 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// TclEventType: ELABORATE_FAIL
+// Tcl Message: INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: 	Parameter NUM_BITS bound to: 32 - type: integer  
+// Tcl Message: ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44] ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18] 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 549 ; free virtual = 15683 
+// Tcl Message: --------------------------------------------------------------------------------- 
+// Tcl Message: RTL Elaboration failed ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors. 
+// CommandFailedException: ERROR: [Common 17-69] Command failed: ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.  
+// S (cp): Critical Messages: addNotify
+dismissDialog("Reloading"); // bx (cp)
+selectButton(PAResourceAtoD.CmdMsgDialog_OK, "OK"); // f (S)
+selectCodeEditor("lfsr.v", 231, 423); // cl (w, cp)
+dismissDialog("Critical Messages"); // S (cp)
+// Elapsed time: 108 seconds
+selectCodeEditor("lfsr.v", 63, 336); // cl (w, cp)
+selectCodeEditor("lfsr.v", 264, 354); // cl (w, cp)
+// TclEventType: DESIGN_STALE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 2,744 MB. GUI used memory: 115 MB. Current time: 3/21/22, 12:40:32 AM EET

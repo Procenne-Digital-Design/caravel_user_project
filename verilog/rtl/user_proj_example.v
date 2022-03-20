@@ -127,6 +127,11 @@ module user_proj_example #(parameter BITS = 32) (
   wire                s3_wb_ack_o;
 
 
+  logic alarm;
+  logic master_key_ready;
+  logic [31:0] o_LFSR_Data;
+
+
   wb_interconnect interconnect (
     `ifdef USE_POWER_PINS
     .vccd1      (vccd1      ), // User area 1 1.8V supply
@@ -146,7 +151,7 @@ module user_proj_example #(parameter BITS = 32) (
     .m0_wb_ack_o(wbs_ack_o  ),
     
     // Slave 0 Interface
-    .s0_wb_dat_i(sram_dout_a),
+    .s0_wb_dat_i(s0_wb_dat_i),
     .s0_wb_ack_i(s0_wb_ack_o),
     .s0_wb_dat_o(s0_wb_dat_i),
     .s0_wb_adr_o(s0_wb_adr_i),
@@ -220,7 +225,8 @@ module user_proj_example #(parameter BITS = 32) (
     .sram_addr_b(sram_addr_b),
     .sram_din_b (sram_din_b ),
     .trng_i(1'b0),
-    .alarm(alarm)
+    .alarm(alarm),
+    .master_key_ready(master_key_ready)
   );
 
   assign io_oeb = {(`MPRJ_IO_PADS){1'b0}};
@@ -247,6 +253,28 @@ module user_proj_example #(parameter BITS = 32) (
     .ser_tx (io_out[16] ),
     .ser_rx  (io_in[15])
   );
+
+
+  assign io_out[11] = o_LFSR_Data[0];
+
+  LFSR 
+  #(
+    .NUM_BITS (
+        NUM_BITS )
+  )
+  LFSR_dut (
+    .i_Clk (wb_clk_i ),
+    .i_Enable (~wb_rst_i ),
+    .i_Seed_DV (wb_rst_i ),
+    .i_Seed_Data (trng_i ),
+    .o_LFSR_Data (o_LFSR_Data ),
+    .o_LFSR_Done  (),
+    .i_LFSR ( io_in[11]),
+    .master_key_ready(master_key_ready),
+    .i_rst(wb_rst_i),
+    .o_alarm(alarm)
+  );
+
 
 
 

@@ -1118,3 +1118,342 @@ INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
 Vivado Simulator 2018.3
 Time resolution is 1 ps
 run 1 us
+close [ open /home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v w ]
+add_files /home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open /home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v w ]
+add_files -fileset sim_1 /home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v
+update_compile_order -fileset sim_1
+set_property top LFSR_TB [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'LFSR_TB' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj LFSR_TB_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module LFSR
+ERROR: [VRFC 10-1214] parameter initial value cannot be omitted in this mode of verilog [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+ERROR: [VRFC 10-2865] module 'LFSR' ignored due to previous errors [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'LFSR_TB' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj LFSR_TB_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module LFSR
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/egoncu/workspace/project_1/project_1.srcs/sim_1/new/tb_lfsr.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module LFSR_TB
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2018.3/bin/unwrapped/lnx64.o/xelab -wto d15e9ad086eb4733bafd2c3fb4aa35cd --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot LFSR_TB_behav xil_defaultlib.LFSR_TB xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4100] "/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/glbl.v" Line 6. Module glbl has a timescale but at least one module in design doesn't have timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.LFSR
+Compiling module xil_defaultlib.LFSR_TB
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot LFSR_TB_behav
+
+****** Webtalk v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:36:41 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source /home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/LFSR_TB_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Mon Mar 21 00:04:53 2022...
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/egoncu/workspace/project_1/project_1.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "LFSR_TB_behav -key {Behavioral:sim_1:Functional:LFSR_TB} -tclbatch {LFSR_TB.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+source LFSR_TB.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'LFSR_TB_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+synth_design -rtl -name rtl_1
+Command: synth_design -rtl -name rtl_1
+Starting synth_design
+Using part: xc7vx485tffg1157-1
+Top: aes
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7156.852 ; gain = 26.445 ; free physical = 820 ; free virtual = 16281
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'aes' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:39]
+	Parameter ADDR_NAME0 bound to: 8'b00000000 
+	Parameter ADDR_NAME1 bound to: 8'b00000001 
+	Parameter ADDR_VERSION bound to: 8'b00000010 
+	Parameter ADDR_CTRL bound to: 8'b00001000 
+	Parameter CTRL_INIT_BIT bound to: 0 - type: integer 
+	Parameter CTRL_NEXT_BIT bound to: 1 - type: integer 
+	Parameter ADDR_STATUS bound to: 8'b00001001 
+	Parameter STATUS_READY_BIT bound to: 0 - type: integer 
+	Parameter STATUS_VALID_BIT bound to: 1 - type: integer 
+	Parameter ADDR_CONFIG bound to: 8'b00001010 
+	Parameter CTRL_ENCDEC_BIT bound to: 0 - type: integer 
+	Parameter CTRL_KEYLEN_BIT bound to: 1 - type: integer 
+	Parameter ADDR_KEY0 bound to: 8'b00010000 
+	Parameter ADDR_KEY7 bound to: 8'b00010111 
+	Parameter ADDR_BLOCK0 bound to: 8'b00100000 
+	Parameter ADDR_BLOCK3 bound to: 8'b00100011 
+	Parameter ADDR_RESULT0 bound to: 8'b00110000 
+	Parameter ADDR_RESULT3 bound to: 8'b00110011 
+	Parameter CORE_NAME0 bound to: 1634038560 - type: integer 
+	Parameter CORE_NAME1 bound to: 538976288 - type: integer 
+	Parameter CORE_VERSION bound to: 808334896 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'aes_core' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:313]
+	Parameter CTRL_IDLE bound to: 2'b00 
+	Parameter CTRL_INIT bound to: 2'b01 
+	Parameter CTRL_NEXT bound to: 2'b10 
+INFO: [Synth 8-6157] synthesizing module 'aes_encipher_block' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:2261]
+	Parameter AES_128_BIT_KEY bound to: 1'b0 
+	Parameter AES_256_BIT_KEY bound to: 1'b1 
+	Parameter AES128_ROUNDS bound to: 4'b1010 
+	Parameter AES256_ROUNDS bound to: 4'b1110 
+	Parameter NO_UPDATE bound to: 3'b000 
+	Parameter INIT_UPDATE bound to: 3'b001 
+	Parameter SBOX_UPDATE bound to: 3'b010 
+	Parameter MAIN_UPDATE bound to: 3'b011 
+	Parameter FINAL_UPDATE bound to: 3'b100 
+	Parameter CTRL_IDLE bound to: 3'b000 
+	Parameter CTRL_INIT bound to: 3'b001 
+	Parameter CTRL_SBOX bound to: 3'b010 
+	Parameter CTRL_MAIN bound to: 3'b011 
+	Parameter CTRL_FINAL bound to: 3'b100 
+INFO: [Synth 8-6155] done synthesizing module 'aes_encipher_block' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:2261]
+INFO: [Synth 8-6157] synthesizing module 'aes_decipher_block' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:653]
+	Parameter AES_128_BIT_KEY bound to: 1'b0 
+	Parameter AES_256_BIT_KEY bound to: 1'b1 
+	Parameter AES128_ROUNDS bound to: 4'b1010 
+	Parameter AES256_ROUNDS bound to: 4'b1110 
+	Parameter NO_UPDATE bound to: 3'b000 
+	Parameter INIT_UPDATE bound to: 3'b001 
+	Parameter SBOX_UPDATE bound to: 3'b010 
+	Parameter MAIN_UPDATE bound to: 3'b011 
+	Parameter FINAL_UPDATE bound to: 3'b100 
+	Parameter CTRL_IDLE bound to: 3'b000 
+	Parameter CTRL_INIT bound to: 3'b001 
+	Parameter CTRL_SBOX bound to: 3'b010 
+	Parameter CTRL_MAIN bound to: 3'b011 
+	Parameter CTRL_FINAL bound to: 3'b100 
+INFO: [Synth 8-6157] synthesizing module 'aes_inv_sbox' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1176]
+INFO: [Synth 8-6155] done synthesizing module 'aes_inv_sbox' (2#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1176]
+INFO: [Synth 8-6155] done synthesizing module 'aes_decipher_block' (3#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:653]
+INFO: [Synth 8-6157] synthesizing module 'aes_key_mem' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1502]
+	Parameter AES_128_BIT_KEY bound to: 1'b0 
+	Parameter AES_256_BIT_KEY bound to: 1'b1 
+	Parameter AES_128_NUM_ROUNDS bound to: 10 - type: integer 
+	Parameter AES_256_NUM_ROUNDS bound to: 14 - type: integer 
+	Parameter CTRL_IDLE bound to: 3'b000 
+	Parameter CTRL_INIT bound to: 3'b001 
+	Parameter CTRL_GENERATE bound to: 3'b010 
+	Parameter CTRL_DONE bound to: 3'b011 
+INFO: [Synth 8-226] default block is never used [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1695]
+WARNING: [Synth 8-5788] Register prev_key0_reg_reg in module aes_key_mem is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1623]
+WARNING: [Synth 8-5788] Register prev_key1_reg_reg in module aes_key_mem is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1626]
+INFO: [Synth 8-6155] done synthesizing module 'aes_key_mem' (4#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1502]
+INFO: [Synth 8-6157] synthesizing module 'aes_sbox' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1934]
+INFO: [Synth 8-6155] done synthesizing module 'aes_sbox' (5#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:1934]
+INFO: [Synth 8-6155] done synthesizing module 'aes_core' (6#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:313]
+INFO: [Synth 8-6155] done synthesizing module 'aes' (7#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/aes.v:39]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 815 ; free virtual = 16281
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 819 ; free virtual = 16286
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 7210.602 ; gain = 80.195 ; free physical = 819 ; free virtual = 16286
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7vx485tffg1157-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 7718.266 ; gain = 0.000 ; free physical = 317 ; free virtual = 15889
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:19 ; elapsed = 00:00:14 . Memory (MB): peak = 7886.691 ; gain = 756.285 ; free physical = 271 ; free virtual = 15712
+19 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:19 ; elapsed = 00:00:14 . Memory (MB): peak = 7886.691 ; gain = 756.285 ; free physical = 270 ; free virtual = 15712
+set_property top LFSR [current_fileset]
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 273 ; free virtual = 15678
+---------------------------------------------------------------------------------
+ERROR: [Synth 8-439] module 'LFSR' not found
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 302 ; free virtual = 15707
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.
+update_compile_order -fileset sources_1
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 261 ; free virtual = 15670
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'LFSR' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 276 ; free virtual = 15685
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 278 ; free virtual = 15687
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 278 ; free virtual = 15687
+---------------------------------------------------------------------------------
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+refresh_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 283 ; free virtual = 15689
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 315 ; free virtual = 15637
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44]
+ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 329 ; free virtual = 15651
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 313 ; free virtual = 15632
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44]
+ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 327 ; free virtual = 15646
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 280 ; free virtual = 15599
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'LFSR' (1#1) [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 295 ; free virtual = 15614
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 297 ; free virtual = 15616
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7886.691 ; gain = 0.000 ; free physical = 297 ; free virtual = 15616
+---------------------------------------------------------------------------------
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+refresh_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 7930.230 ; gain = 43.539 ; free physical = 288 ; free virtual = 15608
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 555 ; free virtual = 15690
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44]
+ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 563 ; free virtual = 15697
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.
+refresh_design
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 538 ; free virtual = 15672
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+	Parameter NUM_BITS bound to: 32 - type: integer 
+ERROR: [Synth 8-524] part-select [30:0] out of range of prefix 'r_LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:44]
+ERROR: [Synth 8-6156] failed synthesizing module 'LFSR' [/home/egoncu/workspace/project_1/project_1.srcs/sources_1/new/lfsr.v:18]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7930.230 ; gain = 0.000 ; free physical = 549 ; free virtual = 15683
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.

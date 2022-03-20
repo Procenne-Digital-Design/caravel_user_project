@@ -53,6 +53,7 @@ module sram_wb_wrapper #(
   output reg  [SRAM_DATA_WD/8-1:0] sram_mask_b     ,
   output reg  [  SRAM_ADDR_WD-1:0] sram_addr_b     ,
   output reg  [  SRAM_DATA_WD-1:0] sram_din_b      ,
+  output wire                      master_key_ready,
   input  wire [              31:0] trng_i          ,
   input  wire                      alarm
 );
@@ -80,6 +81,7 @@ module sram_wb_wrapper #(
         master_key_array[3] <= 32'd0;
         counter             <= 2'd0;
         trng_count          <= 5'd0;
+        master_key_ready    <= 1'b0;
       end
     else
       begin
@@ -99,15 +101,25 @@ module sram_wb_wrapper #(
                   end
                 trng_count <= trng_count + 5'd1;
               end
+
+            if(counter == 2'h3)
+              master_key_ready <= 1'b1;
+            else
+              master_key_ready <= 1'b0;
           end
       end
 
   end
 
-
+// Memory Write Port
+// assign sram_clk_b  = wb_clk_i;
   assign wb_dat_o = (wb_adr_i == 9'd1 && wb_cyc_i && wb_stb_i && !wb_we_i) ? SRAM_data_reg :
     (wb_adr_i == 9'd2 && wb_cyc_i && wb_stb_i && !wb_we_i) ? {30'd0,rd_busy, wr_busy} : 'h0;
 
+// Memory Read Port
+// assign sram_clk_a  = wb_clk_i;
+
+  //assign sram_addr_a = wb_adr_i;
 
 
 
