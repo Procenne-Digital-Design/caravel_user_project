@@ -10,3 +10,6 @@
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/ufifo.v
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/skidbuffer.v
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/wbuart.v
+-v $(USER_PROJECT_VERILOG)/rtl/trng/ring_osc2x13.v
+-v $(USER_PROJECT_VERILOG)/rtl/trng/ringosc_macro.v
+-v $(USER_PROJECT_VERILOG)/rtl/trng/trng_wb_wrapper.v

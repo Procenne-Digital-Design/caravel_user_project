@@ -22,34 +22,34 @@
 //-----------------------------------------------------------------------------
 
 module sram_wb_wrapper #(
-  parameter SRAM_ADDR_WD = 8 ,
-  parameter SRAM_DATA_WD = 32
+    parameter SRAM_ADDR_WD = 8 ,
+    parameter SRAM_DATA_WD = 32
 ) (
 `ifdef USE_POWER_PINS
-  input  wire                      vccd1      , // User area 1 1.8V supply
-  input  wire                      vssd1      , // User area 1 digital ground
+    input  wire                      vccd1      , // User area 1 1.8V supply
+    input  wire                      vssd1      , // User area 1 digital ground
 `endif
-  input  wire                      rst        ,
-  // Wishbone Interface
-  input  wire                      wb_clk_i   , // System clock
-  input  wire                      wb_cyc_i   , // strobe/request
-  input  wire                      wb_stb_i   , // strobe/request
-  input  wire [  SRAM_ADDR_WD-1:0] wb_adr_i   , // address
-  input  wire                      wb_we_i    , // write
-  input  wire [  SRAM_DATA_WD-1:0] wb_dat_i   , // data output
-  input  wire [SRAM_DATA_WD/8-1:0] wb_sel_i   , // byte enable
-  // output  wire  [SRAM_DATA_WD-1:0]    wb_dat_o,  // data input
-  output reg                       wb_ack_o   , // acknowlegement
-  // SRAM Interface
-  // Port A
-  output wire                      sram_csb_a ,
-  output wire [  SRAM_ADDR_WD-1:0] sram_addr_a,
-  // Port B
-  output wire                      sram_csb_b ,
-  output wire                      sram_web_b ,
-  output wire [SRAM_DATA_WD/8-1:0] sram_mask_b,
-  output wire [  SRAM_ADDR_WD-1:0] sram_addr_b,
-  output wire [  SRAM_DATA_WD-1:0] sram_din_b
+    input  wire                      rst_i      ,
+    // Wishbone Interface
+    input  wire                      wb_clk_i   , // System clock
+    input  wire                      wb_cyc_i   , // strobe/request
+    input  wire                      wb_stb_i   , // strobe/request
+    input  wire [  SRAM_ADDR_WD-1:0] wb_adr_i   , // address
+    input  wire                      wb_we_i    , // write
+    input  wire [  SRAM_DATA_WD-1:0] wb_dat_i   , // data output
+    input  wire [SRAM_DATA_WD/8-1:0] wb_sel_i   , // byte enable
+    // output  wire  [SRAM_DATA_WD-1:0]    wb_dat_o,  // data input
+    output reg                       wb_ack_o   , // acknowlegement
+    // SRAM Interface
+    // Port A
+    output wire                      sram_csb_a ,
+    output wire [  SRAM_ADDR_WD-1:0] sram_addr_a,
+    // Port B
+    output wire                      sram_csb_b ,
+    output wire                      sram_web_b ,
+    output wire [SRAM_DATA_WD/8-1:0] sram_mask_b,
+    output wire [  SRAM_ADDR_WD-1:0] sram_addr_b,
+    output wire [  SRAM_DATA_WD-1:0] sram_din_b
 );
 
 // // Port A
@@ -68,16 +68,16 @@ module sram_wb_wrapper #(
 
 // Memory Write Port
 // assign sram_clk_b  = wb_clk_i;
-  assign sram_csb_b  = !wb_stb_i;
-  assign sram_web_b  = !wb_we_i;
-  assign sram_mask_b = wb_sel_i;
-  assign sram_addr_b = wb_adr_i;
-  assign sram_din_b  = wb_dat_i;
+assign sram_csb_b  = !wb_stb_i;
+assign sram_web_b  = !wb_we_i;
+assign sram_mask_b = wb_sel_i;
+assign sram_addr_b = wb_adr_i;
+assign sram_din_b  = wb_dat_i;
 
 // Memory Read Port
 // assign sram_clk_a  = wb_clk_i;
-  assign sram_csb_a  = (wb_stb_i == 1'b1 && wb_we_i == 1'b0 && wb_cyc_i == 1'b1) ? 1'b0 : 1'b1;
-  assign sram_addr_a = wb_adr_i;
+assign sram_csb_a  = (wb_stb_i == 1'b1 && wb_we_i == 1'b0 && wb_cyc_i == 1'b1) ? 1'b0 : 1'b1;
+assign sram_addr_a = wb_adr_i;
 
 // assign wb_dat_o    = sram_dout_a;
 
@@ -102,15 +102,14 @@ module sram_wb_wrapper #(
 // );
 
 // Generate once cycle delayed ACK to get the data from SRAM
-  always @(posedge wb_clk_i)
+always @(posedge wb_clk_i)
     begin
-      if ( rst == 1'b1 )
-        begin
-          wb_ack_o <= 1'b0;
-        end else
-      begin
+      if ( rst_i == 1'b1 ) begin
+        wb_ack_o <= 1'b0;
+    end 
+    else begin
         wb_ack_o <= (wb_stb_i == 1'b1) & (wb_cyc_i == 1'b1) & (wb_ack_o == 0);
-      end
     end
+end
 
 endmodule
