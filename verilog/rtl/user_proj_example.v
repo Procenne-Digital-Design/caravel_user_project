@@ -206,19 +206,21 @@ module user_proj_example #(parameter BITS = 32) (
     .wb_we_i    (s0_wb_we_i ), // write
     .wb_dat_i   (s0_wb_dat_i), // data output
     .wb_sel_i   (s0_wb_sel_i), // byte enable
-    //.wb_dat_o(s0_wb_dat_o),  // data input
+    .wb_dat_o   (s0_wb_dat_o),  // data input
     .wb_ack_o   (s0_wb_ack_o), // acknowlegement
     // SRAM Interface
     // Port A
     .sram_csb_a (sram_csb_a ),
     .sram_addr_a(sram_addr_a),
-    
+    .sram_dout_a (sram_dout_a),
     // Port B
     .sram_csb_b (sram_csb_b ),
     .sram_web_b (sram_web_b ),
     .sram_mask_b(sram_mask_b),
     .sram_addr_b(sram_addr_b),
-    .sram_din_b (sram_din_b )
+    .sram_din_b (sram_din_b ),
+    .trng_i(1'b0),
+    .alarm(alarm)
   );
 
   assign io_oeb = {(`MPRJ_IO_PADS){1'b0}};

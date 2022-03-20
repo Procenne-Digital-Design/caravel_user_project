@@ -10,7 +10,7 @@ set ::env(VERILOG_FILES) "\
 	$::env(DESIGN_DIR)/../../verilog/rtl/wb_interconnect/wb_interconnect.sv \
        	$::env(DESIGN_DIR)/../../verilog/rtl/user_proj_example.v \
 	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sram_wb_wrapper.sv \
-	$::env(DESIGN_DIR)/../../verilog/rtl/wbuart32/*.v \
+	$::env(DESIGN_DIR)/../../verilog/rtl/simpleUART/simple_uart.v \
 	$::env(DESIGN_DIR)/../../verilog/rtl/spi/tiny_spi.v"
 
 

@@ -146,7 +146,7 @@ void main()
             error = true;
             break;
         }
-    } while (period < 10 && lfsr != seed && rx_status == data);
+    } while (period < 2 && lfsr != seed && rx_status == data);
 
     if(error)
         reg_mprj_datal = 0xAB800000;
