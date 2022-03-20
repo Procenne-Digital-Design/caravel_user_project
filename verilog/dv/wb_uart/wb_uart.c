@@ -28,12 +28,17 @@
 
 #define reg_SRAM ((volatile uint32_t *)0x30000000)
 
-#define reg_UART_SETUP (*(volatile uint32_t *)0x30001000)
-#define reg_UART_FIFO (*(volatile uint32_t *)0x30001004)
-#define reg_UART_RX_DATA (*(volatile uint32_t *)0x30001008)
-#define reg_UART_TX_DATA (*(volatile uint32_t *)0x3000100C)
+// Register space for wbuart32
+// #define reg_UART_SETUP (*(volatile uint32_t *)0x30001000)
+// #define reg_UART_FIFO (*(volatile uint32_t *)0x30001004)
+// #define reg_UART_RX_DATA (*(volatile uint32_t *)0x30001008)
+// #define reg_UART_TX_DATA (*(volatile uint32_t *)0x3000100C)
 
 
+// Register space for simpleUART
+#define reg_UART_CLKDIV (*(volatile uint32_t *)0x30001000)
+#define reg_UART_DATA   (*(volatile uint32_t *)0x30001004)
+#define reg_UART_CONFIG (*(volatile uint32_t *)0x30001008)
 void main()
 {
 
@@ -118,23 +123,35 @@ void main()
 
     unsigned rx_status = 0;
     
-    reg_UART_SETUP = 434; //115200 for 50MHz clock
+    //reg_UART_SETUP = 434; //115200 for 50MHz clock
+    reg_UART_CLKDIV = 434-2;
+    reg_UART_CONFIG = 1; //dummy write to CFG // todo: get rid of that changing the RTL
+
+    bool error = false;
     do
     {
-        rx_status = 0;
+        rx_status = 0xFFFFFFFF;
         /* taps: 16 14 13 11; characteristic polynomial: x^16 + x^14 + x^13 + x^11 + 1 */
         bit = ((lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5)) & 1;
         lfsr = (lfsr >> 1) | (bit << 15);
         ++period;
         data = lfsr % 256;     
-        reg_UART_TX_DATA = data;
-        while(rx_status == 0)
-            rx_status = reg_UART_FIFO & 0x00000001;
+        reg_UART_DATA = data;
+        
+        while(rx_status == 0xFFFFFFFF)
+            rx_status = reg_UART_DATA;
 
+        if(rx_status != data)
+        {
+            error = true;
+            break;
+        }
+    } while (period < 10 && lfsr != seed && rx_status == data);
 
-    } while (period < 2 && lfsr != seed && reg_UART_RX_DATA == data);
-
-    reg_mprj_datal = 0xAB700000;
+    if(error)
+        reg_mprj_datal = 0xAB800000;
+    else
+        reg_mprj_datal = 0xAB700000;
     
 
 

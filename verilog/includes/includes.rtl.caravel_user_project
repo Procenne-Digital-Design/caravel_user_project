@@ -1,6 +1,7 @@
 # Caravel user project includes	     
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
 -v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
+-v $(USER_PROJECT_VERILOG)/rtl/simpleUART/simple_uart.v
 -v $(USER_PROJECT_VERILOG)/rtl/sram/sram_wb_wrapper.sv
 -v $(USER_PROJECT_VERILOG)/rtl/spi/tiny_spi.v
 -v $(USER_PROJECT_VERILOG)/rtl/wb_interconnect/wb_interconnect.sv

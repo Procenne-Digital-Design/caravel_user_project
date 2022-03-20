@@ -109,12 +109,10 @@ module user_proj_example #(parameter BITS = 32) (
   wire                      s1_wb_stb_i;
   wire [               8:0] s1_wb_adr_o;
   wire                      s1_wb_we_i ;
-  wire [  WB_WIDTH-1:0] s1_wb_dat_i;
-  wire [UART_DATA_WD/8-1:0] s1_wb_sel_i;
-  wire [  WB_WIDTH-1:0] s1_wb_dat_o;
+  wire [WB_WIDTH-1:0] s1_wb_dat_i;
+  wire [WB_WIDTH/8-1:0] s1_wb_sel_i;
+  wire [WB_WIDTH-1:0] s1_wb_dat_o;
   wire                      s1_wb_ack_o;
-
-
 
   //---------------------------------------------------------------------
   // SPI
@@ -127,11 +125,6 @@ module user_proj_example #(parameter BITS = 32) (
   //wire [UART_DATA_WD/8-1:0] s3_wb_sel_i;
   wire [WB_WIDTH-1:0] s3_wb_dat_o;
   wire                s3_wb_ack_o;
-
-
-
-  wire [8:0] concat_s0_addr;
-  wire [8:0] concat_s1_addr;
 
 
   wb_interconnect interconnect (
@@ -230,33 +223,29 @@ module user_proj_example #(parameter BITS = 32) (
 
   assign io_oeb = {(`MPRJ_IO_PADS){1'b0}};
 
+  
 
-
-  wbuart wbuart_inst (
+  simpleuartA_wb   
+  simpleuartA_wb_dut (
     `ifdef USE_POWER_PINS
-    .vccd1            (vccd1           ), // User area 1 1.8V supply
-    .vssd1            (vssd1           ), // User area 1 digital ground
+    .vccd1      (vccd1      ), // User area 1 1.8V supply
+    .vssd1      (vssd1      ), // User area 1 digital ground
     `endif
-    .i_clk            (wb_clk_i        ),
-    .i_reset          (wb_rst_i        ),
-    .i_wb_cyc         (s1_wb_cyc_i     ),
-    .i_wb_stb         (s1_wb_stb_i     ),
-    .i_wb_we          (s1_wb_we_i      ),
-    .i_wb_addr        (s1_wb_adr_o[1:0]),
-    .i_wb_data        (s1_wb_dat_i     ),
-    .i_wb_sel         (s1_wb_sel_i     ),
-    .o_wb_stall       (                ),
-    .o_wb_ack         (s1_wb_ack_o     ),
-    .o_wb_data        (s1_wb_dat_o     ),
-    .i_uart_rx        (io_in[15]       ),
-    .o_uart_tx        (io_out[16]      ),
-    .i_cts_n          (1'b0            ),
-    .o_rts_n          (                ),
-    .o_uart_rx_int    (                ),
-    .o_uart_tx_int    (                ),
-    .o_uart_rxfifo_int(                ),
-    .o_uart_txfifo_int(                )
+    .wb_clk_i (wb_clk_i ),
+    .wb_rst_i (wb_rst_i ),
+    .wb_adr_i (s1_wb_adr_o[1:0]),
+    .wb_dat_i (s1_wb_dat_i ),
+    .wb_sel_i (s1_wb_sel_i ),
+    .wb_we_i  (s1_wb_we_i ),
+    .wb_cyc_i (s1_wb_cyc_i ),
+    .wb_stb_i (s1_wb_stb_i ),
+    .wb_ack_o (s1_wb_ack_o ),
+    .wb_dat_o (s1_wb_dat_o ),
+    .uart_enabled ( ),
+    .ser_tx (io_out[16] ),
+    .ser_rx  (io_in[15])
   );
+
 
 
   tiny_spi #(
