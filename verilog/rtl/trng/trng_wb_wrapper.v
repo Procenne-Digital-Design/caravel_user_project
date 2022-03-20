@@ -64,7 +64,7 @@ ringosc_macro_dut (
     .trng_o    (trng_o)
 );
 
-assign trim_select   = wb_adr_i[5];
+assign trim_select   = wb_dat_i[5];
 assign trim_write_en = (wb_stb_i == 1'b1 && wb_we_i == 1'b1 && wb_cyc_i == 1'b1) ? 1'b1 : 1'b0;
 
 always @(posedge wb_clk_i)
@@ -76,7 +76,7 @@ begin
     else begin
         if (trim_write_en) begin
             if(trim_select)
-                case(wb_adr_i[4:0])
+                case(wb_dat_i[4:0])
                     5'b00000: trim_fast = 26'b00000000000000000000000000;
                     5'b00001: trim_fast = 26'b00000000000000000000000001;
                     5'b00010: trim_fast = 26'b00000000000000000000000011;
@@ -156,10 +156,15 @@ begin
         trng_counter <= trng_counter + 1;
         trng_valid_o <= trng_valid_o;
 
+        if(trim_write_en == 1'b1 && wb_ack_o == 1'b0) begin
+            wb_ack_o <= 1'b1;
+        end
+
         if(trng_counter == 6'b100000) begin
             trng_counter <= 'h0;
             trng_valid_o <= 1'b1;
         end
+
         if(read_trng == 1'b1 && trng_valid_o == 1'b1) begin
             wb_ack_o     <= 1'b1;
             trng_counter <= 'h0;

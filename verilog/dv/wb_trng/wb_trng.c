@@ -30,6 +30,7 @@
 
 void main()
 {
+    int trng_buffer = 0;
 
     /*
     IO Control Registers
@@ -82,8 +83,12 @@ void main()
     // Flag start of the test
     reg_mprj_datal = 0xAB600000;
 
+    // change trim
     trng_offset = 0x00000037;
     *((&trng_offset)+1) = 0x00000001;
+    
+    // read buffer
+    trng_buffer = trng_offset;
 
     // Flag finish of the test
     reg_mprj_datal = 0xAB610000;

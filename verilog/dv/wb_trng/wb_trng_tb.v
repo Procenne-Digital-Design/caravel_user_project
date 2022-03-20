@@ -48,19 +48,19 @@ module wb_trng_tb;
         $dumpvars(0, wb_trng_tb);
 
         // Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (50) begin
-			repeat (1000) @(posedge clock);
+        repeat (50) begin
+            repeat (1000) @(posedge clock);
             // $display("+1000 cycles");
         end
-		$display("%c[1;31m",27);
-		`ifdef GL
-			$display ("Monitor: Timeout, Test Mega-Project WB Port (GL) Failed");
-		`else
-			$display ("Monitor: Timeout, Test Mega-Project WB Port (RTL) Failed");
-		`endif
-		$display("%c[0m",27);
-		$finish;
-	end
+        $display("%c[1;31m",27);
+        `ifdef GL
+            $display ("Monitor: Timeout, Test Mega-Project WB Port (GL) Failed");
+        `else
+            $display ("Monitor: Timeout, Test Mega-Project WB Port (RTL) Failed");
+        `endif
+        $display("%c[0m",27);
+        $finish;
+    end
 
     initial begin
         wait(checkbits == 16'hAB60);
@@ -133,7 +133,7 @@ module wb_trng_tb;
     );
 
     spiflash #(
-        .FILENAME("wb_port.hex")
+        .FILENAME("wb_trng.hex")
     ) spiflash (
         .csb(flash_csb),
         .clk(flash_clk),
