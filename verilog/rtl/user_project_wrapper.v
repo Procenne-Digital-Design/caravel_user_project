@@ -146,9 +146,11 @@ module user_project_wrapper #(parameter BITS = 32) (
     .BUFFER_SIZE (BITS )
   )
   trng_wb_wrapper_dut (
-    .vccd1 (vccd1 ),
-    .vssd1 (vssd1 ),
-    .rst_i (rst_i ),
+    `ifdef USE_POWER_PINS
+    .vccd1      (vccd1      ), // User area 1 1.8V power
+    .vssd1      (vssd1      ), // User area 1 digital ground
+    `endif
+    .rst_i (wb_rst_i ),
     .wb_clk_i (wb_clk_i ),
     .wb_cyc_i (wb_cyc_i ),
     .wb_stb_i (wb_stb_i ),
@@ -157,7 +159,7 @@ module user_project_wrapper #(parameter BITS = 32) (
     .wb_dat_i (wb_dat_i ),
     .wb_dat_o (wb_dat_o ),
     .wb_ack_o (wb_ack_o ),
-    .trng_valid_o (trng_valid_o ),
+    .trng_valid_o (),
     .trng_buffer_o  ( trng_buffer_o)
   );
 

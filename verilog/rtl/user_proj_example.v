@@ -192,7 +192,7 @@ module user_proj_example #(parameter BITS = 32) (
     .s2_wb_sel_o(),
     .s2_wb_we_o (trng_wb_we_o),
     .s2_wb_cyc_o(trng_wb_cyc_o),
-    .s2_wb_stb_o(trng_wb_cyc_o),
+    .s2_wb_stb_o(trng_wb_stb_o),
     
     // Slave 3 Interface
     .s3_wb_dat_i(s3_wb_dat_o),

@@ -407,7 +407,7 @@ module sram_wb_wrapper #(
   wire         aes_init = (wr_busy) ? aes_init_wr : (rd_busy) ? aes_init_rd : 'h0       ;
   wire         aes_next = (wr_busy) ? aes_next_wr : (rd_busy) ? aes_next_rd : 'h0       ;
   wire [127:0] aes_ptx  = (wr_busy) ? aes_ptx_wr_reg :  (rd_busy) ? aes_ptx_rd_reg : 'h0;
-  wire         enc_dec  = (wr_busy) ? enc_dec_wr :  (rd_busy) ? enc_dec_rd : 'h0        ;
+  wire         enc_dec  = (wr_busy) ? 1'b1 :  (rd_busy) ? 1'b0 : 'h0        ;
 
 
   aes_core core (

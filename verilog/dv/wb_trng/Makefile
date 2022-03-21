@@ -18,6 +18,9 @@
  
 PWDD := $(shell pwd)
 BLOCKS := $(shell basename $(PWDD))
+CARAVEL_PATH = $(CARAVEL_ROOT)
+CARAVEL_VERILOG_PATH = $(CARAVEL_ROOT)/verilog
+CONFIG = caravel_user_project
 
 # ---- Include Partitioned Makefiles ----
 

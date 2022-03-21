@@ -1,6 +1,8 @@
 # User config
 set ::env(DESIGN_NAME) user_proj_example
 
+set ::env(SDC_FILE) $::env(DESIGN_DIR)/base.sdc
+set ::env(BASE_SDC_FILE) $::env(DESIGN_DIR)/base.sdc
 
 set script_dir [file dirname [file normalize [info script]]]
 
@@ -10,8 +12,11 @@ set ::env(VERILOG_FILES) "\
 	$::env(DESIGN_DIR)/../../verilog/rtl/wb_interconnect/wb_interconnect.sv \
        	$::env(DESIGN_DIR)/../../verilog/rtl/user_proj_example.v \
 	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sram_wb_wrapper.sv \
+	$::env(DESIGN_DIR)/../../verilog/rtl/aes/aes.v \ 
 	$::env(DESIGN_DIR)/../../verilog/rtl/simpleUART/simple_uart.v \
-	$::env(DESIGN_DIR)/../../verilog/rtl/spi/tiny_spi.v"
+	$::env(DESIGN_DIR)/../../verilog/rtl/spi/tiny_spi.v \
+	$::env(DESIGN_DIR)/../../verilog/rtl/security_monitor/lfsr.v"
+
 
 
 # Fill this
@@ -36,7 +41,7 @@ set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 800 1600"
+set ::env(DIE_AREA) "0 0 1500 1000"
 
 #set ::env(PL_BASIC_PLACEMENT) 1
 set ::env(PL_TARGET_DENSITY) 0.50

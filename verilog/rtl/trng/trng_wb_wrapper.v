@@ -50,7 +50,7 @@ wire        trng_o;
 
 // Wishbone to TRNG signalization and vice versa.
 assign read_trng  = (wb_stb_i == 1'b1 && wb_we_i == 1'b0 && wb_cyc_i == 1'b1) ? 1'b1 : 1'b0;
-assign wb_dat_o   = (trng_valid_o == 1'b1 && read_trng == 1'b1) ? trng_buffer : 'h0;
+assign wb_dat_o   = (trng_valid_o == 1'b1 && read_trng == 1'b1) ? trng_buffer_o : 'h0;
 
 ringosc_macro #(.TRIM_BITS(26))
 ringosc_macro_dut (
@@ -148,7 +148,7 @@ begin
         wb_ack_o     <= 1'b0;
         trng_valid_o <= 1'b0;
         trng_counter <= 'h0;
-        trng_buffer  <= 'h0;
+        trng_buffer_o  <= 'h0;
     end
     else begin
         // TRNG signalization
@@ -171,7 +171,7 @@ begin
             trng_valid_o <= 1'b0;
         end
 
-        trng_buffer <= {trng_buffer[30:0],trng_o};
+        trng_buffer_o <= {trng_buffer_o[30:0],trng_o};
     end
 end
 
