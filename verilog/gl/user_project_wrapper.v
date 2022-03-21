@@ -142,10 +142,123 @@ module user_project_wrapper (user_clock2,
  wire \sram_mask_b[2] ;
  wire \sram_mask_b[3] ;
  wire sram_web_b;
+ wire \trng_buffer_o[0] ;
+ wire \trng_buffer_o[10] ;
+ wire \trng_buffer_o[11] ;
+ wire \trng_buffer_o[12] ;
+ wire \trng_buffer_o[13] ;
+ wire \trng_buffer_o[14] ;
+ wire \trng_buffer_o[15] ;
+ wire \trng_buffer_o[16] ;
+ wire \trng_buffer_o[17] ;
+ wire \trng_buffer_o[18] ;
+ wire \trng_buffer_o[19] ;
+ wire \trng_buffer_o[1] ;
+ wire \trng_buffer_o[20] ;
+ wire \trng_buffer_o[21] ;
+ wire \trng_buffer_o[22] ;
+ wire \trng_buffer_o[23] ;
+ wire \trng_buffer_o[24] ;
+ wire \trng_buffer_o[25] ;
+ wire \trng_buffer_o[26] ;
+ wire \trng_buffer_o[27] ;
+ wire \trng_buffer_o[28] ;
+ wire \trng_buffer_o[29] ;
+ wire \trng_buffer_o[2] ;
+ wire \trng_buffer_o[30] ;
+ wire \trng_buffer_o[31] ;
+ wire \trng_buffer_o[3] ;
+ wire \trng_buffer_o[4] ;
+ wire \trng_buffer_o[5] ;
+ wire \trng_buffer_o[6] ;
+ wire \trng_buffer_o[7] ;
+ wire \trng_buffer_o[8] ;
+ wire \trng_buffer_o[9] ;
+ wire wb_ack_o;
+ wire \wb_adr_i[0] ;
+ wire \wb_adr_i[1] ;
+ wire \wb_adr_i[2] ;
+ wire \wb_adr_i[3] ;
+ wire \wb_adr_i[4] ;
+ wire \wb_adr_i[5] ;
+ wire \wb_adr_i[6] ;
+ wire \wb_adr_i[7] ;
+ wire \wb_adr_i[8] ;
+ wire wb_cyc_i;
+ wire \wb_dat_i[0] ;
+ wire \wb_dat_i[10] ;
+ wire \wb_dat_i[11] ;
+ wire \wb_dat_i[12] ;
+ wire \wb_dat_i[13] ;
+ wire \wb_dat_i[14] ;
+ wire \wb_dat_i[15] ;
+ wire \wb_dat_i[16] ;
+ wire \wb_dat_i[17] ;
+ wire \wb_dat_i[18] ;
+ wire \wb_dat_i[19] ;
+ wire \wb_dat_i[1] ;
+ wire \wb_dat_i[20] ;
+ wire \wb_dat_i[21] ;
+ wire \wb_dat_i[22] ;
+ wire \wb_dat_i[23] ;
+ wire \wb_dat_i[24] ;
+ wire \wb_dat_i[25] ;
+ wire \wb_dat_i[26] ;
+ wire \wb_dat_i[27] ;
+ wire \wb_dat_i[28] ;
+ wire \wb_dat_i[29] ;
+ wire \wb_dat_i[2] ;
+ wire \wb_dat_i[30] ;
+ wire \wb_dat_i[31] ;
+ wire \wb_dat_i[3] ;
+ wire \wb_dat_i[4] ;
+ wire \wb_dat_i[5] ;
+ wire \wb_dat_i[6] ;
+ wire \wb_dat_i[7] ;
+ wire \wb_dat_i[8] ;
+ wire \wb_dat_i[9] ;
+ wire \wb_dat_o[0] ;
+ wire \wb_dat_o[10] ;
+ wire \wb_dat_o[11] ;
+ wire \wb_dat_o[12] ;
+ wire \wb_dat_o[13] ;
+ wire \wb_dat_o[14] ;
+ wire \wb_dat_o[15] ;
+ wire \wb_dat_o[16] ;
+ wire \wb_dat_o[17] ;
+ wire \wb_dat_o[18] ;
+ wire \wb_dat_o[19] ;
+ wire \wb_dat_o[1] ;
+ wire \wb_dat_o[20] ;
+ wire \wb_dat_o[21] ;
+ wire \wb_dat_o[22] ;
+ wire \wb_dat_o[23] ;
+ wire \wb_dat_o[24] ;
+ wire \wb_dat_o[25] ;
+ wire \wb_dat_o[26] ;
+ wire \wb_dat_o[27] ;
+ wire \wb_dat_o[28] ;
+ wire \wb_dat_o[29] ;
+ wire \wb_dat_o[2] ;
+ wire \wb_dat_o[30] ;
+ wire \wb_dat_o[31] ;
+ wire \wb_dat_o[3] ;
+ wire \wb_dat_o[4] ;
+ wire \wb_dat_o[5] ;
+ wire \wb_dat_o[6] ;
+ wire \wb_dat_o[7] ;
+ wire \wb_dat_o[8] ;
+ wire \wb_dat_o[9] ;
+ wire wb_stb_i;
+ wire wb_we_i;
 
  user_proj_example mprj (.sram_csb_a(sram_csb_a),
     .sram_csb_b(sram_csb_b),
     .sram_web_b(sram_web_b),
+    .trng_wb_ack_i(wb_ack_o),
+    .trng_wb_cyc_o(wb_cyc_i),
+    .trng_wb_stb_o(wb_stb_i),
+    .trng_wb_we_o(wb_we_i),
     .vccd1(vccd1),
     .vssd1(vssd1),
     .wb_clk_i(wb_clk_i),
@@ -741,6 +854,111 @@ module user_project_wrapper (user_clock2,
     \sram_mask_b[2] ,
     \sram_mask_b[1] ,
     \sram_mask_b[0] }),
+    .trng_buffer_i({\trng_buffer_o[31] ,
+    \trng_buffer_o[30] ,
+    \trng_buffer_o[29] ,
+    \trng_buffer_o[28] ,
+    \trng_buffer_o[27] ,
+    \trng_buffer_o[26] ,
+    \trng_buffer_o[25] ,
+    \trng_buffer_o[24] ,
+    \trng_buffer_o[23] ,
+    \trng_buffer_o[22] ,
+    \trng_buffer_o[21] ,
+    \trng_buffer_o[20] ,
+    \trng_buffer_o[19] ,
+    \trng_buffer_o[18] ,
+    \trng_buffer_o[17] ,
+    \trng_buffer_o[16] ,
+    \trng_buffer_o[15] ,
+    \trng_buffer_o[14] ,
+    \trng_buffer_o[13] ,
+    \trng_buffer_o[12] ,
+    \trng_buffer_o[11] ,
+    \trng_buffer_o[10] ,
+    \trng_buffer_o[9] ,
+    \trng_buffer_o[8] ,
+    \trng_buffer_o[7] ,
+    \trng_buffer_o[6] ,
+    \trng_buffer_o[5] ,
+    \trng_buffer_o[4] ,
+    \trng_buffer_o[3] ,
+    \trng_buffer_o[2] ,
+    \trng_buffer_o[1] ,
+    \trng_buffer_o[0] }),
+    .trng_wb_adr_o({\wb_adr_i[8] ,
+    \wb_adr_i[7] ,
+    \wb_adr_i[6] ,
+    \wb_adr_i[5] ,
+    \wb_adr_i[4] ,
+    \wb_adr_i[3] ,
+    \wb_adr_i[2] ,
+    \wb_adr_i[1] ,
+    \wb_adr_i[0] }),
+    .trng_wb_dat_i({\wb_dat_o[31] ,
+    \wb_dat_o[30] ,
+    \wb_dat_o[29] ,
+    \wb_dat_o[28] ,
+    \wb_dat_o[27] ,
+    \wb_dat_o[26] ,
+    \wb_dat_o[25] ,
+    \wb_dat_o[24] ,
+    \wb_dat_o[23] ,
+    \wb_dat_o[22] ,
+    \wb_dat_o[21] ,
+    \wb_dat_o[20] ,
+    \wb_dat_o[19] ,
+    \wb_dat_o[18] ,
+    \wb_dat_o[17] ,
+    \wb_dat_o[16] ,
+    \wb_dat_o[15] ,
+    \wb_dat_o[14] ,
+    \wb_dat_o[13] ,
+    \wb_dat_o[12] ,
+    \wb_dat_o[11] ,
+    \wb_dat_o[10] ,
+    \wb_dat_o[9] ,
+    \wb_dat_o[8] ,
+    \wb_dat_o[7] ,
+    \wb_dat_o[6] ,
+    \wb_dat_o[5] ,
+    \wb_dat_o[4] ,
+    \wb_dat_o[3] ,
+    \wb_dat_o[2] ,
+    \wb_dat_o[1] ,
+    \wb_dat_o[0] }),
+    .trng_wb_dat_o({\wb_dat_i[31] ,
+    \wb_dat_i[30] ,
+    \wb_dat_i[29] ,
+    \wb_dat_i[28] ,
+    \wb_dat_i[27] ,
+    \wb_dat_i[26] ,
+    \wb_dat_i[25] ,
+    \wb_dat_i[24] ,
+    \wb_dat_i[23] ,
+    \wb_dat_i[22] ,
+    \wb_dat_i[21] ,
+    \wb_dat_i[20] ,
+    \wb_dat_i[19] ,
+    \wb_dat_i[18] ,
+    \wb_dat_i[17] ,
+    \wb_dat_i[16] ,
+    \wb_dat_i[15] ,
+    \wb_dat_i[14] ,
+    \wb_dat_i[13] ,
+    \wb_dat_i[12] ,
+    \wb_dat_i[11] ,
+    \wb_dat_i[10] ,
+    \wb_dat_i[9] ,
+    \wb_dat_i[8] ,
+    \wb_dat_i[7] ,
+    \wb_dat_i[6] ,
+    \wb_dat_i[5] ,
+    \wb_dat_i[4] ,
+    \wb_dat_i[3] ,
+    \wb_dat_i[2] ,
+    \wb_dat_i[1] ,
+    \wb_dat_i[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -841,6 +1059,119 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
+ trng_wb_wrapper trng_wb_wrapper_dut (.rst_i(wb_rst_i),
+    .vccd1(vccd1),
+    .vssd1(vssd1),
+    .wb_ack_o(wb_ack_o),
+    .wb_clk_i(wb_clk_i),
+    .wb_cyc_i(wb_cyc_i),
+    .wb_stb_i(wb_stb_i),
+    .wb_we_i(wb_we_i),
+    .trng_buffer_o({\trng_buffer_o[31] ,
+    \trng_buffer_o[30] ,
+    \trng_buffer_o[29] ,
+    \trng_buffer_o[28] ,
+    \trng_buffer_o[27] ,
+    \trng_buffer_o[26] ,
+    \trng_buffer_o[25] ,
+    \trng_buffer_o[24] ,
+    \trng_buffer_o[23] ,
+    \trng_buffer_o[22] ,
+    \trng_buffer_o[21] ,
+    \trng_buffer_o[20] ,
+    \trng_buffer_o[19] ,
+    \trng_buffer_o[18] ,
+    \trng_buffer_o[17] ,
+    \trng_buffer_o[16] ,
+    \trng_buffer_o[15] ,
+    \trng_buffer_o[14] ,
+    \trng_buffer_o[13] ,
+    \trng_buffer_o[12] ,
+    \trng_buffer_o[11] ,
+    \trng_buffer_o[10] ,
+    \trng_buffer_o[9] ,
+    \trng_buffer_o[8] ,
+    \trng_buffer_o[7] ,
+    \trng_buffer_o[6] ,
+    \trng_buffer_o[5] ,
+    \trng_buffer_o[4] ,
+    \trng_buffer_o[3] ,
+    \trng_buffer_o[2] ,
+    \trng_buffer_o[1] ,
+    \trng_buffer_o[0] }),
+    .wb_adr_i({\wb_adr_i[8] ,
+    \wb_adr_i[7] ,
+    \wb_adr_i[6] ,
+    \wb_adr_i[5] ,
+    \wb_adr_i[4] ,
+    \wb_adr_i[3] ,
+    \wb_adr_i[2] ,
+    \wb_adr_i[1] ,
+    \wb_adr_i[0] }),
+    .wb_dat_i({\wb_dat_i[31] ,
+    \wb_dat_i[30] ,
+    \wb_dat_i[29] ,
+    \wb_dat_i[28] ,
+    \wb_dat_i[27] ,
+    \wb_dat_i[26] ,
+    \wb_dat_i[25] ,
+    \wb_dat_i[24] ,
+    \wb_dat_i[23] ,
+    \wb_dat_i[22] ,
+    \wb_dat_i[21] ,
+    \wb_dat_i[20] ,
+    \wb_dat_i[19] ,
+    \wb_dat_i[18] ,
+    \wb_dat_i[17] ,
+    \wb_dat_i[16] ,
+    \wb_dat_i[15] ,
+    \wb_dat_i[14] ,
+    \wb_dat_i[13] ,
+    \wb_dat_i[12] ,
+    \wb_dat_i[11] ,
+    \wb_dat_i[10] ,
+    \wb_dat_i[9] ,
+    \wb_dat_i[8] ,
+    \wb_dat_i[7] ,
+    \wb_dat_i[6] ,
+    \wb_dat_i[5] ,
+    \wb_dat_i[4] ,
+    \wb_dat_i[3] ,
+    \wb_dat_i[2] ,
+    \wb_dat_i[1] ,
+    \wb_dat_i[0] }),
+    .wb_dat_o({\wb_dat_o[31] ,
+    \wb_dat_o[30] ,
+    \wb_dat_o[29] ,
+    \wb_dat_o[28] ,
+    \wb_dat_o[27] ,
+    \wb_dat_o[26] ,
+    \wb_dat_o[25] ,
+    \wb_dat_o[24] ,
+    \wb_dat_o[23] ,
+    \wb_dat_o[22] ,
+    \wb_dat_o[21] ,
+    \wb_dat_o[20] ,
+    \wb_dat_o[19] ,
+    \wb_dat_o[18] ,
+    \wb_dat_o[17] ,
+    \wb_dat_o[16] ,
+    \wb_dat_o[15] ,
+    \wb_dat_o[14] ,
+    \wb_dat_o[13] ,
+    \wb_dat_o[12] ,
+    \wb_dat_o[11] ,
+    \wb_dat_o[10] ,
+    \wb_dat_o[9] ,
+    \wb_dat_o[8] ,
+    \wb_dat_o[7] ,
+    \wb_dat_o[6] ,
+    \wb_dat_o[5] ,
+    \wb_dat_o[4] ,
+    \wb_dat_o[3] ,
+    \wb_dat_o[2] ,
+    \wb_dat_o[1] ,
+    \wb_dat_o[0] }));
  sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb (.csb0(sram_csb_b),
     .csb1(sram_csb_a),
     .web0(sram_web_b),
