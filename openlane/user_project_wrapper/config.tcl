@@ -34,8 +34,6 @@ set ::env(DESIGN_NAME) user_project_wrapper
 set ::env(DESIGN_IS_CORE) 1
 set ::env(FP_PDN_CORE_RING) 1
 
-
-
 #set ::env(PDN_CFG) $script_dir/pdn.tcl
 
 ## Source Verilog Files
@@ -67,16 +65,19 @@ set ::env(MAGIC_DRC_USE_GDS) 0
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
 	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sky130_sram_2kbyte_1rw1r_32x512_8.v \
-	$::env(DESIGN_DIR)/../../verilog/rtl/user_proj_example.v" 
+	$::env(DESIGN_DIR)/../../verilog/rtl/user_proj_example.v \ 
+	$::env(DESIGN_DIR)/../../verilog/rtl/trng/trng_wb_wrapper.v" 
 
 set ::env(EXTRA_LEFS) "\
 	$::env(DESIGN_DIR)/../../lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef \
-	$::env(DESIGN_DIR)/../../lef/user_proj_example.lef"
+	$::env(DESIGN_DIR)/../../lef/user_proj_example.lef \
+	$::env(DESIGN_DIR)/../../lef/trng_wb_wrapper.lef"
 
 
 set ::env(EXTRA_GDS_FILES) "\
 	$::env(DESIGN_DIR)/../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds \
-	$::env(DESIGN_DIR)/../../gds/user_proj_example.gds"
+	$::env(DESIGN_DIR)/../../gds/user_proj_example.gds \
+	$::env(DESIGN_DIR)/../../gds/trng_wb_wrapper.gds"
 
 
 set ::env(EXTRA_LIBS) "\
@@ -85,11 +86,9 @@ set ::env(EXTRA_LIBS) "\
 
 set ::env(GLB_RT_OBS) "li1 1000.00 2500.00 1683.1 2916.54,  \
                	       met1 1000.00 2500.00 1683.1 2916.54, \
-	               met2 1000.00 2500.00 1683.1 2916.54, \
-	               met3 1000.00 2500.00 1683.1 2916.54, \
-	               met4 1000.00 2500.00 1683.1 2916.54" 
-
-
+	                   met2 1000.00 2500.00 1683.1 2916.54, \
+	                   met3 1000.00 2500.00 1683.1 2916.54, \
+	                   met4 1000.00 2500.00 1683.1 2916.54" 
 
 set ::env(MAGIC_DRC_USE_GDS) 0
 #set ::env(GLB_RT_MAXLAYER) 4
@@ -113,9 +112,6 @@ set ::env(PL_RANDOM_GLB_PLACEMENT) 1
 
 
 #set ::env(GLB_RT_ALLOW_CONGESTION) "1"
-#
-
-
 set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
 set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
 set ::env(PL_RESIZER_BUFFER_INPUT_PORTS) 0

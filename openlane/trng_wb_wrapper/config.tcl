@@ -51,10 +51,10 @@ set ::env(GLB_RESIZER_TIMING_OPTIMIZATIONS) 0
 set ::env(DESIGN_IS_CORE) 0
 
 set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 900 1200"
+set ::env(DIE_AREA) "0 0 200 300"
 
 set ::env(PL_BASIC_PLACEMENT) 1
-set ::env(PL_TARGET_DENSITY) 0.40
+set ::env(PL_TARGET_DENSITY) 0.50
 
 set ::env(VDD_PIN) [list {vccd1}]
 set ::env(GND_PIN) [list {vssd1}]
