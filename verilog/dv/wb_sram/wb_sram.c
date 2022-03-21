@@ -90,10 +90,10 @@ void main()
     volatile unsigned dummy;
     bool error = false;
     //writing to master key
-    *(reg_SRAM) = 0xDEADBEEF;
     *(reg_SRAM) = 0xCAFEBEEF;
-    *(reg_SRAM) = 0x01234567;
-    *(reg_SRAM) = 0x89abcdef;
+    // *(reg_SRAM) = 0xCAFEBEEF;
+    // *(reg_SRAM) = 0x01234567;
+    // *(reg_SRAM) = 0x89abcdef;
 
 
 
@@ -102,15 +102,19 @@ void main()
     *(reg_SRAM+(2*4)) = 0xDEADBEEF;
 
     //wait for wr_busy
-    while(*(reg_SRAM +2) != 0);
+    //while(*(reg_SRAM +2) != 0);
 
-    dummy = *(reg_SRAM + (2 * 4));
+    //dummy = *(reg_SRAM + (2 * 4));
 
     //wait for rd_busy
-    while(*(reg_SRAM + 2) != 0);
+   // while(*(reg_SRAM + 2) != 0);
 
-    if(*(reg_SRAM + 1) != 0xDEADBEEF)
+    //if(*(reg_SRAM + 1) != 0xDEADBEEF)
+    //    error = true;
+
+    if(*(reg_SRAM+(2*4)) != 0xDEADBEEF)
         error = true;
+
     // for (int i = 0; i < 32; i++)
     // {
     //    if(*(reg_SRAM+(i*4)) != i * 1024 )
