@@ -85,6 +85,21 @@ module user_project_wrapper #(parameter BITS = 32) (
 
 
 
+
+
+  wire        wb_clk_i;
+  wire        wb_cyc_i;
+  wire        wb_stb_i;
+  wire [8:0]  wb_adr_i;
+  wire        wb_we_i ;
+  wire [31:0] wb_dat_i;
+  wire [31:0] wb_dat_o;
+  wire        wb_ack_o;
+  wire [31:0] trng_buffer_o;
+
+
+
+
   user_proj_example mprj (
     `ifdef USE_POWER_PINS
     .vccd1      (vccd1      ), // User area 1 1.8V power
@@ -114,8 +129,38 @@ module user_project_wrapper #(parameter BITS = 32) (
     .sram_web_b (sram_web_b ),
     .sram_mask_b(sram_mask_b),
     .sram_addr_b(sram_addr_b),
-    .sram_din_b (sram_din_b )
+    .sram_din_b (sram_din_b ),
+    .trng_wb_cyc_o(wb_cyc_i),
+    .trng_wb_stb_o(wb_stb_i),
+    .trng_wb_adr_o(wb_adr_i),
+    .trng_wb_we_o (wb_we_i ),
+    .trng_wb_dat_i(wb_dat_o),
+    .trng_wb_dat_o(wb_dat_i),
+    .trng_wb_ack_i(wb_ack_o),    
+    .trng_buffer_i (trng_buffer_o)
   );
+
+
+  trng_wb_wrapper 
+  #(
+    .BUFFER_SIZE (BITS )
+  )
+  trng_wb_wrapper_dut (
+    .vccd1 (vccd1 ),
+    .vssd1 (vssd1 ),
+    .rst_i (rst_i ),
+    .wb_clk_i (wb_clk_i ),
+    .wb_cyc_i (wb_cyc_i ),
+    .wb_stb_i (wb_stb_i ),
+    .wb_adr_i (wb_adr_i ),
+    .wb_we_i (wb_we_i ),
+    .wb_dat_i (wb_dat_i ),
+    .wb_dat_o (wb_dat_o ),
+    .wb_ack_o (wb_ack_o ),
+    .trng_valid_o (trng_valid_o ),
+    .trng_buffer_o  ( trng_buffer_o)
+  );
+
 
 
 

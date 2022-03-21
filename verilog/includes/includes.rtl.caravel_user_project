@@ -15,3 +15,5 @@
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/skidbuffer.v
 -v $(USER_PROJECT_VERILOG)/rtl/wbuart32/wbuart.v
 -v $(USER_PROJECT_VERILOG)/rtl/sram/sky130_sram_1kbyte_1rw1r_32x256_8.v
+-v $(USER_PROJECT_VERILOG)/rtl/trng/ringosc_macro.v
+-v $(USER_PROJECT_VERILOG)/rtl/trng/trng_wb_wrapper.v

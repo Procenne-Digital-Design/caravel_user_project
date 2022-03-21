@@ -70,7 +70,17 @@ module user_proj_example #(parameter BITS = 32) (
   output                     sram_web_b ,
   output [              3:0] sram_mask_b,
   output [              8:0] sram_addr_b,
-  output [             31:0] sram_din_b
+  output [             31:0] sram_din_b,
+  //TRNG
+  output        trng_wb_cyc_o, 
+  output        trng_wb_stb_o,
+  output [8:0]  trng_wb_adr_o,
+  output        trng_wb_we_o ,
+  input  [31:0] trng_wb_dat_i,
+  output [31:0] trng_wb_dat_o,
+  input         trng_wb_ack_i,
+  input  [31:0] trng_buffer_i
+
 );
   /*--------------------------------------*/
   /* User project is instantiated  here   */
@@ -175,14 +185,14 @@ module user_proj_example #(parameter BITS = 32) (
     .s1_wb_stb_o(s1_wb_stb_i),
     
     // Slave 2 Interface
-    // .s2_wb_dat_i(),
-    // .s2_wb_ack_i(),
-    // .s2_wb_dat_o(),
-    // .s2_wb_adr_o(),
-    // .s2_wb_sel_o(),
-    // .s2_wb_we_o (),
-    // .s2_wb_cyc_o(),
-    // .s2_wb_stb_o(),
+    .s2_wb_dat_i(trng_wb_dat_i),
+    .s2_wb_ack_i(trng_wb_ack_i),
+    .s2_wb_dat_o(trng_wb_dat_o),
+    .s2_wb_adr_o(trng_wb_adr_o),
+    .s2_wb_sel_o(),
+    .s2_wb_we_o (trng_wb_we_o),
+    .s2_wb_cyc_o(trng_wb_cyc_o),
+    .s2_wb_stb_o(trng_wb_cyc_o),
     
     // Slave 3 Interface
     .s3_wb_dat_i(s3_wb_dat_o),
