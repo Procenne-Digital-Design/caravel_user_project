@@ -1457,3 +1457,9 @@ Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memor
 ---------------------------------------------------------------------------------
 RTL Elaboration failed
 ERROR: [Common 17-39] 'refresh_design' failed due to earlier errors.
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Mar 21 13:37:23 2022...
