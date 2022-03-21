@@ -31,47 +31,90 @@ set ::env(DESIGN_NAME) user_project_wrapper
 #section end
 
 # User Configurations
+set ::env(DESIGN_IS_CORE) 1
+set ::env(FP_PDN_CORE_RING) 1
+
+
+
+#set ::env(PDN_CFG) $script_dir/pdn.tcl
 
 ## Source Verilog Files
 set ::env(VERILOG_FILES) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_project_wrapper.v"
+	$::env(DESIGN_DIR)/../../verilog/rtl/user_project_wrapper.v"
+
+set ::env(SYNTH_READ_BLACKBOX_LIB) 1
 
 ## Clock configurations
-set ::env(CLOCK_PORT) "user_clock2"
-set ::env(CLOCK_NET) "mprj.clk"
+set ::env(CLOCK_PORT) "wb_clk_i"
+set ::env(CLOCK_NET) "wb_clk_i"
 
-set ::env(CLOCK_PERIOD) "10"
+set ::env(CLOCK_PERIOD) "25"
 
 ## Internal Macros
 ### Macro PDN Connections
 set ::env(FP_PDN_MACRO_HOOKS) "\
-	mprj vccd1 vssd1"
-
+	mprj vccd1 vssd1 \
+	u_sram1_2kb vccd1 vssd1" 
 ### Macro Placement
-set ::env(MACRO_PLACEMENT_CFG) $script_dir/macro.cfg
+set ::env(MACRO_PLACEMENT_CFG) $::env(DESIGN_DIR)/macro.cfg
 
 ### Black-box verilog and views
+set ::env(KLAYOUT_XOR_GDS) 0
+set ::env(RUN_KLAYOUT_XOR) 0
+set ::env(MAGIC_DRC_USE_GDS) 0
+
 set ::env(VERILOG_FILES_BLACKBOX) "\
 	$::env(CARAVEL_ROOT)/verilog/rtl/defines.v \
-	$script_dir/../../verilog/rtl/user_proj_example.v"
+	$::env(DESIGN_DIR)/../../verilog/rtl/sram/sky130_sram_2kbyte_1rw1r_32x512_8.v \
+	$::env(DESIGN_DIR)/../../verilog/rtl/user_proj_example.v" 
 
 set ::env(EXTRA_LEFS) "\
-	$script_dir/../../lef/user_proj_example.lef"
+	$::env(DESIGN_DIR)/../../lef/sky130_sram_2kbyte_1rw1r_32x512_8.lef \
+	$::env(DESIGN_DIR)/../../lef/user_proj_example.lef"
+
 
 set ::env(EXTRA_GDS_FILES) "\
-	$script_dir/../../gds/user_proj_example.gds"
+	$::env(DESIGN_DIR)/../../gds/sky130_sram_1kbyte_1rw1r_32x256_8.gds \
+	$::env(DESIGN_DIR)/../../gds/user_proj_example.gds"
 
-# set ::env(GLB_RT_MAXLAYER) 5
+
+set ::env(EXTRA_LIBS) "\
+	$::env(DESIGN_DIR)/../../lib/sky130_sram_2kbyte_1rw1r_32x512_8_TT_1p8V_25C.lib"
+
+
+set ::env(GLB_RT_OBS) "li1 1000.00 2500.00 1683.1 2916.54,  \
+               	       met1 1000.00 2500.00 1683.1 2916.54, \
+	               met2 1000.00 2500.00 1683.1 2916.54, \
+	               met3 1000.00 2500.00 1683.1 2916.54, \
+	               met4 1000.00 2500.00 1683.1 2916.54" 
+
+
+
+set ::env(MAGIC_DRC_USE_GDS) 0
+#set ::env(GLB_RT_MAXLAYER) 4
 set ::env(RT_MAX_LAYER) {met4}
+
+#set ::env(GLB_RT_L2_ADJUSTMENT) 0.9
+#set ::env(GLB_RT_L3_ADJUSTMENT) 0.7
 
 # disable pdn check nodes becuase it hangs with multiple power domains.
 # any issue with pdn connections will be flagged with LVS so it is not a critical check.
-set ::env(FP_PDN_CHECK_NODES) 0
+set ::env(FP_PDN_CHECK_NODES) 0 
 
 # The following is because there are no std cells in the example wrapper project.
 set ::env(SYNTH_TOP_LEVEL) 1
 set ::env(PL_RANDOM_GLB_PLACEMENT) 1
+
+#set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
+#set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
+#set ::env(PL_RESIZER_BUFFER_INPUT_PORTS) 0
+#set ::env(PL_RESIZER_BUFFER_OUTPUT_PORTS) 0
+
+
+#set ::env(GLB_RT_ALLOW_CONGESTION) "1"
+#
+
 
 set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0
 set ::env(PL_RESIZER_TIMING_OPTIMIZATIONS) 0
@@ -84,3 +127,6 @@ set ::env(DIODE_INSERTION_STRATEGY) 0
 set ::env(FILL_INSERTION) 0
 set ::env(TAP_DECAP_INSERTION) 0
 set ::env(CLOCK_TREE_SYNTH) 0
+
+set ::env(QUIT_ON_LVS_ERROR) 0
+set ::env(ROUTING_CORES) 8

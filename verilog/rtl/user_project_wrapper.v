@@ -15,108 +15,176 @@
 
 `default_nettype none
 /*
- *-------------------------------------------------------------
- *
- * user_project_wrapper
- *
- * This wrapper enumerates all of the pins available to the
- * user for the user project.
- *
- * An example user project is provided in this wrapper.  The
- * example should be removed and replaced with the actual
- * user project.
- *
- *-------------------------------------------------------------
- */
+*-------------------------------------------------------------
+*
+* user_project_wrapper
+*
+* This wrapper enumerates all of the pins available to the
+* user for the user project.
+*
+* An example user project is provided in this wrapper.  The
+* example should be removed and replaced with the actual
+* user project.
+*
+*-------------------------------------------------------------
+*/
 
-module user_project_wrapper #(
-    parameter BITS = 32
-) (
+module user_project_wrapper #(parameter BITS = 32) (
 `ifdef USE_POWER_PINS
-    inout vdda1,	// User area 1 3.3V supply
-    inout vdda2,	// User area 2 3.3V supply
-    inout vssa1,	// User area 1 analog ground
-    inout vssa2,	// User area 2 analog ground
-    inout vccd1,	// User area 1 1.8V supply
-    inout vccd2,	// User area 2 1.8v supply
-    inout vssd1,	// User area 1 digital ground
-    inout vssd2,	// User area 2 digital ground
+  inout                       vdda1      , // User area 1 3.3V supply
+  inout                       vdda2      , // User area 2 3.3V supply
+  inout                       vssa1      , // User area 1 analog ground
+  inout                       vssa2      , // User area 2 analog ground
+  inout                       vccd1      , // User area 1 1.8V supply
+  inout                       vccd2      , // User area 2 1.8v supply
+  inout                       vssd1      , // User area 1 digital ground
+  inout                       vssd2      , // User area 2 digital ground
 `endif
-
-    // Wishbone Slave ports (WB MI A)
-    input wb_clk_i,
-    input wb_rst_i,
-    input wbs_stb_i,
-    input wbs_cyc_i,
-    input wbs_we_i,
-    input [3:0] wbs_sel_i,
-    input [31:0] wbs_dat_i,
-    input [31:0] wbs_adr_i,
-    output wbs_ack_o,
-    output [31:0] wbs_dat_o,
-
-    // Logic Analyzer Signals
-    input  [127:0] la_data_in,
-    output [127:0] la_data_out,
-    input  [127:0] la_oenb,
-
-    // IOs
-    input  [`MPRJ_IO_PADS-1:0] io_in,
-    output [`MPRJ_IO_PADS-1:0] io_out,
-    output [`MPRJ_IO_PADS-1:0] io_oeb,
-
-    // Analog (direct connection to GPIO pad---use with caution)
-    // Note that analog I/O is not available on the 7 lowest-numbered
-    // GPIO pads, and so the analog_io indexing is offset from the
-    // GPIO indexing by 7 (also upper 2 GPIOs do not have analog_io).
-    inout [`MPRJ_IO_PADS-10:0] analog_io,
-
-    // Independent clock (on independent integer divider)
-    input   user_clock2,
-
-    // User maskable interrupt signals
-    output [2:0] user_irq
+  // Wishbone Slave ports (WB MI A)
+  input                       wb_clk_i   ,
+  input                       wb_rst_i   ,
+  input                       wbs_stb_i  ,
+  input                       wbs_cyc_i  ,
+  input                       wbs_we_i   ,
+  input  [               3:0] wbs_sel_i  ,
+  input  [              31:0] wbs_dat_i  ,
+  input  [              31:0] wbs_adr_i  ,
+  output                      wbs_ack_o  ,
+  output [              31:0] wbs_dat_o  ,
+  // Logic Analyzer Signals
+  input  [             127:0] la_data_in ,
+  output [             127:0] la_data_out,
+  input  [             127:0] la_oenb    ,
+  // IOs
+  input  [ `MPRJ_IO_PADS-1:0] io_in      ,
+  output [ `MPRJ_IO_PADS-1:0] io_out     ,
+  output [ `MPRJ_IO_PADS-1:0] io_oeb     ,
+  // Analog (direct connection to GPIO pad---use with caution)
+  // Note that analog I/O is not available on the 7 lowest-numbered
+  // GPIO pads, and so the analog_io indexing is offset from the
+  // GPIO indexing by 7 (also upper 2 GPIOs do not have analog_io).
+  inout  [`MPRJ_IO_PADS-10:0] analog_io  ,
+  // Independent clock (on independent integer divider)
+  input                       user_clock2,
+  // User maskable interrupt signals
+  output [               2:0] user_irq
 );
 
-/*--------------------------------------*/
-/* User project is instantiated  here   */
-/*--------------------------------------*/
 
-user_proj_example mprj (
-`ifdef USE_POWER_PINS
-	.vccd1(vccd1),	// User area 1 1.8V power
-	.vssd1(vssd1),	// User area 1 digital ground
-`endif
 
-    .wb_clk_i(wb_clk_i),
-    .wb_rst_i(wb_rst_i),
+  wire [ 8:0] sram_addr_a;
+  wire [ 8:0] sram_addr_b;
+  wire [31:0] sram_dout_a;
+  wire [31:0] sram_dout_b;
+  wire [31:0] sram_din_a ;
+  wire [31:0] sram_din_b ;
+  wire        sram_csb_b ;
+  wire        sram_csb_a ;
+  wire        sram_web_b ;
+  wire [ 3:0] sram_mask_b;
 
-    // MGMT SoC Wishbone Slave
 
-    .wbs_cyc_i(wbs_cyc_i),
-    .wbs_stb_i(wbs_stb_i),
-    .wbs_we_i(wbs_we_i),
-    .wbs_sel_i(wbs_sel_i),
-    .wbs_adr_i(wbs_adr_i),
-    .wbs_dat_i(wbs_dat_i),
-    .wbs_ack_o(wbs_ack_o),
-    .wbs_dat_o(wbs_dat_o),
 
-    // Logic Analyzer
 
-    .la_data_in(la_data_in),
+
+  wire        wb_clk_i;
+  wire        wb_cyc_i;
+  wire        wb_stb_i;
+  wire [8:0]  wb_adr_i;
+  wire        wb_we_i ;
+  wire [31:0] wb_dat_i;
+  wire [31:0] wb_dat_o;
+  wire        wb_ack_o;
+  wire [31:0] trng_buffer_o;
+
+
+
+
+  user_proj_example mprj (
+    `ifdef USE_POWER_PINS
+    .vccd1      (vccd1      ), // User area 1 1.8V power
+    .vssd1      (vssd1      ), // User area 1 digital ground
+    `endif
+    .wb_clk_i   (wb_clk_i   ),
+    .wb_rst_i   (wb_rst_i   ),
+    .wbs_stb_i  (wbs_stb_i  ),
+    .wbs_cyc_i  (wbs_cyc_i  ),
+    .wbs_we_i   (wbs_we_i   ),
+    .wbs_sel_i  (wbs_sel_i  ),
+    .wbs_dat_i  (wbs_dat_i  ),
+    .wbs_adr_i  (wbs_adr_i  ),
+    .wbs_ack_o  (wbs_ack_o  ),
+    .wbs_dat_o  (wbs_dat_o  ),
+    .la_data_in (la_data_in ),
     .la_data_out(la_data_out),
-    .la_oenb (la_oenb),
+    .la_oenb    (la_oenb    ),
+    .io_in      (io_in      ),
+    .io_out     (io_out     ),
+    .io_oeb     (io_oeb     ),
+    .irq        (user_irq   ),
+    .sram_csb_a (sram_csb_a ),
+    .sram_addr_a(sram_addr_a),
+    .sram_dout_a(sram_dout_a),
+    .sram_csb_b (sram_csb_b ),
+    .sram_web_b (sram_web_b ),
+    .sram_mask_b(sram_mask_b),
+    .sram_addr_b(sram_addr_b),
+    .sram_din_b (sram_din_b ),
+    .trng_wb_cyc_o(wb_cyc_i),
+    .trng_wb_stb_o(wb_stb_i),
+    .trng_wb_adr_o(wb_adr_i),
+    .trng_wb_we_o (wb_we_i ),
+    .trng_wb_dat_i(wb_dat_o),
+    .trng_wb_dat_o(wb_dat_i),
+    .trng_wb_ack_i(wb_ack_o),    
+    .trng_buffer_i (trng_buffer_o)
+  );
 
-    // IO Pads
 
-    .io_in (io_in),
-    .io_out(io_out),
-    .io_oeb(io_oeb),
+  trng_wb_wrapper 
+  #(
+    .BUFFER_SIZE (BITS )
+  )
+  trng_wb_wrapper_dut (
+    `ifdef USE_POWER_PINS
+    .vccd1      (vccd1      ), // User area 1 1.8V power
+    .vssd1      (vssd1      ), // User area 1 digital ground
+    `endif
+    .rst_i (wb_rst_i ),
+    .wb_clk_i (wb_clk_i ),
+    .wb_cyc_i (wb_cyc_i ),
+    .wb_stb_i (wb_stb_i ),
+    .wb_adr_i (wb_adr_i ),
+    .wb_we_i (wb_we_i ),
+    .wb_dat_i (wb_dat_i ),
+    .wb_dat_o (wb_dat_o ),
+    .wb_ack_o (wb_ack_o ),
+    .trng_valid_o (),
+    .trng_buffer_o  ( trng_buffer_o)
+  );
 
-    // IRQ
-    .irq(user_irq)
-);
+
+
+
+  sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb (
+    `ifdef USE_POWER_PINS
+    .vccd1 (vccd1      ), // User area 1 1.8V supply
+    .vssd1 (vssd1      ), // User area 1 digital ground
+    `endif
+    // Port 0: RW
+    .clk0  (wb_clk_i   ),
+    .csb0  (sram_csb_b ),
+    .web0  (sram_web_b ),
+    .wmask0(sram_mask_b),
+    .addr0 (sram_addr_b),
+    .din0  (sram_din_b ),
+    .dout0 (),
+    // Port 1: R
+    .clk1  (wb_clk_i   ),
+    .csb1  (sram_csb_a ),
+    .addr1 (sram_addr_a),
+    .dout1 (sram_dout_a)
+  );
 
 endmodule	// user_project_wrapper
 

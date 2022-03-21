@@ -53,8 +53,100 @@ module user_project_wrapper (user_clock2,
  output [31:0] wbs_dat_o;
  input [3:0] wbs_sel_i;
 
+ wire \sram_addr_a[0] ;
+ wire \sram_addr_a[1] ;
+ wire \sram_addr_a[2] ;
+ wire \sram_addr_a[3] ;
+ wire \sram_addr_a[4] ;
+ wire \sram_addr_a[5] ;
+ wire \sram_addr_a[6] ;
+ wire \sram_addr_a[7] ;
+ wire \sram_addr_a[8] ;
+ wire \sram_addr_b[0] ;
+ wire \sram_addr_b[1] ;
+ wire \sram_addr_b[2] ;
+ wire \sram_addr_b[3] ;
+ wire \sram_addr_b[4] ;
+ wire \sram_addr_b[5] ;
+ wire \sram_addr_b[6] ;
+ wire \sram_addr_b[7] ;
+ wire \sram_addr_b[8] ;
+ wire sram_csb_a;
+ wire sram_csb_b;
+ wire \sram_din_b[0] ;
+ wire \sram_din_b[10] ;
+ wire \sram_din_b[11] ;
+ wire \sram_din_b[12] ;
+ wire \sram_din_b[13] ;
+ wire \sram_din_b[14] ;
+ wire \sram_din_b[15] ;
+ wire \sram_din_b[16] ;
+ wire \sram_din_b[17] ;
+ wire \sram_din_b[18] ;
+ wire \sram_din_b[19] ;
+ wire \sram_din_b[1] ;
+ wire \sram_din_b[20] ;
+ wire \sram_din_b[21] ;
+ wire \sram_din_b[22] ;
+ wire \sram_din_b[23] ;
+ wire \sram_din_b[24] ;
+ wire \sram_din_b[25] ;
+ wire \sram_din_b[26] ;
+ wire \sram_din_b[27] ;
+ wire \sram_din_b[28] ;
+ wire \sram_din_b[29] ;
+ wire \sram_din_b[2] ;
+ wire \sram_din_b[30] ;
+ wire \sram_din_b[31] ;
+ wire \sram_din_b[3] ;
+ wire \sram_din_b[4] ;
+ wire \sram_din_b[5] ;
+ wire \sram_din_b[6] ;
+ wire \sram_din_b[7] ;
+ wire \sram_din_b[8] ;
+ wire \sram_din_b[9] ;
+ wire \sram_dout_a[0] ;
+ wire \sram_dout_a[10] ;
+ wire \sram_dout_a[11] ;
+ wire \sram_dout_a[12] ;
+ wire \sram_dout_a[13] ;
+ wire \sram_dout_a[14] ;
+ wire \sram_dout_a[15] ;
+ wire \sram_dout_a[16] ;
+ wire \sram_dout_a[17] ;
+ wire \sram_dout_a[18] ;
+ wire \sram_dout_a[19] ;
+ wire \sram_dout_a[1] ;
+ wire \sram_dout_a[20] ;
+ wire \sram_dout_a[21] ;
+ wire \sram_dout_a[22] ;
+ wire \sram_dout_a[23] ;
+ wire \sram_dout_a[24] ;
+ wire \sram_dout_a[25] ;
+ wire \sram_dout_a[26] ;
+ wire \sram_dout_a[27] ;
+ wire \sram_dout_a[28] ;
+ wire \sram_dout_a[29] ;
+ wire \sram_dout_a[2] ;
+ wire \sram_dout_a[30] ;
+ wire \sram_dout_a[31] ;
+ wire \sram_dout_a[3] ;
+ wire \sram_dout_a[4] ;
+ wire \sram_dout_a[5] ;
+ wire \sram_dout_a[6] ;
+ wire \sram_dout_a[7] ;
+ wire \sram_dout_a[8] ;
+ wire \sram_dout_a[9] ;
+ wire \sram_mask_b[0] ;
+ wire \sram_mask_b[1] ;
+ wire \sram_mask_b[2] ;
+ wire \sram_mask_b[3] ;
+ wire sram_web_b;
 
- user_proj_example mprj (.vccd1(vccd1),
+ user_proj_example mprj (.sram_csb_a(sram_csb_a),
+    .sram_csb_b(sram_csb_b),
+    .sram_web_b(sram_web_b),
+    .vccd1(vccd1),
     .vssd1(vssd1),
     .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
@@ -563,6 +655,92 @@ module user_project_wrapper (user_clock2,
     la_oenb[2],
     la_oenb[1],
     la_oenb[0]}),
+    .sram_addr_a({\sram_addr_a[8] ,
+    \sram_addr_a[7] ,
+    \sram_addr_a[6] ,
+    \sram_addr_a[5] ,
+    \sram_addr_a[4] ,
+    \sram_addr_a[3] ,
+    \sram_addr_a[2] ,
+    \sram_addr_a[1] ,
+    \sram_addr_a[0] }),
+    .sram_addr_b({\sram_addr_b[8] ,
+    \sram_addr_b[7] ,
+    \sram_addr_b[6] ,
+    \sram_addr_b[5] ,
+    \sram_addr_b[4] ,
+    \sram_addr_b[3] ,
+    \sram_addr_b[2] ,
+    \sram_addr_b[1] ,
+    \sram_addr_b[0] }),
+    .sram_din_b({\sram_din_b[31] ,
+    \sram_din_b[30] ,
+    \sram_din_b[29] ,
+    \sram_din_b[28] ,
+    \sram_din_b[27] ,
+    \sram_din_b[26] ,
+    \sram_din_b[25] ,
+    \sram_din_b[24] ,
+    \sram_din_b[23] ,
+    \sram_din_b[22] ,
+    \sram_din_b[21] ,
+    \sram_din_b[20] ,
+    \sram_din_b[19] ,
+    \sram_din_b[18] ,
+    \sram_din_b[17] ,
+    \sram_din_b[16] ,
+    \sram_din_b[15] ,
+    \sram_din_b[14] ,
+    \sram_din_b[13] ,
+    \sram_din_b[12] ,
+    \sram_din_b[11] ,
+    \sram_din_b[10] ,
+    \sram_din_b[9] ,
+    \sram_din_b[8] ,
+    \sram_din_b[7] ,
+    \sram_din_b[6] ,
+    \sram_din_b[5] ,
+    \sram_din_b[4] ,
+    \sram_din_b[3] ,
+    \sram_din_b[2] ,
+    \sram_din_b[1] ,
+    \sram_din_b[0] }),
+    .sram_dout_a({\sram_dout_a[31] ,
+    \sram_dout_a[30] ,
+    \sram_dout_a[29] ,
+    \sram_dout_a[28] ,
+    \sram_dout_a[27] ,
+    \sram_dout_a[26] ,
+    \sram_dout_a[25] ,
+    \sram_dout_a[24] ,
+    \sram_dout_a[23] ,
+    \sram_dout_a[22] ,
+    \sram_dout_a[21] ,
+    \sram_dout_a[20] ,
+    \sram_dout_a[19] ,
+    \sram_dout_a[18] ,
+    \sram_dout_a[17] ,
+    \sram_dout_a[16] ,
+    \sram_dout_a[15] ,
+    \sram_dout_a[14] ,
+    \sram_dout_a[13] ,
+    \sram_dout_a[12] ,
+    \sram_dout_a[11] ,
+    \sram_dout_a[10] ,
+    \sram_dout_a[9] ,
+    \sram_dout_a[8] ,
+    \sram_dout_a[7] ,
+    \sram_dout_a[6] ,
+    \sram_dout_a[5] ,
+    \sram_dout_a[4] ,
+    \sram_dout_a[3] ,
+    \sram_dout_a[2] ,
+    \sram_dout_a[1] ,
+    \sram_dout_a[0] }),
+    .sram_mask_b({\sram_mask_b[3] ,
+    \sram_mask_b[2] ,
+    \sram_mask_b[1] ,
+    \sram_mask_b[0] }),
     .wbs_adr_i({wbs_adr_i[31],
     wbs_adr_i[30],
     wbs_adr_i[29],
@@ -663,4 +841,129 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
+ sky130_sram_2kbyte_1rw1r_32x512_8 u_sram1_2kb (.csb0(sram_csb_b),
+    .csb1(sram_csb_a),
+    .web0(sram_web_b),
+    .clk0(wb_clk_i),
+    .clk1(wb_clk_i),
+    .vccd1(vccd1),
+    .vssd1(vssd1),
+    .addr0({\sram_addr_b[8] ,
+    \sram_addr_b[7] ,
+    \sram_addr_b[6] ,
+    \sram_addr_b[5] ,
+    \sram_addr_b[4] ,
+    \sram_addr_b[3] ,
+    \sram_addr_b[2] ,
+    \sram_addr_b[1] ,
+    \sram_addr_b[0] }),
+    .addr1({\sram_addr_a[8] ,
+    \sram_addr_a[7] ,
+    \sram_addr_a[6] ,
+    \sram_addr_a[5] ,
+    \sram_addr_a[4] ,
+    \sram_addr_a[3] ,
+    \sram_addr_a[2] ,
+    \sram_addr_a[1] ,
+    \sram_addr_a[0] }),
+    .din0({\sram_din_b[31] ,
+    \sram_din_b[30] ,
+    \sram_din_b[29] ,
+    \sram_din_b[28] ,
+    \sram_din_b[27] ,
+    \sram_din_b[26] ,
+    \sram_din_b[25] ,
+    \sram_din_b[24] ,
+    \sram_din_b[23] ,
+    \sram_din_b[22] ,
+    \sram_din_b[21] ,
+    \sram_din_b[20] ,
+    \sram_din_b[19] ,
+    \sram_din_b[18] ,
+    \sram_din_b[17] ,
+    \sram_din_b[16] ,
+    \sram_din_b[15] ,
+    \sram_din_b[14] ,
+    \sram_din_b[13] ,
+    \sram_din_b[12] ,
+    \sram_din_b[11] ,
+    \sram_din_b[10] ,
+    \sram_din_b[9] ,
+    \sram_din_b[8] ,
+    \sram_din_b[7] ,
+    \sram_din_b[6] ,
+    \sram_din_b[5] ,
+    \sram_din_b[4] ,
+    \sram_din_b[3] ,
+    \sram_din_b[2] ,
+    \sram_din_b[1] ,
+    \sram_din_b[0] }),
+    .dout0({_NC1,
+    _NC2,
+    _NC3,
+    _NC4,
+    _NC5,
+    _NC6,
+    _NC7,
+    _NC8,
+    _NC9,
+    _NC10,
+    _NC11,
+    _NC12,
+    _NC13,
+    _NC14,
+    _NC15,
+    _NC16,
+    _NC17,
+    _NC18,
+    _NC19,
+    _NC20,
+    _NC21,
+    _NC22,
+    _NC23,
+    _NC24,
+    _NC25,
+    _NC26,
+    _NC27,
+    _NC28,
+    _NC29,
+    _NC30,
+    _NC31,
+    _NC32}),
+    .dout1({\sram_dout_a[31] ,
+    \sram_dout_a[30] ,
+    \sram_dout_a[29] ,
+    \sram_dout_a[28] ,
+    \sram_dout_a[27] ,
+    \sram_dout_a[26] ,
+    \sram_dout_a[25] ,
+    \sram_dout_a[24] ,
+    \sram_dout_a[23] ,
+    \sram_dout_a[22] ,
+    \sram_dout_a[21] ,
+    \sram_dout_a[20] ,
+    \sram_dout_a[19] ,
+    \sram_dout_a[18] ,
+    \sram_dout_a[17] ,
+    \sram_dout_a[16] ,
+    \sram_dout_a[15] ,
+    \sram_dout_a[14] ,
+    \sram_dout_a[13] ,
+    \sram_dout_a[12] ,
+    \sram_dout_a[11] ,
+    \sram_dout_a[10] ,
+    \sram_dout_a[9] ,
+    \sram_dout_a[8] ,
+    \sram_dout_a[7] ,
+    \sram_dout_a[6] ,
+    \sram_dout_a[5] ,
+    \sram_dout_a[4] ,
+    \sram_dout_a[3] ,
+    \sram_dout_a[2] ,
+    \sram_dout_a[1] ,
+    \sram_dout_a[0] }),
+    .wmask0({\sram_mask_b[3] ,
+    \sram_mask_b[2] ,
+    \sram_mask_b[1] ,
+    \sram_mask_b[0] }));
 endmodule
