@@ -38,7 +38,7 @@ module trng_wb_wrapper #(
     output wire [31:0] wb_dat_o,
     output reg  wb_ack_o,
     output reg  trng_valid_o,
-    output reg  [BUFFER_SIZE-1:0] trng_buffer
+    output reg  [BUFFER_SIZE-1:0] trng_buffer_o
 );
 
 wire        read_trng;

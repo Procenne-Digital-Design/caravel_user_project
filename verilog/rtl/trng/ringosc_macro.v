@@ -26,15 +26,15 @@ module ringosc_macro #(
     output trng_o
 );
 
-wire [9:0] clockp, clockn;
-wire [9:0] temp;
-wire [9:0] entropy_next;
-reg  [9:0] entropy_reg;
+wire [2:0] clockp, clockn;
+wire [2:0] temp;
+wire [2:0] entropy_next;
+reg  [2:0] entropy_reg;
 wire trng_o;
 
 genvar i;
 generate
-    for (i = 0; i < 10; i = i + 1) begin : rings
+    for (i = 0; i < 3; i = i + 1) begin : rings
         ring_osc2x13 trng_ring_fast (
             .reset(rst_i),
             .trim(trim_fast),
@@ -59,7 +59,6 @@ generate
     end
 endgenerate
 
-assign trng_o = entropy_reg[0] ^ entropy_reg[1] ^ entropy_reg[2] ^ entropy_reg[3] ^ entropy_reg[4] ^ 
-                entropy_reg[5] ^ entropy_reg[6] ^ entropy_reg[7] ^ entropy_reg[8] ^ entropy_reg[9];
+assign trng_o = entropy_reg[0] ^ entropy_reg[1] ^ entropy_reg[2];
 
 endmodule

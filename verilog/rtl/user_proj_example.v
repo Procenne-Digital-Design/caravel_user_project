@@ -267,7 +267,7 @@ wb_wrapper2 (
     .wb_dat_o (s2_wb_dat_o),
     .wb_ack_o (s2_wb_ack_o),
     .trng_valid_o(trng_valid),
-    .trng_buffer(trng_buffer)
+    .trng_buffer_o(trng_buffer)
 );
 
 endmodule
