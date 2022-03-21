@@ -65,7 +65,7 @@ setup: install check-env install_mcw pdk openlane
 # Openlane
 blocks=$(shell cd openlane && find * -maxdepth 0 -type d)
 .PHONY: $(blocks)
-$(blocks): % :
+$(blocks):
 	export CARAVEL_ROOT=$(CARAVEL_ROOT) && cd openlane && $(MAKE) $*
 
 dv_patterns=$(shell cd verilog/dv && find * -maxdepth 0 -type d)
@@ -94,14 +94,8 @@ docker_run_verify=\
 .PHONY: harden
 harden: $(blocks)
 
-.PHONY: verify-all-rtl
-verify-all-rtl: $(dv-targets-rtl)
-
-.PHONY: verify-all-gl
-verify-all-gl: $(dv-targets-gl)
-
-.PHONY: verify-all-gl-sdf
-verify-all-gl-sdf: $(dv-targets-gl-sdf)
+.PHONY: verify
+verify: $(dv-targets)
 
 $(dv-targets-rtl): SIM=RTL
 $(dv-targets-rtl): verify-%-rtl: $(dv_base_dependencies)
@@ -206,6 +200,5 @@ check-pdk:
 help:
 	cd $(CARAVEL_ROOT) && $(MAKE) help
 	@$(MAKE) -pRrq -f $(lastword $(MAKEFILE_LIST)) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
-
 
 
